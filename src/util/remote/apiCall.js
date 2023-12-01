@@ -1,0 +1,31 @@
+import axios from "axios";
+import dictionary from "../dictionary";
+
+const ACCESS_TOKEN = localStorage.getItem("@user");
+// const apiHost = dictionary.apiHost
+const apiHost = "localhost/wiki_farm_bk";
+
+const apiCall = async (endpoint, data) => {
+  try {
+    let response = await axios.post(apiHost + endpoint, data, {
+      headers: {
+        Authorization: "Bearer " + ACCESS_TOKEN,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    // let result = await response.json();
+    // return result;
+    return response.data;
+  } catch (error) {
+    let connError = {
+      status: "conn",
+      message: "Server connection error occured!",
+      details: { message: "Contacting server....", content: false },
+    };
+    return connError;
+  }
+};
+
+export default apiCall;
