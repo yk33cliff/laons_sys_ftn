@@ -31,7 +31,7 @@ function Login() {
     <div>
       <div className="page main-signin-wrapper">
         {/* Row */}
-
+<div className="side-menu"></div>
         <div className="row signpages text-center">
           <div className="col-md-12">
             <div className="card">
