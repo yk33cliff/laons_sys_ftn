@@ -37,14 +37,12 @@ export default function AppContainer(props) {
                 <PageHeader title={props.title} />
                 {/* End Page Header */}
                 {/*Row*/}
-            
-                 
-                    {/*Row*/}
 
-                   {props.children}
-                    {/*End row*/}
-                
-           
+                {/*Row*/}
+
+                {props.children}
+                {/*End row*/}
+
                 {/* Row end */}
               </div>
             </div>
@@ -59,11 +57,13 @@ export default function AppContainer(props) {
               <div className="row row-sm">
                 <div className="col-md-12">
                   <span>
-                    Copyright © 2023 <a href="#"></a>. Designed by
+                    Copyright © {new Date().getFullYear()}
+                    &nbsp;
                     <a href="https://www.wisecliffed.com/" target="blank">
-                      Wycliff
+                      {" "}
+                      ARAKNERD COMPANY LIMITED
                     </a>
-                    All rights reserved.
+                    &nbsp; All rights reserved.
                   </span>
                 </div>
               </div>

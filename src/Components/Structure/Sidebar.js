@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { RenderSecure } from "../../util/script/RenderSecure";
 
 const Sidebar = (props) => {
-  const toggleDropdown = (e) => {
+  const hrefggleDropdown = (e) => {
     // e.preventDefault();
-    // Toggle the "show" class on the main menu item
+    // hrefggle the "show" class on the main menu item
     if (e.target.parentElement.classList.contains("show ")) {
       e.target.parentElement.classList.remove("show");
     } else {
@@ -30,7 +30,7 @@ const Sidebar = (props) => {
               <a className="main-logo" href="/Dashboard/home">
                 <img
                   src="../assets/img/brand/logo-light.png"
-                  className="header-brand-img desktop-logo"
+                  className="header-brand-img deskhrefp-logo"
                   alt="logo"
                 />
                 <img
@@ -40,7 +40,7 @@ const Sidebar = (props) => {
                 />
                 <img
                   src="../assets/img/brand/logo.png"
-                  className="header-brand-img desktop-logo theme-logo"
+                  className="header-brand-img deskhrefp-logo theme-logo"
                   alt="logo"
                 />
                 <img
@@ -63,322 +63,171 @@ const Sidebar = (props) => {
                     <span className="shape1" />
                     <span className="shape2" />
                     <i className="ti-home sidemenu-icon menu-icon" />
-                    <span className="sidemenu-label">Farm Dashboard</span>
+                    <span className="sidemenu-label"> Dashboard</span>
                   </a>
                 </li>
-                <li className="nav-item" onClick={toggleDropdown}>
+                <li className="nav-item">
+                  <a className="nav-link" href="/Loans/types">
+                    <span className="shape1" />
+                    <span className="shape2" />
+                    <i className="ti-home sidemenu-icon menu-icon" />
+                    <span className="sidemenu-label"> LoanTtypes</span>
+                  </a>
+                </li>
+                <li className="nav-item" onClick={hrefggleDropdown}>
                   <a className="nav-link with-sub" href="javascript:void(0)">
                     <span className="shape1" />
                     <span className="shape2" />
                     {/* <i class="fa-sharp fa-solid fa-cow"></i> */}
                     <i className="ti-write sidemenu-icon menu-icon" />
                     <span className="sidemenu-label">
-                      Farm
-                      <span className="sidemenu-label2">Animals</span>
+                      Loans
+                      <span className="sidemenu-label2"> aplications</span>
                     </span>
                     <i className="angle fe fe-chevron-right" />
                   </a>
                   <ul className="nav-sub">
-                  <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/animals/dashboard">
-                        Animals Dashboard
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/applications/add">
+                        Add applications
                       </a>
                     </li>
                     <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/animals/operations">
-                        Animals Operations
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/animals/diseases_manager">
-                        animal_disease Manager
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a
-                        className="nav-sub-link"
-                        href="/animals/housing"
-                      >
-                        Animal Houses
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/animal/sales">
-                        animal_sales
-                      </a>
-                    </li>
-                    
-                    <li className="nav-sub-item">
-                      <a
-                        className="nav-sub-link"
-                        href="/animal/deaths"
-                      >
-                        Animal_deaths
+                      <a className="nav-sub-link" href="/Applications/View">
+                        View Applications
                       </a>
                     </li>
                   </ul>
                 </li>
 
-                <li className="nav-item" onClick={toggleDropdown}>
+                <li className="nav-item" onClick={hrefggleDropdown}>
                   <a className="nav-link with-sub" href="javascript:void(0)">
                     <span className="shape1" />
                     <span className="shape2" />
                     {/* <i class="fa-sharp fa-solid fa-cow"></i> */}
                     <i className="ti-write sidemenu-icon menu-icon" />
                     <span className="sidemenu-label">
-                    Animals
-                      <span className="sidemenu-label2">Feeds</span>
+                      Loans
+                      <span className="sidemenu-label2">Processing</span>
                     </span>
                     <i className="angle fe fe-chevron-right" />
                   </a>
                   <ul className="nav-sub">
-                  
                     <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/animals/feeds">
-                        Feeds stock
+                      <a className="nav-sub-link" href="/loans/approve">
+                        Approve laons
                       </a>
                     </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/animals/using">
-                        Use Animal Feeds
-                      </a>
-                    </li>          
                   </ul>
-                </li>             
-                <li className="nav-item" onClick={toggleDropdown}>
+                </li>
+                <li className="nav-item" onClick={hrefggleDropdown}>
                   <a className="nav-link with-sub" href="javascript:void(0)">
                     <span className="shape1" />
                     <span className="shape2" />
                     <i className="ti-shopping-cart-full sidemenu-icon menu-icon" />
-                    <span className="sidemenu-label">Poultry</span>
+                    <span className="sidemenu-label">Loans</span>
                     <i className="angle fe fe-chevron-right" />
                   </a>
                   <ul className="nav-sub">
                     <li className="side-menu-label1">
-                      <a href="javascript:void(0)">Poultry</a>
+                      <a href="javascript:void(0)">Loans</a>
                     </li>
                     <li className="nav-sub-item">
-                      <a
-                        className="nav-sub-link"
-                        href="/Poultry/dashboard"
-                      >
-                        Poultry Dashboard
+                      <a className="nav-sub-link" href="/Loans/active">
+                        Active Loans
                       </a>
                     </li>
-                    <li className="nav-sub-item">
-                      <a
-                        className="nav-sub-link"
-                        href="/Poultry/Control"
-                      >
-                       Poultry Control
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a
-                        className="nav-sub-link"
-                        href="ecommerce-product-details.html"
-                      >
-                       Poultry diseases_manager
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a
-                        className="nav-sub-link"
-                        href="/Poultry/Control"
-                      >
-                       Eggs production
-                      </a>
-                    </li>                 
-                  </ul>
-                </li>
-                <li className="nav-item" onClick={toggleDropdown}>
-                  <a className="nav-link with-sub" href="javascript:void(0)">
-                    <span className="shape1" />
-                    <span className="shape2" />
-                    <i className="ti-shopping-cart-full sidemenu-icon menu-icon" />
-                    <span className="sidemenu-label">Poultry Feeds</span>
-                    <i className="angle fe fe-chevron-right" />
-                  </a>
-                  <ul className="nav-sub">
-                    <li className="side-menu-label1">
-                      <a href="javascript:void(0)">Poultry Feeds</a>
-                    </li>
-                    {/* <li className="nav-sub-item">
-                      <a
-                        className="nav-sub-link"
-                        href="/poultry/feeds_stock"
-                      >
-                        Poultry Feeds Stock
-                      </a>
-                    </li> */}
-                    <li className="nav-sub-item">
-                      <a
-                        className="nav-sub-link"
-                        href="/poultry/feeds_formulars"
-                      >
-                       Poultry Feeds_formulars
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a
-                        className="nav-sub-link"
-                        href="/poultry/mix_feeds"
-                      >
-                      Mix Poultry_feed 
-                      </a>
-                    </li>
-                                 
-                  </ul>
-                </li>
-           
-              
-          
-                <li className="nav-item" onClick={toggleDropdown}>
-                  <a className="nav-link with-sub" href="javascript:void(0)">
-                    <span className="shape1" />
-                    <span className="shape2" />
-                    <i className="ti-write sidemenu-icon menu-icon" />
-                    <span className="sidemenu-label">Plants</span>
-                    <i className="angle fe fe-chevron-right" />
-                  </a>
-                  <ul className="nav-sub">
-                    <li className="side-menu-label1">
-                      <a href="javascript:void(0)">plants</a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/plants/dash">
-                        Plants Dashboard
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/plants/planting">
-                        planting
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/plants/planting">
-                        plants diseases_manager
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/plants/fertilisation">
-                        Manage_fertilisation
-                      </a>
-                    </li>
-              
-               
-{/*                   
-                    <li className="nav-sub-item">
-                      <a
-                        className="nav-sub-link sub-with-sub"
-                        href="javascript:void(0)"
-                      >
-                        <span className="sidemenu-label">File Manager</span>
-                        <i className="angle fe fe-chevron-right" />
-                      </a>
-                      <ul className="sub-nav-sub">
-                        <li className="nav-sub-item">
-                          <a className="nav-sub-link" href="filemanager.html">
-                            File Manager
-                          </a>
-                        </li>
-                        <li className="nav-sub-item">
-                          <a
-                            className="nav-sub-link"
-                            href="filemanager-list.html"
-                          >
-                            File Manager List
-                          </a>
-                        </li>
-                        <li className="nav-sub-item">
-                          <a className="nav-sub-link" href="file-details.html">
-                            File Details
-                          </a>
-                        </li>
-                        <li className="nav-sub-item">
-                          <a
-                            className="nav-sub-link"
-                            href="file-attachments.html"
-                          >
-                            File Attachments
-                          </a>
-                        </li>
-                      </ul>
-                    </li> */}
-                
-                  </ul>
-                </li>
-                <li className="nav-item" onClick={toggleDropdown}>
-                  <a className="nav-link with-sub" href="javascript:void(0)">
-                    <span className="shape1" />
-                    <span className="shape2" />
-                    <i className="ti-write sidemenu-icon menu-icon" />
-                    <span className="sidemenu-label"> Farm Products</span>
-                    <i className="angle fe fe-chevron-right" />
-                  </a>
-                  <ul className="nav-sub">
-                    <li className="side-menu-label1">
-                      <a href="javascript:void(0)">Farm Products</a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/plants/dash/">
-                      Products Dashboard
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/plants/planting">
-                        plants Manager
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/plants/planting">
-                        Product sales reports
-                      </a>
-                    </li>           
-               </ul>
-                </li>       
-    
-                <li className="nav-item" onClick={toggleDropdown}>
-                  <a className="nav-link with-sub" href="javascript:void(0)">
-                    <span className="shape1" />
-                    <span className="shape2" />
-                    <i className="ti-bar-chart-alt sidemenu-icon menu-icon" />
-                    <span className="sidemenu-label">Sales</span>
-                    <span className="badge bg-danger side-badge">5</span>
-                  </a>
-                  <ul className="nav-sub">
-                    <li className="side-menu-label1">
-                      <a href="javascript:void(0)">Sales</a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="chart-morris.html">
-                        sales Dashboard
-                      </a>
-                    </li>
-               
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="chart-chartjs.html">
-                      Manage Sales 
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="chart-flot.html">
-                        Sales Reports
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="chart-spark-peity.html">
-                        Recent sales
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="chart-echart.html">
-                        Echart
-                      </a>
-                    </li>
-                  </ul>
-                </li>
 
+                    <li className="nav-sub-item">
+                      <a
+                        className="nav-sub-link"
+                        href="/Loans/pending_installments"
+                      >
+                        pending installments
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li className="nav-item" onClick={hrefggleDropdown}>
+                  <a className="nav-link with-sub" href="javascript:void(0)">
+                    <span className="shape1" />
+                    <span className="shape2" />
+                    {/* <i class="fa-sharp fa-solid fa-cow"></i> */}
+                    <i className="ti-write sidemenu-icon menu-icon" />
+                    <span className="sidemenu-label">
+                      Payments
+                      <span className="sidemenu-label2"></span>
+                    </span>
+                    <i className="angle fe fe-chevron-right" />
+                  </a>
+                  <ul className="nav-sub">
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/clients/Add">
+                        Application fees payments
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/clients/Add">
+                        Loan payments
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/clients/view">
+                        fine payments
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li className="nav-item" onClick={hrefggleDropdown}>
+                  <a className="nav-link with-sub" href="javascript:void(0)">
+                    <span className="shape1" />
+                    <span className="shape2" />
+                    {/* <i class="fa-sharp fa-solid fa-cow"></i> */}
+                    <i className="ti-write sidemenu-icon menu-icon" />
+                    <span className="sidemenu-label">
+                      Clients
+                      <span className="sidemenu-label2"></span>
+                    </span>
+                    <i className="angle fe fe-chevron-right" />
+                  </a>
+                  <ul className="nav-sub">
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/clients/Add">
+                        register client
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/clients/view">
+                        view clients
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li className="nav-item" onClick={hrefggleDropdown}>
+                  <a className="nav-link with-sub" href="javascript:void(0)">
+                    <span className="shape1" />
+                    <span className="shape2" />
+                    {/* <i class="fa-sharp fa-solid fa-cow"></i> */}
+                    <i className="ti-write sidemenu-icon menu-icon" />
+                    <span className="sidemenu-label">
+                      System
+                      <span className="sidemenu-label2">User</span>
+                    </span>
+                    <i className="angle fe fe-chevron-right" />
+                  </a>
+                  <ul className="nav-sub">
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/users/register">
+                        Register system users
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/users/View">
+                        View sytem users
+                      </a>
+                    </li>
+                  </ul>
+                </li>
               </ul>
               <div className="slide-right" id="slide-right">
                 <i className="fe fe-chevron-right" />
@@ -393,6 +242,3 @@ const Sidebar = (props) => {
 };
 
 export default Sidebar;
-                    
-
-              

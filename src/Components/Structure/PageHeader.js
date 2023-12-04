@@ -8,11 +8,12 @@ const PageHeader = (props) => {
         <div>
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
-              <a href="javascript:void(0)">Home</a>
+              <a href="javascript:void(0)">
+                <h5>Home</h5>
+              </a>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
-              {/* Project Dashboard */}
-              {props.title}
+              <h5>{props.title}</h5>
             </li>
           </ol>
         </div>

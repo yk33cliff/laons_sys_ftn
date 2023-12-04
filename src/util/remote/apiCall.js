@@ -3,7 +3,7 @@ import dictionary from "../dictionary";
 
 const ACCESS_TOKEN = localStorage.getItem("@user");
 // const apiHost = dictionary.apiHost
-const apiHost = "localhost/wiki_farm_bk";
+const apiHost = "localhost/loans_system_bkd";
 
 const apiCall = async (endpoint, data) => {
   try {

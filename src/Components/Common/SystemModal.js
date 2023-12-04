@@ -17,7 +17,16 @@ const SystemModal = (props) => {
   };
 
   return (
-    <Modal size={props.size} centered show={modalIsOpen} onHide={closeModal}>
+    <Modal
+      style={{
+        borderRadius: "15px",
+        background: "transparent",
+      }}
+      size={props.size}
+      centered
+      show={modalIsOpen}
+      onHide={closeModal}
+    >
       <Modal.Header closeButton>
         <Modal.Title>{props.title}</Modal.Title>
       </Modal.Header>
