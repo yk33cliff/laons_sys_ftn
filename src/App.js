@@ -16,14 +16,13 @@ import CreateUser from "./Components/Users/CreateUser";
 import ViewSystemUsers from "./Components/Users/ViewSystemUsers";
 import AllUsers from "./Components/Users/AllUsers";
 import Clients from "./Components/Users/Clients";
-import AddApplication from "./Components/LoanApplications/AddLoanApplication";
-import AddLoanApplication from "./Components/LoanApplications/AddLoanApplication";
 import ViewLoanApplications from "./Components/LoanApplications/ViewLoanApplications";
 import RecordLoanApplicationFees from "./Components/LoanApplications/RecordLoanApplicationFees";
 import ViewLansToApprove from "./Components/loanProcessing/ViewLoansToApprove";
 import AddSecurities from "./Components/loanProcessing/AddSecurities";
 import ActiveLoans from "./Components/loans/ActiveLoans";
 import PendingInstallments from "./Components/loans/PendingInstallments";
+import LoanApplication from "./Components/loans/LoanApplication";
 
 // import DashboardPage from "./Pages/DashboardPage";
 // import SuperProvider from "./Context/SuperProvider";
@@ -90,7 +89,7 @@ function App(props) {
         <Route path="/users/register" element={<CreateUser />} />
         <Route path="/users/View" element={<AllUsers />} />
         <Route path="/clients/Add" element={<Clients />} />
-        <Route path="/applications/add" element={<AddLoanApplication />} />
+        <Route path="/applications/add" element={<LoanApplication />} />
         <Route path="/Applications/View" element={<ViewLoanApplications />} />
         <Route path="/loans/approve" element={<ViewLansToApprove />} />
         <Route path="/loans/record" element={<AddSecurities />} />
