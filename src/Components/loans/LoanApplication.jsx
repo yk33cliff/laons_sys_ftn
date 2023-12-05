@@ -1,7 +1,7 @@
 import React from "react";
 import AppContainer from "../Structure/AppContainer";
 
-function AddLoanApplication() {
+function LoanApplication() {
   return (
     <div>
       <AppContainer title="Add loan application">
@@ -80,4 +80,4 @@ function AddLoanApplication() {
   );
 }
 
-export default AddLoanApplication;
+export default LoanApplication;
