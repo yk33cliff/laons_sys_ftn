@@ -1,6 +1,3 @@
-// import "./App.css";
-// import "./chat.css";
-
 import React, { useEffect, useState } from "react";
 import {
   Route,
@@ -13,25 +10,25 @@ import LoginPage from "./Pages/LoginPage";
 import Loader from "./Components/Common/Loader";
 import LoanTYpes from "./Components/loans/LoanTYpes";
 import CreateUser from "./Components/Users/CreateUser";
-import ViewSystemUsers from "./Components/Users/ViewSystemUsers";
+
 import AllUsers from "./Components/Users/AllUsers";
-import Clients from "./Components/Users/Clients";
+// import Clients from "./Components/Users/Clients";
 import ViewLoanApplications from "./Components/LoanApplications/ViewLoanApplications";
-import RecordLoanApplicationFees from "./Components/LoanApplications/RecordLoanApplicationFees";
+
 import ViewLansToApprove from "./Components/loanProcessing/ViewLoansToApprove";
 import AddSecurities from "./Components/loanProcessing/AddSecurities";
 import ActiveLoans from "./Components/loans/ActiveLoans";
 import PendingInstallments from "./Components/loans/PendingInstallments";
 import LoanApplication from "./Components/loans/LoanApplication";
 
-// import DashboardPage from "./Pages/DashboardPage";
-// import SuperProvider from "./Context/SuperProvider";
+// import Dash from "./Pages/Dash";
+import SuperProvider from "./Context/SuperProvider";
 
 function App(props) {
   const [loggedIn, setLoggedIn] = useState(true);
 
   function checkLogin() {
-    if (!window.localStorage.getItem("@user")) {
+    if (!window.localStorage.getItem("logs@user")) {
       setLoggedIn(false);
     } else {
       setLoggedIn(true);
@@ -43,67 +40,62 @@ function App(props) {
   }, []);
 
   return (
-    // <SuperProvider>
-    <Router forceRefresh={false}>
-      <Switch>
-        {/* {!loggedIn && ( */}
-        <>
-          {/* <Route path="*" element={<LoginPage />} /> */}
-          {/* <Route path="/login" element={<LoginPage />} />
+    <SuperProvider>
+      <Router forceRefresh={false}>
+        <Switch>
+          {!loggedIn && (
+            <>
+              <Route path="*" element={<LoginPage />} />
+              <Route path="/login" element={<LoginPage />} />
               <Route
                 path="/"
                 element={
-                  !loggedIn ? (
-                    <Navigate replace to="/login" />
-                  ) : (
-                    <DashboardPage />
-                  )
+                  !loggedIn ? <Navigate replace to="/login" /> : <Dash />
                 }
               />
             </>
-          )} */}
-          {/* {loggedIn && (
+          )}
+          {loggedIn && (
             <>
               <Route
                 path="/"
                 element={
-                  !loggedIn ? (
-                    <Navigate replace to="/login" />
-                  ) : (
-                    <DashboardPage />
-                  )
+                  !loggedIn ? <Navigate replace to="/login" /> : <Dash />
                 }
-              /> */}
-          {/* <Route
-            path="/login"
-            element={loggedIn ? <Navigate replace to="/" /> : <LoginPage />}
-          />
-          <Route path="/" element={<DashboardPage />} /> */}
-          {/* <RenderSecure > */}
-        </>
-        {/* )} */}
-        <Route path="*" element={<Dash />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/Dashboard/home" element={<Dash />} />
-        <Route path="/Loans/types" element={<LoanTYpes />} />
-        <Route path="/users/register" element={<CreateUser />} />
-        <Route path="/users/View" element={<AllUsers />} />
-        <Route path="/clients/Add" element={<Clients />} />
-        <Route path="/applications/add" element={<LoanApplication />} />
-        <Route path="/Applications/View" element={<ViewLoanApplications />} />
-        <Route path="/loans/approve" element={<ViewLansToApprove />} />
-        <Route path="/loans/record" element={<AddSecurities />} />
-        <Route path="/loans/active" element={<ActiveLoans />} />
-        <Route
-          path="/Loans/pending_installments"
-          element={<PendingInstallments />}
-        />
+              />
+              <Route
+                path="/login"
+                element={loggedIn ? <Navigate replace to="/" /> : <LoginPage />}
+              />
+              <Route path="/" element={<Dash />} />
 
-        {/* <Route path="/" element={<Loader />} /> */}
-        {/* <Route path="/" element={<Loader />} /> */}
-      </Switch>
-    </Router>
-    // </SuperProvider>
+              {/* <Route path="/issue-logs-chat/:id" element={<IssueLogChat />} /> */}
+
+              <Route path="*" element={<Dash />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/Dashboard/home" element={<Dash />} />
+
+              <Route path="/Loans/types" element={<LoanTYpes />} />
+              <Route path="/users/register" element={<CreateUser />} />
+              <Route path="/users/View" element={<AllUsers />} />
+              {/* <Route path="/clients/Add" element={<Clients />} /> */}
+              <Route path="/applications/add" element={<LoanApplication />} />
+              <Route
+                path="/Applications/View"
+                element={<ViewLoanApplications />}
+              />
+              <Route path="/loans/approve" element={<ViewLansToApprove />} />
+              <Route path="/loans/record" element={<AddSecurities />} />
+              <Route path="/loans/active" element={<ActiveLoans />} />
+              <Route
+                path="/Loans/pending_installments"
+                element={<PendingInstallments />}
+              />
+            </>
+          )}
+        </Switch>
+      </Router>
+    </SuperProvider>
   );
 }
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { RenderSecure } from "../../util/script/RenderSecure";
+import {Link} from "react-router-dom";
+import {RenderSecure} from "../../util/script/RenderSecure";
 
 const Sidebar = (props) => {
   const hrefggleDropdown = (e) => {
@@ -97,22 +97,6 @@ const Sidebar = (props) => {
                         View Applications
                       </a>
                     </li>
-                  </ul>
-                </li>
-
-                <li className="nav-item" onClick={hrefggleDropdown}>
-                  <a className="nav-link with-sub" href="javascript:void(0)">
-                    <span className="shape1" />
-                    <span className="shape2" />
-                    {/* <i class="fa-sharp fa-solid fa-cow"></i> */}
-                    <i className="ti-write sidemenu-icon menu-icon" />
-                    <span className="sidemenu-label">
-                      Loans
-                      <span className="sidemenu-label2">Processing</span>
-                    </span>
-                    <i className="angle fe fe-chevron-right" />
-                  </a>
-                  <ul className="nav-sub">
                     <li className="nav-sub-item">
                       <a className="nav-sub-link" href="/loans/approve">
                         Approve laons
@@ -120,6 +104,7 @@ const Sidebar = (props) => {
                     </li>
                   </ul>
                 </li>
+
                 <li className="nav-item" onClick={hrefggleDropdown}>
                   <a className="nav-link with-sub" href="javascript:void(0)">
                     <span className="shape1" />
@@ -141,8 +126,7 @@ const Sidebar = (props) => {
                     <li className="nav-sub-item">
                       <a
                         className="nav-sub-link"
-                        href="/Loans/pending_installments"
-                      >
+                        href="/Loans/pending_installments">
                         pending installments
                       </a>
                     </li>
