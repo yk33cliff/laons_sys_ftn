@@ -1,44 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import ajaxRole from '../util/remote/ajaxRole';
+import React, { useEffect, useState } from "react";
+import ajaxRole from "../util/remote/ajaxRole";
 const RoleContext = React.createContext();
 
 export const RoleConsumer = RoleContext.Consumer;
 
-export const RoleProvider = (props)=> {
+export const RoleProvider = (props) => {
+  const [roleList, setRoleList] = useState(false);
+  // const [data, setData] = useState({ page: "1" });
 
-   
-   const [roleList, setRoleList] = useState(false);
-   const [data, setData]= useState({page:"1"})
+  useEffect(() => {
+    getRoleList();
+  }, []);
 
-   useEffect(()=>{
-         getRoleList();
-   }, [data])
-  
-   const getRoleList =async()=>{
+  const getRoleList = async () => {
+    const server_response = await ajaxRole.fetchRoleList();
+    if (server_response.status === "OK") {
+      //store results
 
-      const server_response = await ajaxRole.fetchRoleList(data);
-      if(server_response.status==="OK"){
-         //store results
-         setRoleList(server_response.details);
-      }else{
-         //communicate error
-         setRoleList("404");
-      }
-   }
-    
-    return (
-           <RoleContext.Provider value={
-               {
-                  
-                  roleList,
-                  setData,
-                  getRoleList
-               }
-               }>
-               {props.children}
-           </RoleContext.Provider>
-        );
-    
-}
+      setRoleList(server_response.details);
+    } else {
+      //communicate error
+      setRoleList("404");
+    }
+  };
+
+  return (
+    <RoleContext.Provider
+      value={{
+        roleList,
+        // setData,
+        getRoleList,
+      }}
+    >
+      {props.children}
+    </RoleContext.Provider>
+  );
+};
 
 export default RoleContext;

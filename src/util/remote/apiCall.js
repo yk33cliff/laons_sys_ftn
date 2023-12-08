@@ -1,9 +1,8 @@
 import axios from "axios";
-import dictionary from "../dictionary";
-
-const ACCESS_TOKEN = localStorage.getItem("@user");
-// const apiHost = dictionary.apiHost
-const apiHost = "localhost/loans_system_bkd";
+// import dictionary from "../dictionary";
+const apiHost = "http://localhost/loans_system_bkd/";
+// const apiHost = "https://projectmanagerapi.studentdigpay.com/";
+const ACCESS_TOKEN = localStorage.getItem("logs@user");
 
 const apiCall = async (endpoint, data) => {
   try {

@@ -1,52 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ajaxClient from '../util/remote/ajaxClient';
+import React, {useEffect, useState} from "react";
+
+import ajaxUser from "../util/remote/ajaxUser";
 
 const ClientContext = React.createContext();
 
 export const ClientConsumer = ClientContext.Consumer;
 
-export const ClientProvider = (props)=> {
+export const ClientProvider = (props) => {
+  const [clientList, setClientList] = useState(false);
+  const [data, setData] = useState({page: "1"});
 
-   
-   const [clientList, setClientList] = useState(false);
-   const [data, setData]= useState({page:"1"})
-   
+  useEffect(() => {
+    getClientList();
+  }, []);
 
-   useEffect(()=>{
-         getClientList();
-   }, [data])
-   
-  
-   const getClientList =async()=>{
-
-      const server_response = await ajaxClient.fetchClientList(data);
+  const getClientList = async () => {
+    const server_response = await ajaxUser.fetchCustomers();
     //   console.log(server_response)
-      if(server_response.status==="OK"){
-         //store results
-         setClientList(server_response.details);
-      }else{
-         //communicate error
-         setClientList("404");
-      }
-   }
+    if (server_response.status === "OK") {
+      setClientList(server_response.details);
+    } else {
+      //communicate error
+      setClientList("404");
+    }
+  };
 
-   
-    
-    return (
-           <ClientContext.Provider value={
-               {
-                  
-                 
-                  clientList,
-                  setData,
-                  getClientList
-               }
-               }>
-               {props.children}
-           </ClientContext.Provider>
-        );
-    
-}
+  return (
+    <ClientContext.Provider
+      value={{
+        clientList,
+        getClientList,
+      }}>
+      {props.children}
+    </ClientContext.Provider>
+  );
+};
 
 export default ClientContext;
