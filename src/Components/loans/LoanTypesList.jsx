@@ -1,6 +1,16 @@
-import React from "react";
-
+import React, {useContext} from "react";
+import LoanTypesContext from "../../Context/LoanTypesContext";
+import UpdateLoanType from "./UpdateLoanType";
+import useStateCallback from "../../util/customHooks/useStateCallback";
 function LoanTypesList() {
+  const {LoanTypes} = useContext(LoanTypesContext);
+  const [modal, setModal] = useStateCallback(false);
+
+  const handleModal = (e, loan) => {
+    setModal(false, () =>
+      setModal(<UpdateLoanType isOpen={true} loan={loan} />)
+    );
+  };
   return (
     <div>
       <div className="row row-sm">
@@ -11,128 +21,68 @@ function LoanTypesList() {
                 LOAN TYPES AND DETAILS
               </label>
             </div>
+            {modal}
             <div className="card-body">
               <div className="table-responsive">
-                <table className="table card-table text-nowrap table-bordered border-top">
+                <table className="table card-table text-nowrap table-hover table-bordered table-striped border-top">
                   <thead>
                     <tr>
                       <th>No.</th>
                       <th>Type</th>
                       <th>Duration</th>
-                      <th>interest rate</th>
-                      <th>application fee rate</th>
-                      <th>allowed installment</th>
+                      <th>
+                        interest <br /> rate
+                      </th>
+                      <th>
+                        application <br />
+                        fee rate
+                      </th>
+                      <th>
+                        amaximum <br />
+                        Amount
+                      </th>
+                      <th>
+                        Allowed <br />
+                        installment
+                      </th>
                       <th>status</th>
+                      <th>Update</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>#12450</td>
-                      <td className="text-success">Buy</td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 0.37218
-                      </td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 0.42173
-                      </td>
-                      <td>52681.13</td>
-                      <td>$ 5273.15</td>
-                      <td>
-                        <span className="badge bg-success-light bg-pill">
-                          Completed
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#12451</td>
-                      <td className="text-danger">Sell</td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 1.47364
-                      </td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 0.36472
-                      </td>
-                      <td>73647.15</td>
-                      <td>$ 2637.37</td>
+                    {LoanTypes &&
+                      Array.isArray(LoanTypes) &&
+                      LoanTypes.map((loan, key) => (
+                        <tr key={key}>
+                          <td>{key + 1}</td>
+                          <td>{loan.name}</td>
+                          <td>{loan.duration} months</td>
+                          <td>{loan.interest_rate}</td>
+                          <td>{loan.processing_fee_rate}</td>
+                          <td>{loan.maximum_amount}</td>
+                          <td>{loan.installment_type}</td>
 
-                      <td>
-                        <span className="badge bg-warning-light bg-pill">
-                          Pending
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#12452</td>
-                      <td className="text-danger">Sell</td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 0.63736
-                      </td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 0.73748
-                      </td>
-                      <td>72637.02</td>
-                      <td>$ 6345.16</td>
+                          <td>
+                            {loan.status === "1" ? (
+                              <span className="badge bg-success-light bg-pill">
+                                active
+                              </span>
+                            ) : (
+                              <span className="badge bg-danger-light bg-pill">
+                                inactive
+                              </span>
+                            )}
+                          </td>
 
-                      <td>
-                        <span className="badge bg-danger-light bg-pill">
-                          Cancelled
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#12453</td>
-                      <td className="text-success">Buy</td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 0.63647
-                      </td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 0.83643
-                      </td>
-                      <td>83748.19</td>
-                      <td>$ 23836.09</td>
-
-                      <td>
-                        <span className="badge bg-success-light bg-pill">
-                          Completed
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#12454</td>
-                      <td className="text-success">Buy</td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 0.76263
-                      </td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 0.72563
-                      </td>
-                      <td>32635.32</td>
-                      <td>$ 7235.25</td>
-
-                      <td>
-                        <span className="badge bg-success-light bg-pill">
-                          Completed
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#12455</td>
-                      <td className="text-danger">Sell</td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 0.46263
-                      </td>
-                      <td>
-                        <i className="cc BTC-alt text-warning" /> 0.27363
-                      </td>
-                      <td>28937.22</td>
-                      <td>$ 4853.15</td>
-
-                      <td>
-                        <span className="badge bg-info-light bg-pill">
-                          In Process
-                        </span>
-                      </td>
-                    </tr>
+                          <td>
+                            <button
+                              className=" badge bg-danger-light bg-pill"
+                              onClick={(e) => handleModal(e, loan)}>
+                              update
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>

@@ -1,10 +1,11 @@
 import React, {useContext, useState} from "react";
 import AppContainer from "../Structure/AppContainer";
 import RoleContext from "../../Context/RoleContext";
-import ViewSystemUsers from "./ViewSystemUsers";
 import toast, {Toaster} from "react-hot-toast";
 import ajaxUser from "../../util/remote/ajaxUser";
 import Select from "react-select";
+
+import ViewUsers from "./ViewUsers";
 
 function CreateUser() {
   /**
@@ -196,7 +197,7 @@ function CreateUser() {
                           <input
                             type="text"
                             className="form-control"
-                            placeholder="user telephone number"
+                            placeholder="user NIN number"
                             value={nin}
                             onChange={(e) => setNin(e.target.value)}
                           />
@@ -247,7 +248,7 @@ function CreateUser() {
         {/* <!-- End Row --> */}
         <div className="row row-sm">
           <div className="col-lg-12 col-md-12">
-            <ViewSystemUsers />
+            <ViewUsers />
           </div>
         </div>
       </AppContainer>

@@ -71,7 +71,7 @@ const Sidebar = (props) => {
                     <span className="shape1" />
                     <span className="shape2" />
                     <i className="ti-home sidemenu-icon menu-icon" />
-                    <span className="sidemenu-label"> LoanTtypes</span>
+                    <span className="sidemenu-label"> Loan Types</span>
                   </a>
                 </li>
                 <li className="nav-item" onClick={hrefggleDropdown}>
