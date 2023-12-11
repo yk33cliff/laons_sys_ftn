@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import AppContainer from "../Structure/AppContainer";
 import LoanTypesContext from "../../Context/LoanTypesContext";
 import Select from "react-select";
@@ -19,8 +19,8 @@ function LoanApplication() {
   const [client, setClient] = useState("");
   const [amount, setAmount] = useState("");
   const [paymentPeriod, setPaymentPeriod] = useState("");
-  const [interestRate, setInterestRate] = useState("");
-  const [processingFees, setProcessingFees] = useState("");
+  const [interestRate, setInterestRate] = useState(false);
+  const [processingFees, setProcessingFees] = useState(false);
   const [dateRequested, setDateRequested] = useState("");
 
   const handler = async (e) => {
@@ -56,6 +56,27 @@ function LoanApplication() {
     }
   };
 
+  useEffect(() => {
+    get_loan_type_variables();
+  }, [loan]);
+
+  const get_loan_type_variables = () => {
+    if (loan.length > 0) {
+      setInterestRate(false);
+      setProcessingFees(false);
+
+      if(Array.isArray(LoanTypes)){
+        LoanTypes.forEach((value) => {
+          if (value.id === loan) {
+            console.log(value);
+            setInterestRate(value.interest_rate);
+            setProcessingFees(value.processing_fee_rate);
+          }
+        });
+      }
+    }
+  }
+
   return (
     <div>
       <AppContainer title="Add loan application">
@@ -82,7 +103,7 @@ function LoanApplication() {
                             isSearchable
                             options={clientList}
                             value={
-                              clientList &&
+                              clientList && Array.isArray(clientList) && 
                               clientList.find((value) => value.id === client)
                             }
                           />
@@ -98,7 +119,7 @@ function LoanApplication() {
                             isSearchable
                             options={LoanTypes}
                             value={
-                              LoanTypes &&
+                              LoanTypes && Array.isArray(LoanTypes) && 
                               LoanTypes.find((value) => value.id === loan)
                             }
                           />
@@ -134,36 +155,7 @@ function LoanApplication() {
 
                       {role_id !== 4 ? (
                         <>
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <label className="mg-b-10">Interest Rate</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                name="interestRate"
-                                placeholder="Interest rate"
-                                value={interestRate}
-                                onChange={(e) =>
-                                  setInterestRate(e.target.value)
-                                }
-                              />
-                            </div>
-                          </div>
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <label className="mg-b-10">Processing Fees</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                name="processingFees"
-                                placeholder="Processing fees"
-                                value={processingFees}
-                                onChange={(e) =>
-                                  setProcessingFees(e.target.value)
-                                }
-                              />
-                            </div>
-                          </div>
+                          
                           <div className="col-md-6">
                             <div className="form-group">
                               <label className="mg-b-10">
@@ -181,6 +173,36 @@ function LoanApplication() {
                               />
                             </div>
                           </div>
+                          {interestRate && <div className="col-md-6">
+                            <div className="form-group">
+                              <label className="mg-b-10">Interest Rate</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                name="interestRate"
+                                placeholder="Interest rate"
+                                value={interestRate}
+                                onChange={(e) =>
+                                  setInterestRate(e.target.value)
+                                }
+                              />
+                            </div>
+                          </div>}
+                          {processingFees && <div className="col-md-6">
+                            <div className="form-group">
+                              <label className="mg-b-10">Processing Fees</label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                name="processingFees"
+                                placeholder="Processing fees"
+                                value={processingFees}
+                                onChange={(e) =>
+                                  setProcessingFees(e.target.value)
+                                }
+                              />
+                            </div>
+                          </div>}
                         </>
                       ) : null}
 
