@@ -10,14 +10,15 @@ function ViewLoanApplications() {
             <div className="row row-sm">
               <div className="col-lg-12 col-md-12 mx-10">
                 <div
-                  style={{ float: "right", marginBottom: "20px" }}
-                  className="col-lg-3 col-md-3 "
-                >
+                  style={{
+                    float: "right",
+                    marginBottom: "20px",
+                  }}
+                  className="col-lg-2 col-md-2">
                   <div className="form-group mb-0">
                     <a
                       href="/applications/add"
-                      className="btn col-lg -12 col-md-12 btn-primary"
-                    >
+                      className="btn col-lg -12 rounded-50 col-md-12 btn-primary">
                       Add Application
                     </a>
                   </div>

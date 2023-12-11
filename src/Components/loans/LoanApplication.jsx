@@ -2,8 +2,6 @@ import React, {useContext, useState} from "react";
 import AppContainer from "../Structure/AppContainer";
 import LoanTypesContext from "../../Context/LoanTypesContext";
 import Select from "react-select";
-import AuthContext from "../../Context/AuthContext";
-import UserContext from "../../Context/UserContext";
 import functions from "../../util/functions";
 import ClientContext from "../../Context/ClientContext";
 import ajaxLaons from "../../util/remote/ajaxLaons";
