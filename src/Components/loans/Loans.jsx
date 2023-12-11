@@ -151,6 +151,12 @@ function Loans() {
         </div>
       </div>
       {/* <!-- Row End --> */}
+      {/* <!-- Row End --> */}
+      {/* <!-- Row End --> */}
+      {/* <!-- Row End --> */}
+      {/* <!-- Row End --> */}
+      {/* <!-- Row End --> */}
+      {/* <!-- Row End --> */}
     </div>
   );
 }
