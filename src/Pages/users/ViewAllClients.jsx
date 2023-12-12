@@ -4,7 +4,7 @@ import ClientContext from "../../Context/ClientContext";
 
 function ViewAllClients() {
   const {clientList} = useContext(ClientContext);
-  console.log(clientList);
+  // console.log(clientList);
 
   return (
     <div>

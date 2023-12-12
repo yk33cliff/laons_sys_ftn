@@ -30,6 +30,10 @@ export default {
 
     return response;
   },
+  async updateUserProfile(data) {
+    let response = await apiCall("client_profile_update", data);
+    return response;
+  },
   // ==============================================================================
   async getUserPermissionCodes(userId) {
     let data = {
@@ -42,11 +46,6 @@ export default {
 
   async updateUser(data) {
     let response = await apiCall("user/update", data);
-    return response;
-  },
-
-  async updateUserProfile(data) {
-    let response = await apiCall("user/profile/update", data);
     return response;
   },
 

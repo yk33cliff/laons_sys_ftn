@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 
-import ajaxLoanTypes from "../util/remote/ajaxLoanTypes";
+// import ajaxLoanTypes from "../util/remote/ajaxLoanTypes";
+import ajaxLaons from "../util/remote/ajaxLaons";
 
 const LoanTypesContext = React.createContext();
 
@@ -15,7 +16,7 @@ export const LoanTypesProvider = (props) => {
   }, []);
 
   const getLoanList = async () => {
-    const server_response = await ajaxLoanTypes.fetchLoanTypeList();
+    const server_response = await ajaxLaons.fetchLoanTypeList();
     //   console.log(server_response)
     if (server_response.status === "OK") {
       //store results<></><></>
