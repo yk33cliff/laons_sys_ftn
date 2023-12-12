@@ -1,6 +1,7 @@
 import axios from "axios";
-// import dictionary from "../dictionary";
-const apiHost = "http://localhost/loans_system_bkd/";
+import dictionary from "../dictionary";
+const apiHost = dictionary.apiHost;
+console.log(apiHost);
 // const apiHost = "https://projectmanagerapi.studentdigpay.com/";
 const ACCESS_TOKEN = localStorage.getItem("logs@user");
 
@@ -21,7 +22,7 @@ const apiCall = async (endpoint, data) => {
     let connError = {
       status: "conn",
       message: "Server connection error occured!",
-      details: { message: "Contacting server....", content: false },
+      details: {message: "Contacting server....", content: false},
     };
     return connError;
   }

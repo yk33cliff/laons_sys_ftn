@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import ajaxLoanTypes from "../../util/remote/ajaxLoanTypes";
+// import ajaxLoanTypes from "../../util/remote/ajaxLoanTypes";
 
 import SystemModal from "../Common/SystemModal";
 import toast, {Toaster} from "react-hot-toast";
+import ajaxLaons from "../../util/remote/ajaxLaons";
 
 const UpdateLoanType = (props) => {
   //   loan: duration: "1";
@@ -39,7 +40,7 @@ const UpdateLoanType = (props) => {
         installment_type: installment,
       };
 
-      const server_response = await ajaxLoanTypes.UpdateLoanType(data);
+      const server_response = await ajaxLaons.UpdateLoanType(data);
 
       if (server_response.status === "OK") {
         toast.success(server_response.message);

@@ -65,7 +65,7 @@ function LoanApplication() {
       setInterestRate(false);
       setProcessingFees(false);
 
-      if(Array.isArray(LoanTypes)){
+      if (Array.isArray(LoanTypes)) {
         LoanTypes.forEach((value) => {
           if (value.id === loan) {
             console.log(value);
@@ -75,7 +75,7 @@ function LoanApplication() {
         });
       }
     }
-  }
+  };
 
   return (
     <div>
@@ -103,7 +103,8 @@ function LoanApplication() {
                             isSearchable
                             options={clientList}
                             value={
-                              clientList && Array.isArray(clientList) && 
+                              clientList &&
+                              Array.isArray(clientList) &&
                               clientList.find((value) => value.id === client)
                             }
                           />
@@ -119,7 +120,8 @@ function LoanApplication() {
                             isSearchable
                             options={LoanTypes}
                             value={
-                              LoanTypes && Array.isArray(LoanTypes) && 
+                              LoanTypes &&
+                              Array.isArray(LoanTypes) &&
                               LoanTypes.find((value) => value.id === loan)
                             }
                           />
@@ -155,7 +157,6 @@ function LoanApplication() {
 
                       {role_id !== 4 ? (
                         <>
-                          
                           <div className="col-md-6">
                             <div className="form-group">
                               <label className="mg-b-10">
@@ -173,36 +174,42 @@ function LoanApplication() {
                               />
                             </div>
                           </div>
-                          {interestRate && <div className="col-md-6">
-                            <div className="form-group">
-                              <label className="mg-b-10">Interest Rate</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                name="interestRate"
-                                placeholder="Interest rate"
-                                value={interestRate}
-                                onChange={(e) =>
-                                  setInterestRate(e.target.value)
-                                }
-                              />
+                          {interestRate && (
+                            <div className="col-md-6">
+                              <div className="form-group">
+                                <label className="mg-b-10">Interest Rate</label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  name="interestRate"
+                                  placeholder="Interest rate"
+                                  value={interestRate}
+                                  onChange={(e) =>
+                                    setInterestRate(e.target.value)
+                                  }
+                                />
+                              </div>
                             </div>
-                          </div>}
-                          {processingFees && <div className="col-md-6">
-                            <div className="form-group">
-                              <label className="mg-b-10">Processing Fees</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                name="processingFees"
-                                placeholder="Processing fees"
-                                value={processingFees}
-                                onChange={(e) =>
-                                  setProcessingFees(e.target.value)
-                                }
-                              />
+                          )}
+                          {processingFees && (
+                            <div className="col-md-6">
+                              <div className="form-group">
+                                <label className="mg-b-10">
+                                  Processing Fees
+                                </label>
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  name="processingFees"
+                                  placeholder="Processing fees"
+                                  value={processingFees}
+                                  onChange={(e) =>
+                                    setProcessingFees(e.target.value)
+                                  }
+                                />
+                              </div>
                             </div>
-                          </div>}
+                          )}
                         </>
                       ) : null}
 

@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import AppContainer from "../Structure/AppContainer";
 import LoanTypesList from "./LoanTypesList";
-import ajaxLoanTypes from "../../util/remote/ajaxLoanTypes";
+// import ajaxLoanTypes from "../../util/remote/ajaxLoanTypes";
 
 import toast, {Toaster} from "react-hot-toast";
+import ajaxLaons from "../../util/remote/ajaxLaons";
 
 function LoanTYpes() {
   const [loan, setLoan] = useState("");
@@ -31,7 +32,7 @@ function LoanTYpes() {
         installment_type: installment,
       };
 
-      const server_response = await ajaxLoanTypes.createLoanType(data);
+      const server_response = await ajaxLaons.createLoanType(data);
 
       if (server_response.status === "OK") {
         toast.success(server_response.message);

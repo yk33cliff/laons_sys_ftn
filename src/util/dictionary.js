@@ -1,29 +1,28 @@
 import functions from "./functions";
 
-const dictionary={
-    "_completeFields":"Complete all fields and try again",
-    "_toastTimeOut":5000,
-    "_uiRefreshRate":1000,
-    apiHost:functions.getHost(),
-    captiveHost:functions.getCaptiveHost(),
-    _exportBtnFormats: ['excel', 'pdf', 'csv', 'print', 'copy'],
-    _styledExportBtnFormats:
-    {
-        "excel": {
-            extend: 'excelHtml5',
-            text: '<i class="fas fa-file-excel   tx-primary mr-2"></i> Excel',
-            titleAttr: 'Excel'
-        },
-        "pdf": {
-            extend: 'pdfHtml5',
-            text: '<i class="fas fa-file-pdf  tx-primary mr-2"></i> PDF',
-            titleAttr: 'PDF',
-            orientation: 'landscape',
-            title: '',
-            messageTop: '',
-            messageBottom: '',
-            pageSize: 'A4',
-            /**  customize: function (doc) {
+const dictionary = {
+  _completeFields: "Complete all fields and try again",
+  _toastTimeOut: 5000,
+  _uiRefreshRate: 1000,
+  apiHost: "http://localhost/loans_system_bkd/",
+  captiveHost: functions.getCaptiveHost(),
+  _exportBtnFormats: ["excel", "pdf", "csv", "print", "copy"],
+  _styledExportBtnFormats: {
+    excel: {
+      extend: "excelHtml5",
+      text: '<i class="fas fa-file-excel   tx-primary mr-2"></i> Excel',
+      titleAttr: "Excel",
+    },
+    pdf: {
+      extend: "pdfHtml5",
+      text: '<i class="fas fa-file-pdf  tx-primary mr-2"></i> PDF',
+      titleAttr: "PDF",
+      orientation: "landscape",
+      title: "",
+      messageTop: "",
+      messageBottom: "",
+      pageSize: "A4",
+      /**  customize: function (doc) {
 
                
             //     doc.content.splice(
@@ -38,29 +37,27 @@ const dictionary={
             // } 
             
             */
-        },
-        "csv": {
-            extend: 'csvHtml5',
-            text: '<i class="fa fa-csv  tx-info mr-2"></i> CSV',
-            titleAttr: 'CSV'
-        },
-
-        "print": {
-            extend: 'print',
-            text: '<i class="fas fa-print  tx-info mr-2"></i> Print',
-            titleAttr: 'Print'
-        },
-
-        "copy": {
-            extend: 'copyHtml5',
-            text: '<i class="fas fa-copy tx-info mr-2"></i> Copy',
-            titleAttr: 'Copy'
-        }
-
+    },
+    csv: {
+      extend: "csvHtml5",
+      text: '<i class="fa fa-csv  tx-info mr-2"></i> CSV',
+      titleAttr: "CSV",
     },
 
-    "_exportConfigBtnFormats": ['excel', 'pdf', 'csv', 'print'],
+    print: {
+      extend: "print",
+      text: '<i class="fas fa-print  tx-info mr-2"></i> Print',
+      titleAttr: "Print",
+    },
 
-}
+    copy: {
+      extend: "copyHtml5",
+      text: '<i class="fas fa-copy tx-info mr-2"></i> Copy',
+      titleAttr: "Copy",
+    },
+  },
+
+  _exportConfigBtnFormats: ["excel", "pdf", "csv", "print"],
+};
 
 export default dictionary;
