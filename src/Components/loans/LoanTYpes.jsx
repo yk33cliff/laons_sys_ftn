@@ -9,10 +9,13 @@ import ajaxLaons from "../../util/remote/ajaxLaons";
 function LoanTYpes() {
   const [loan, setLoan] = useState("");
   const [max, setMax] = useState("");
+  const [min, setMin] = useState("");
   const [months, setMonths] = useState("");
   const [intrest, setIntrest] = useState("");
   const [processing, setProcessing] = useState("");
   const [installment, setInstallment] = useState("");
+  const [fine, setFine] = useState("");
+  const [insur, setInsur] = useState("");
 
   const handler = async (e) => {
     e.preventDefault();
@@ -30,6 +33,9 @@ function LoanTYpes() {
         Interest_rate: intrest,
         processing_fee: processing,
         installment_type: installment,
+        fine: fine,
+        min: min,
+        insurance: insur,
       };
 
       const server_response = await ajaxLaons.createLoanType(data);
@@ -40,10 +46,13 @@ function LoanTYpes() {
         // Reset form fields
         setLoan("");
         setMax("");
+        setMin("");
         setMonths("");
         setIntrest("");
         setProcessing("");
         setInstallment("");
+        setFine("");
+        setInsur("");
       } else {
         toast.error(server_response.message);
         console.log(server_response.status);
@@ -85,11 +94,21 @@ function LoanTYpes() {
                         className="form-control"
                         value={max}
                         onChange={(e) => setMax(e.target.value)}
-                        placeholder="money which can be allowed give for the loan"
+                        placeholder="maximum amount allowed on the loan"
                       />
                     </div>
                     <div className="form-group col-md-6">
-                      <p className="mg-b-10">maximum duration in months</p>
+                      <p className="mg-b-10">minimum Amount Allowed</p>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={min}
+                        onChange={(e) => setMin(e.target.value)}
+                        placeholder="minmum amount allowed on the loan"
+                      />
+                    </div>
+                    <div className="form-group col-md-6">
+                      <p className="mg-b-10">maximum duration (months)</p>
                       <input
                         type="text"
                         className="form-control"
@@ -119,6 +138,26 @@ function LoanTYpes() {
                       />
                     </div>
                     <div className="form-group col-md-6">
+                      <p className="mg-b-10">fine rate</p>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={fine}
+                        onChange={(e) => setFine(e.target.value)}
+                        placeholder="number e.g 2  as a percentage of the loan "
+                      />
+                    </div>
+                    <div className="form-group col-md-6">
+                      <p className="mg-b-10">insurance rate</p>
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={insur}
+                        onChange={(e) => setInsur(e.target.value)}
+                        placeholder="number e.g 2  as a percentage of the loan "
+                      />
+                    </div>
+                    <div className="form-group col-md-6">
                       <p className="mg-b-10">Allowed Installments</p>
                       <select
                         name=""
@@ -131,9 +170,6 @@ function LoanTYpes() {
                         </option>
                         <option value="weekly">Weekly</option>
                         <option value="monthly">monthly</option>
-                        <option value="weekly & monthly">
-                          weekly & monthly
-                        </option>
                       </select>
                     </div>
                     <div className="col-md-12 ">

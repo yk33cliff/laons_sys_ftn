@@ -3,12 +3,14 @@ import LoanTypesContext from "../../Context/LoanTypesContext";
 import UpdateLoanType from "./UpdateLoanType";
 import useStateCallback from "../../util/customHooks/useStateCallback";
 function LoanTypesList() {
-  const {LoanTypes} = useContext(LoanTypesContext);
+  const {LoanTypes, getLoanList} = useContext(LoanTypesContext);
   const [modal, setModal] = useStateCallback(false);
 
   const handleModal = (e, loan) => {
     setModal(false, () =>
-      setModal(<UpdateLoanType isOpen={true} loan={loan} />)
+      setModal(
+        <UpdateLoanType isOpen={true} loan={loan} getLoanList={getLoanList} />
+      )
     );
   };
   return (
@@ -77,7 +79,9 @@ function LoanTypesList() {
                           <td>
                             <button
                               className=" badge bg-danger-light bg-pill"
-                              onClick={(e) => handleModal(e, loan)}>
+                              onClick={(e) =>
+                                handleModal(e, loan, getLoanList)
+                              }>
                               update
                             </button>
                           </td>

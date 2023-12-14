@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import AppContainer from "../Structure/AppContainer";
+import AppContainer from "../../Components/Structure/AppContainer";
 import LoanTypesContext from "../../Context/LoanTypesContext";
 import Select from "react-select";
 import functions from "../../util/functions";
@@ -9,6 +9,7 @@ import toast, {Toaster} from "react-hot-toast";
 
 function LoanApplication() {
   const {LoanTypes} = useContext(LoanTypesContext);
+  // console.log(LoanTypes);
   const {clientList} = useContext(ClientContext);
 
   const role_id = functions.role_user();
@@ -43,8 +44,8 @@ function LoanApplication() {
       };
       const server_response = await ajaxLaons.CreateLoanApplication(formData);
       if (server_response.status === "OK") {
-        resetForm();
         toast.success(server_response.message);
+        // resetForm();
       } else {
         toast.error(server_response.message);
       }
@@ -53,16 +54,6 @@ function LoanApplication() {
         "Fill loan, client, amount, payment period; they are mandatory"
       );
     }
-  };
-
-  const resetForm = () => {
-    setClient("");
-    setLoan("");
-    setAmount("");
-    setPaymentPeriod("");
-    setInterestRate(false);
-    setProcessingFees(false);
-    setDateRequested("");
   };
 
   useEffect(() => {
@@ -77,6 +68,7 @@ function LoanApplication() {
       if (Array.isArray(LoanTypes)) {
         LoanTypes.forEach((value) => {
           if (value.id === loan) {
+            console.log(value);
             setInterestRate(value.interest_rate);
             setProcessingFees(value.processing_fee_rate);
           }
@@ -84,6 +76,7 @@ function LoanApplication() {
       }
     }
   };
+
   return (
     <div>
       <AppContainer title="Add loan application">
@@ -108,7 +101,9 @@ function LoanApplication() {
                             getOptionLabel={(option) => option.name}
                             getOptionValue={(option) => option.id}
                             isSearchable
-                            options={clientList}
+                            options={
+                              Array.isArray(clientList) ? clientList : []
+                            }
                             value={
                               clientList &&
                               Array.isArray(clientList) &&
@@ -125,7 +120,7 @@ function LoanApplication() {
                             getOptionLabel={(option) => option.name}
                             getOptionValue={(option) => option.id}
                             isSearchable
-                            options={LoanTypes}
+                            options={Array.isArray(LoanTypes) ? LoanTypes : []}
                             value={
                               LoanTypes &&
                               Array.isArray(LoanTypes) &&

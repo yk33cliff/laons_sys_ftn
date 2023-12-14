@@ -9,18 +9,18 @@ import Dash from "./Pages/Dash";
 import LoginPage from "./Pages/LoginPage";
 import LoanTYpes from "./Components/loans/LoanTYpes";
 import CreateUser from "./Components/Users/CreateUser";
-// import AllUsers from "./Components/Users/AllUsers";
 import ViewLoanApplications from "./Components/LoanApplications/ViewLoanApplications";
 import ViewLansToApprove from "./Components/loanProcessing/ViewLoansToApprove";
 import AddSecurities from "./Components/loanProcessing/AddSecurities";
 import ActiveLoans from "./Components/loans/ActiveLoans";
 import PendingInstallments from "./Components/loans/PendingInstallments";
-import LoanApplication from "./Components/loans/LoanApplication";
+import LoanApplication from "./Pages/loans/LoanApplication";
 import SuperProvider from "./Context/SuperProvider";
 import ViewAllClients from "./Pages/users/ViewAllClients";
 import CreateClients from "./Pages/users/CreateClients";
 import ClientProfile from "./Pages/users/ClientProfile";
 import ViewSysUsers from "./Pages/users/ViewSysUsers";
+import LoanProfile from "./Pages/loans/LoanProfile";
 
 function App(props) {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -88,6 +88,7 @@ function App(props) {
               <Route path="/clients/view" element={<ViewAllClients />} />
               <Route path="/clients/Add" element={<CreateClients />} />
               <Route path="/profile/:id" element={<ClientProfile />} />
+              <Route path="/loan_profile/:id" element={<LoanProfile />} />
               <Route
                 path="/Loans/pending_installments"
                 element={<PendingInstallments />}

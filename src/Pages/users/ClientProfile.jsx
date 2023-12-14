@@ -520,7 +520,7 @@ function ClientProfile(props) {
                                                 <a
                                                   style={{fontSize: "16px"}}
                                                   className="text-white"
-                                                  href={`/loan_file/${loan.id}`}>
+                                                  href={`/loan_profile/${loan.id}`}>
                                                   View Loan
                                                 </a>
                                               </span>

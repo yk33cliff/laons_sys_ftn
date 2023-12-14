@@ -17,7 +17,7 @@ export const LoanTypesProvider = (props) => {
 
   const getLoanList = async () => {
     const server_response = await ajaxLaons.fetchLoanTypeList();
-    //   console.log(server_response)
+
     if (server_response.status === "OK") {
       //store results<></><></>
       setLoanList(server_response.details);

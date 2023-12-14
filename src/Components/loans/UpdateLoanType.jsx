@@ -6,21 +6,17 @@ import toast, {Toaster} from "react-hot-toast";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 
 const UpdateLoanType = (props) => {
-  //   loan: duration: "1";
-  //   id: "9";
-  //   installment_type: "weekly";
-  //   interest_rate: "5";
-  //   maximum_amount: "10000000";
-  //   name: "emergency\\personal loan";
-  //   processing_fee_rate: "5";
-  //   status: "1";
   const [loan, setLoan] = useState(props.loan.name);
   const [max, setMax] = useState(props.loan.maximum_amount);
+  const [min, setMin] = useState(props.loan.min_amount);
   const [months, setMonths] = useState(props.loan.duration);
   const [intrest, setIntrest] = useState(props.loan.interest_rate);
   const [processing, setProcessing] = useState(props.loan.processing_fee_rate);
   const [installment, setInstallment] = useState(props.loan.installment_type);
-  console.log(props);
+  const [fine, setFine] = useState(props.loan.fine_rate);
+  const [insur, setInsur] = useState(props.loan.insurance);
+
+  // console.log(props);
   const handler = async (e) => {
     e.preventDefault();
     if (
@@ -38,6 +34,9 @@ const UpdateLoanType = (props) => {
         Interest_rate: intrest,
         processing_fee: processing,
         installment_type: installment,
+        fine: fine,
+        min: min,
+        insurance: insur,
       };
 
       const server_response = await ajaxLaons.UpdateLoanType(data);
@@ -52,6 +51,7 @@ const UpdateLoanType = (props) => {
         setIntrest("");
         setProcessing("");
         setInstallment("");
+        props.getLoanList();
       } else {
         toast.error(server_response.message);
         console.log(server_response.status);
@@ -92,79 +92,110 @@ const UpdateLoanType = (props) => {
             <div className="card-body">
               <div>
                 {/* <!-- Row --> */}
-                <h5 className="main-content-label mb-1">create loan type</h5>
+                <h5 className="main-content-label mb-1">Update loan type</h5>
                 <br />
               </div>
               <Toaster />
-
-              <div className="row row-sm">
-                <div className="form-group col-md-6">
-                  <p className="mg-b-10">Loan Name</p>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="loan name e.g fees laon"
-                    value={loan}
-                    onChange={(e) => setLoan(e.target.value)}
-                  />
+              <form action="" className="" onSubmit={handler}>
+                <div className="row row-sm">
+                  <div className="form-group col-md-6">
+                    <p className="mg-b-10">Loan Name</p>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="loan name e.g fees laon"
+                      value={loan}
+                      onChange={(e) => setLoan(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <p className="mg-b-10">Maximum Amount Allowed</p>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={max}
+                      onChange={(e) => setMax(e.target.value)}
+                      placeholder="maximum amount allowed on the loan"
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <p className="mg-b-10">minimum Amount Allowed</p>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={min}
+                      onChange={(e) => setMin(e.target.value)}
+                      placeholder="minmum amount allowed on the loan"
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <p className="mg-b-10">maximum duration (months)</p>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={months}
+                      onChange={(e) => setMonths(e.target.value)}
+                      placeholder="maximum months allowed for the loan"
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <p className="mg-b-10">Interest rate</p>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={intrest}
+                      onChange={(e) => setIntrest(e.target.value)}
+                      placeholder="number e.g 2  as a percentage"
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <p className="mg-b-10">processing fee rate</p>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={processing}
+                      onChange={(e) => setProcessing(e.target.value)}
+                      placeholder="number e.g 2  as a percentage"
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <p className="mg-b-10">fine rate</p>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={fine}
+                      onChange={(e) => setFine(e.target.value)}
+                      placeholder="number e.g 2  as a percentage of the loan "
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <p className="mg-b-10">insurance rate</p>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={insur}
+                      onChange={(e) => setInsur(e.target.value)}
+                      placeholder="number e.g 2  as a percentage of the loan "
+                    />
+                  </div>
+                  <div className="form-group col-md-6">
+                    <p className="mg-b-10">Allowed Installments</p>
+                    <select
+                      name=""
+                      id=""
+                      className="form-control col-12"
+                      value={installment}
+                      onChange={(e) => setInstallment(e.target.value)}>
+                      <option value="" selected disabled>
+                        -----select payment plan------
+                      </option>
+                      <option value="weekly">Weekly</option>
+                      <option value="monthly">monthly</option>
+                    </select>
+                  </div>
+                  <div className="col-md-12 "></div>
                 </div>
-                <div className="form-group col-md-6">
-                  <p className="mg-b-10">Maximum Amount Allowed</p>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={max}
-                    onChange={(e) => setMax(e.target.value)}
-                    placeholder="money which can be allowed give for the loan"
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <p className="mg-b-10">maximum duration in months</p>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={months}
-                    onChange={(e) => setMonths(e.target.value)}
-                    placeholder="maximum months allowed for the loan"
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <p className="mg-b-10">Interest rate</p>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={intrest}
-                    onChange={(e) => setIntrest(e.target.value)}
-                    placeholder="number e.g 2  as a percentage"
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <p className="mg-b-10">processing fee rate</p>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={processing}
-                    onChange={(e) => setProcessing(e.target.value)}
-                    placeholder="number e.g 2  as a percentage"
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <p className="mg-b-10">Allowed Installments</p>
-                  <select
-                    name=""
-                    id=""
-                    className="form-control col-12"
-                    value={installment}
-                    onChange={(e) => setInstallment(e.target.value)}>
-                    <option value="" selected disabled>
-                      -----select payment plan------
-                    </option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">monthly</option>
-                    <option value="weekly & monthly">weekly & monthly</option>
-                  </select>
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
