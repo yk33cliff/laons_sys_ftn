@@ -14,9 +14,11 @@ function CreateClients() {
   const [location, setLocation] = useState("");
   const [role, setRole] = useState(4);
   const [pass, setPass] = useState("");
+  const [image, setImage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log(image);
     if (
       fname.length > 0 ||
       lname.length > 0 ||
@@ -36,6 +38,7 @@ function CreateClients() {
         location: location,
         role_id: role,
         password: password,
+        image: image,
       };
       const server_response = await ajaxUser.createUser(data);
       if (server_response.status === "OK") {
@@ -98,7 +101,10 @@ function CreateClients() {
                     <Toaster />
                   </div>
                   <div className="row row-sm">
-                    <form action="" onSubmit={handleSubmit}>
+                    <form
+                      action=""
+                      onSubmit={handleSubmit}
+                      enctype="multipart/form-data">
                       <div className="row">
                         <div className="col-md-6">
                           <div className="form-group">
@@ -190,6 +196,19 @@ function CreateClients() {
                               placeholder="user telephone number"
                               value={nin}
                               onChange={(e) => setNin(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">
+                              NINNtional ID photo
+                            </label>
+                            <input
+                              type="file"
+                              className="form-control"
+                              placeholder="user telephone number"
+                              onChange={(e) => setImage(e.target.files[0])}
                             />
                           </div>
                         </div>

@@ -1,12 +1,14 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import AppContainer from "../Structure/AppContainer";
 import LoanTypesList from "./LoanTypesList";
 // import ajaxLoanTypes from "../../util/remote/ajaxLoanTypes";
 
 import toast, {Toaster} from "react-hot-toast";
 import ajaxLaons from "../../util/remote/ajaxLaons";
+import LoanTypesContext from "../../Context/LoanTypesContext";
 
 function LoanTYpes() {
+  const {LoanTypes, getLoanList} = useContext(LoanTypesContext);
   const [loan, setLoan] = useState("");
   const [max, setMax] = useState("");
   const [min, setMin] = useState("");
@@ -53,6 +55,7 @@ function LoanTYpes() {
         setInstallment("");
         setFine("");
         setInsur("");
+        getLoanList();
       } else {
         toast.error(server_response.message);
         console.log(server_response.status);
