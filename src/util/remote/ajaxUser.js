@@ -34,6 +34,10 @@ export default {
     let response = await apiCall("client_profile_update", data);
     return response;
   },
+  async viewsysuser_profile(data) {
+    let response = await apiCall("sysUser/profile/view", data);
+    return response;
+  },
   // ==============================================================================
   async getUserPermissionCodes(userId) {
     let data = {
@@ -49,13 +53,9 @@ export default {
     return response;
   },
 
-  async updatePassword(user_id, old_password, new_password) {
-    let data = {
-      user_id: user_id,
-      old_password: old_password,
-      new_password: new_password,
-    };
+  async updatePassword(data) {
     let response = await apiCall("password/update", data);
+    console.log(data.id);
     return response;
   },
 

@@ -171,7 +171,7 @@ function LoanTYpes() {
                         <option value="" selected disabled>
                           -----select payment plan------
                         </option>
-                        <option value="weekly">Weekly</option>
+                        <option value="weekly">weekly</option>
                         <option value="monthly">monthly</option>
                       </select>
                     </div>

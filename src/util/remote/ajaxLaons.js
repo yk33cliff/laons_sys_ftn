@@ -1,5 +1,10 @@
 import apiCall from "./apiCall";
-/**
+/**if (AppData::__update($this->TableName, $data, $id)) :
+            $this->Success = "operation was successfully!!";
+            return true;
+        endif;
+        $this->Error = "operation failed ";
+        return false;
  * deals with loan application,  processing
  */
 export default {
@@ -21,6 +26,26 @@ export default {
   },
   async ViewUsersLoans(data) {
     let response = await apiCall("get_user_loans", data);
+    return response;
+  },
+  async fetchLoansToApprove(data) {
+    let response = await apiCall("get_loan/loan/approve/", data);
+    return response;
+  },
+  async approveLoans(data) {
+    let response = await apiCall("loan/approve/now", data);
+    return response;
+  },
+  async fetchActiveLoans() {
+    let response = await apiCall("loan/active/loans");
+    return response;
+  },
+  async addLoanGuarantor(data) {
+    let response = await apiCall("add/loans/guarantors", data);
+    return response;
+  },
+  async ViewLoanGuarantors(data) {
+    let response = await apiCall("get/loans/guarantors", data);
     return response;
   },
 };

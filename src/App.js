@@ -8,8 +8,8 @@ import {
 import Dash from "./Pages/Dash";
 import LoginPage from "./Pages/LoginPage";
 import LoanTYpes from "./Components/loans/LoanTYpes";
-import CreateUser from "./Components/Users/CreateUser";
-import ViewLoanApplications from "./Components/LoanApplications/ViewLoanApplications";
+import CreateUser from "./Pages/users/CreateUser";
+import ViewLoanApplications from "./Pages/loans/ViewLoanApplications";
 import ViewLansToApprove from "./Components/loanProcessing/ViewLoansToApprove";
 import AddSecurities from "./Components/loanProcessing/AddSecurities";
 import ActiveLoans from "./Components/loans/ActiveLoans";
@@ -19,8 +19,9 @@ import SuperProvider from "./Context/SuperProvider";
 import ViewAllClients from "./Pages/users/ViewAllClients";
 import CreateClients from "./Pages/users/CreateClients";
 import ClientProfile from "./Pages/users/ClientProfile";
-import ViewSysUsers from "./Pages/users/ViewSysUsers";
+
 import LoanProfile from "./Pages/loans/LoanProfile";
+import LoanSlip from "./Components/loans/LoanSlip";
 
 function App(props) {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -75,8 +76,7 @@ function App(props) {
 
               <Route path="/Loans/types" element={<LoanTYpes />} />
               <Route path="/users/register" element={<CreateUser />} />
-              <Route path="/users/View" element={<ViewSysUsers />} />
-              {/* <Route path="/clients/Add" element={<Clients />} /> */}
+
               <Route path="/applications/add" element={<LoanApplication />} />
               <Route
                 path="/Applications/View"
@@ -88,11 +88,13 @@ function App(props) {
               <Route path="/clients/view" element={<ViewAllClients />} />
               <Route path="/clients/Add" element={<CreateClients />} />
               <Route path="/profile/:id" element={<ClientProfile />} />
+
               <Route path="/loan_profile/:id" element={<LoanProfile />} />
               <Route
                 path="/Loans/pending_installments"
                 element={<PendingInstallments />}
               />
+              <Route path="/slip" element={<LoanSlip />} />
             </>
           )}
         </Switch>

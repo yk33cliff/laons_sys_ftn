@@ -521,7 +521,7 @@ function ClientProfile(props) {
                                                   style={{fontSize: "16px"}}
                                                   className="text-white"
                                                   href={`/loan_profile/${loan.id}`}>
-                                                  View Loan
+                                                  View statment
                                                 </a>
                                               </span>
                                             </td>

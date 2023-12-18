@@ -32,22 +32,23 @@ const Sidebar = (props) => {
                   src="../assets/img/brand/logo-light.png"
                   className="header-brand-img deskhrefp-logo"
                   alt="logo"
+                  style={{height: "50px", width: "200px"}}
                 />
-                <img
+                {/* <img
                   src="../assets/img/brand/icon-light.png"
                   className="header-brand-img icon-logo"
                   alt="logo"
-                />
-                <img
+                /> */}
+                {/* <img
                   src="../assets/img/brand/logo.png"
                   className="header-brand-img deskhrefp-logo theme-logo"
                   alt="logo"
-                />
-                <img
+                /> */}
+                {/* <img
                   src="../assets/img/brand/icon.png"
                   className="header-brand-img icon-logo theme-logo"
                   alt="logo"
-                />
+                /> */}
               </a>
             </div>
             <div className="main-sidebar-body main-body-1">
@@ -55,9 +56,6 @@ const Sidebar = (props) => {
                 <i className="fe fe-chevron-left" />
               </div>
               <ul className="menu-nav nav">
-                <li className="nav-header">
-                  <span className="nav-label"> Dashboard</span>
-                </li>
                 <li className="nav-item">
                   <a className="nav-link" href="/Dashboard/home">
                     <span className="shape1" />
@@ -95,11 +93,6 @@ const Sidebar = (props) => {
                     <li className="nav-sub-item">
                       <a className="nav-sub-link" href="/Applications/View">
                         View Applications
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/loans/approve">
-                        Approve laons
                       </a>
                     </li>
                   </ul>
@@ -146,17 +139,19 @@ const Sidebar = (props) => {
                   </a>
                   <ul className="nav-sub">
                     <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/clients/Add">
+                      <a
+                        className="nav-sub-link"
+                        href="/view/Application_fees_payments">
                         Application fees payments
                       </a>
                     </li>
                     <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/clients/Add">
+                      <a className="nav-sub-link" href="/loan_payments/view">
                         Loan payments
                       </a>
                     </li>
                     <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/clients/view">
+                      <a className="nav-sub-link" href="/fines/view">
                         fine payments
                       </a>
                     </li>
@@ -167,7 +162,7 @@ const Sidebar = (props) => {
                     <span className="shape1" />
                     <span className="shape2" />
                     {/* <i class="fa-sharp fa-solid fa-cow"></i> */}
-                    <i className="ti-write sidemenu-icon menu-icon" />
+                    <i className="ti-user sidemenu-icon menu-icon" />
                     <span className="sidemenu-label">
                       Clients
                       <span className="sidemenu-label2"></span>
@@ -187,30 +182,13 @@ const Sidebar = (props) => {
                     </li>
                   </ul>
                 </li>
-                <li className="nav-item" onClick={hrefggleDropdown}>
-                  <a className="nav-link with-sub" href="javascript:void(0)">
+                <li className="nav-item">
+                  <a className="nav-link" href="/users/register">
                     <span className="shape1" />
                     <span className="shape2" />
-                    {/* <i class="fa-sharp fa-solid fa-cow"></i> */}
-                    <i className="ti-write sidemenu-icon menu-icon" />
-                    <span className="sidemenu-label">
-                      System
-                      <span className="sidemenu-label2">User</span>
-                    </span>
-                    <i className="angle fe fe-chevron-right" />
+                    <i className="ti-user sidemenu-icon menu-icon" />
+                    <span className="sidemenu-label"> system users</span>
                   </a>
-                  <ul className="nav-sub">
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/users/register">
-                        Register system users
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/users/View">
-                        View sytem users
-                      </a>
-                    </li>
-                  </ul>
                 </li>
               </ul>
               <div className="slide-right" id="slide-right">
