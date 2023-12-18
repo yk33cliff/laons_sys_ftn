@@ -10,6 +10,7 @@ import {ThemeProvider} from "./ThemeContext";
 
 import {UserProvider} from "./UserContext";
 import {LoanTypesProvider} from "./LoanTypesContext";
+import {LoansProvider} from "./LoansContext";
 
 const SuperProvider = (props) => {
   return (
@@ -20,11 +21,13 @@ const SuperProvider = (props) => {
           <RoleProvider>
             <LoanTypesProvider>
               <ClientProvider>
-                {/* <IssueLogProvider> */}
+                <LoansProvider>
+                  {/* <IssueLogProvider> */}
 
-                {props.children}
+                  {props.children}
 
-                {/* </IssueLogProvider> */}
+                  {/* </IssueLogProvider> */}
+                </LoansProvider>
               </ClientProvider>
             </LoanTypesProvider>
           </RoleProvider>

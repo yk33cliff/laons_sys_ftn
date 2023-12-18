@@ -1,9 +1,15 @@
 import React, {useContext} from "react";
 import AppContainer from "../Structure/AppContainer";
 import UserContext from "../../Context/UserContext";
+import useStateCallback from "../../util/customHooks/useStateCallback";
+import UserProfile from "../../Pages/users/UserProfile";
 
 function ViewUsers() {
   const {userList} = useContext(UserContext);
+  const [modal, setModal] = useStateCallback(false);
+  const handle_model = (id) => {
+    setModal(false, () => setModal(<UserProfile isOpen={false} id={id} />));
+  };
   // console.log(userList);
   return (
     <div>
@@ -20,6 +26,7 @@ function ViewUsers() {
                 <div className="table-responsive">
                   <table className="table card-table text-nowrap table-bordered border-top">
                     <thead>
+                      {modal}
                       <tr>
                         {/* contact : "256701234567" email : */}
                         {/* "busikuwyclif@gmail.com" id : "1" is_active : "1" */}
@@ -56,9 +63,9 @@ function ViewUsers() {
                             <td>{user.name}</td>
                             <td>{user.username}</td>
                             <td>{user.role_id.role_name}</td>
+                            <td>{user.contact}</td>
                             <td>{user.email}</td>
                             <td>{user.nin}</td>
-                            <td>{user.username}</td>
                             <td>{user.location}</td>
                             <td>
                               {user.is_active === "1" ? (
@@ -74,7 +81,8 @@ function ViewUsers() {
                             <td>
                               <span className="badge bg-success-light bg-pill">
                                 <a
-                                  href={`/user/${user.id}`}
+                                  onClick={() => handle_model(user)}
+                                  href="#"
                                   classname="btn text-white badge  bg-warning-light bg-pill">
                                   profile
                                 </a>

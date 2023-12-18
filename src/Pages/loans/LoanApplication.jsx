@@ -9,7 +9,6 @@ import toast, {Toaster} from "react-hot-toast";
 
 function LoanApplication() {
   const {LoanTypes} = useContext(LoanTypesContext);
-  // console.log(LoanTypes);
   const {clientList} = useContext(ClientContext);
 
   const role_id = functions.role_user();
@@ -19,8 +18,8 @@ function LoanApplication() {
   const [client, setClient] = useState("");
   const [amount, setAmount] = useState("");
   const [paymentPeriod, setPaymentPeriod] = useState("");
-  const [interestRate, setInterestRate] = useState(false);
-  const [processingFees, setProcessingFees] = useState(false);
+  const [interestRate, setInterestRate] = useState("");
+  const [processingFees, setProcessingFees] = useState("");
   const [dateRequested, setDateRequested] = useState("");
 
   const handler = async (e) => {
@@ -44,8 +43,8 @@ function LoanApplication() {
       };
       const server_response = await ajaxLaons.CreateLoanApplication(formData);
       if (server_response.status === "OK") {
+        resetForm();
         toast.success(server_response.message);
-        // resetForm();
       } else {
         toast.error(server_response.message);
       }
@@ -62,13 +61,12 @@ function LoanApplication() {
 
   const get_loan_type_variables = () => {
     if (loan.length > 0) {
-      setInterestRate(false);
-      setProcessingFees(false);
+      setInterestRate("");
+      setProcessingFees("");
 
       if (Array.isArray(LoanTypes)) {
         LoanTypes.forEach((value) => {
           if (value.id === loan) {
-            console.log(value);
             setInterestRate(value.interest_rate);
             setProcessingFees(value.processing_fee_rate);
           }
@@ -76,7 +74,15 @@ function LoanApplication() {
       }
     }
   };
-
+  const resetForm = () => {
+    setClient("");
+    setLoan("");
+    setAmount("");
+    setPaymentPeriod("");
+    setInterestRate("");
+    setProcessingFees("");
+    setDateRequested("");
+  };
   return (
     <div>
       <AppContainer title="Add loan application">
@@ -101,9 +107,7 @@ function LoanApplication() {
                             getOptionLabel={(option) => option.name}
                             getOptionValue={(option) => option.id}
                             isSearchable
-                            options={
-                              Array.isArray(clientList) ? clientList : []
-                            }
+                            options={clientList}
                             value={
                               clientList &&
                               Array.isArray(clientList) &&
@@ -120,7 +124,7 @@ function LoanApplication() {
                             getOptionLabel={(option) => option.name}
                             getOptionValue={(option) => option.id}
                             isSearchable
-                            options={Array.isArray(LoanTypes) ? LoanTypes : []}
+                            options={LoanTypes}
                             value={
                               LoanTypes &&
                               Array.isArray(LoanTypes) &&
@@ -150,7 +154,7 @@ function LoanApplication() {
                             type="text"
                             className="form-control"
                             name="paymentPeriod"
-                            placeholder="Date of application"
+                            placeholder="loan duration"
                             value={paymentPeriod}
                             onChange={(e) => setPaymentPeriod(e.target.value)}
                           />
@@ -176,7 +180,7 @@ function LoanApplication() {
                               />
                             </div>
                           </div>
-                          {interestRate && (
+                          {loan && (
                             <div className="col-md-6">
                               <div className="form-group">
                                 <label className="mg-b-10">Interest Rate</label>
@@ -193,7 +197,7 @@ function LoanApplication() {
                               </div>
                             </div>
                           )}
-                          {processingFees && (
+                          {loan && (
                             <div className="col-md-6">
                               <div className="form-group">
                                 <label className="mg-b-10">

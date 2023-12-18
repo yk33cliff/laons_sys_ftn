@@ -2,15 +2,27 @@ import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLock} from "@fortawesome/free-solid-svg-icons";
+import functions from "../../util/functions";
+import useStateCallback from "../../util/customHooks/useStateCallback";
+import ChangePassword from "../Users/ChangePassword";
+import {Modal} from "bootstrap";
+import dictionary from "../../util/dictionary";
 
 export default function Header() {
+  const [modal, setModal] = useStateCallback(false);
   const nav = useNavigate();
   const onLogout = () => {
     localStorage.removeItem("logs@user");
     nav("/");
     window.location.reload();
   };
+  const user = functions.sessionGuard();
 
+  const handle_model = () => {
+    setModal(false, () =>
+      setModal(<ChangePassword isOpen={false} id={user} set />)
+    );
+  };
   return (
     <div className="main-header side-header sticky">
       <div className="main-container container-fluid">
@@ -21,7 +33,8 @@ export default function Header() {
             id="mainSidebarToggle">
             <span />
           </a>
-          <div className="hor-logo">
+          {modal}
+          {/* <div className="hor-logo">
             <a className="main-logo" href="/Dashboard/home">
               <img
                 src="../assets/img/brand/logo.png"
@@ -34,7 +47,7 @@ export default function Header() {
                 alt="logo"
               />
             </a>
-          </div>
+          </div> */}
         </div>
         <div className="main-header-center">
           <div className="responsive-logo">
@@ -46,11 +59,11 @@ export default function Header() {
               />
             </a>
             <a href="/Dashboard/home">
-              <img
+              {/* <img
                 src="../assets/img/brand/logo-light.png"
                 className="mobile-logo-dark"
                 alt="logo"
-              />
+              /> */}
             </a>
           </div>
           <div className="input-group">
@@ -99,24 +112,10 @@ export default function Header() {
                   <div className="dropdown-menu">
                     <div className="main-form-search p-2">
                       <div className="input-group">
-                        <div className="input-group-btn search-panel">
-                          <select className="form-control select2">
-                            <option label="All categories" />
-                            <option value="IT Projects">IT Projects</option>
-                            <option value="Business Case">Business Case</option>
-                            <option value="Microsoft Project">
-                              Microsoft Project
-                            </option>
-                            <option value="Risk Management">
-                              Risk Management
-                            </option>
-                            <option value="Team Building">Team Building</option>
-                          </select>
-                        </div>
                         <input
                           type="search"
                           className="form-control"
-                          placeholder="Search for anything..."
+                          placeholder="Search customer..."
                         />
                         <button className="btn search-btn">
                           <svg
@@ -162,39 +161,34 @@ export default function Header() {
                 {/* Full screen */}
 
                 {/* Messages */}
-                <div className="main-header-notification">
-                  <a className="nav-link icon" onClick={onLogout}>
-                    logout
-                    <span className="badge bg-success nav-link-badge">
-                      <FontAwesomeIcon
-                        icon={faLock}
-                        style={{color: "green"}}
-                        beat
-                      />
-                    </span>
-                  </a>
-                </div>
+
                 {/* Messages */}
                 {/* Profile */}
                 <div className="dropdown main-profile-menu">
                   <a className="d-flex" href="javascript:void(0);">
                     <span className="main-img-user">
-                      <img alt="avatar" src="../assets/img/users/1.jpg" />
+                      <img
+                        alt="avatar"
+                        src={dictionary.apiHost + "img/avatar.png"}
+                      />
                     </span>
                   </a>
                   <div className="dropdown-menu">
                     <div className="header-navheading">
-                      <h6 className="main-notification-title">Sonia Taylor</h6>
-                      <p className="main-notification-text">Web Designer</p>
+                      <h6 className="main-notification-title">sys user</h6>
+                      <p className="main-notification-text"> role me</p>
                     </div>
                     <a className="dropdown-item border-top" href="profile.html">
                       <i className="fe fe-user" /> My Profile
                     </a>
-                    <a className="dropdown-item" href="profile.html">
-                      <i className="fe fe-edit" /> Edit Profile
+                    <a
+                      className="dropdown-item"
+                      href="#"
+                      onClick={handle_model}>
+                      <i className="fe fe-edit" /> Edit password
                     </a>
 
-                    <a className="dropdown-item" href="signin.html">
+                    <a className="dropdown-item" onClick={onLogout} href="#">
                       <i className="fe fe-power" /> Sign Out
                     </a>
                   </div>
