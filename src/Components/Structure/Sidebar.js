@@ -26,13 +26,22 @@ const Sidebar = (props) => {
       <div className="sticky">
         <div className="main-menu main-sidebar main-sidebar-sticky side-menu">
           <div className="main-sidebar-header main-container-1 active">
-            <div className="sidemenu-logo">
-              <a className="main-logo" href="/Dashboard/home">
+            <div
+              className="sidemenu-logo "
+              style={{borderBottomRightRadius: "18px"}}>
+              <a
+                className="main-logo"
+                href="/Dashboard/home"
+                style={{borderBottomRightRadius: "25px"}}>
                 <img
                   src="../assets/img/brand/logo-light.png"
                   className="header-brand-img deskhrefp-logo"
                   alt="logo"
-                  style={{height: "50px", width: "200px"}}
+                  style={{
+                    height: "60px",
+                    width: "300px",
+                    borderRadius: "20px",
+                  }}
                 />
                 {/* <img
                   src="../assets/img/brand/icon-light.png"

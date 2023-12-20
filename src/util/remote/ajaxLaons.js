@@ -48,4 +48,8 @@ export default {
     let response = await apiCall("get/loans/guarantors", data);
     return response;
   },
+  async AddLoanRepayment(data) {
+    let response = await apiCall("add/loans/repayments", data);
+    return response;
+  },
 };

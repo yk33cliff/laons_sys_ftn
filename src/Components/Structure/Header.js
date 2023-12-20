@@ -67,20 +67,10 @@ export default function Header() {
             </a>
           </div>
           <div className="input-group">
-            <div className="input-group-btn search-panel">
-              <select className="form-control select2">
-                <option label="All categories" />
-                <option value="IT Projects">IT Projects</option>
-                <option value="Business Case">Business Case</option>
-                <option value="Microsoft Project">Microsoft Project</option>
-                <option value="Risk Management">Risk Management</option>
-                <option value="Team Building">Team Building</option>
-              </select>
-            </div>
             <input
               type="search"
               className="form-control rounded-0"
-              placeholder="Search for anything..."
+              placeholder="Search client..."
             />
             <button className="btn search-btn">
               <i className="fe fe-search" />
