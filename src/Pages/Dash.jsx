@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import AppContainer from "../Components/Structure/AppContainer";
 
@@ -8,7 +8,122 @@ import {
   faBook,
   faBox,
 } from "@fortawesome/free-solid-svg-icons";
+import ajaxDashboard from "../util/remote/ajaxDashboard";
+import functions from "../util/functions";
 function Dash() {
+  const [user, setUser] = useState("");
+  const [pool, setPool] = useState("");
+  const [clients, setClients] = useState("");
+  const [fines, setFines] = useState("");
+  const [interest, setInterest] = useState("");
+  const [pending, setpending] = useState("");
+  const [loaned, setLoaned] = useState("");
+
+  const [active, SetACtive] = useState("");
+
+  useEffect(() => {
+    getTotal_user();
+    get_business_pull_balance();
+    get_total_clients();
+    get_total_fine();
+    get_earned_interest();
+    get_no_pendind_Approvals();
+    get_total_loaned();
+    active_loans_number();
+  }, []);
+  const id = functions.sessionGuard();
+
+  const getTotal_user = async () => {
+    const server_response = await ajaxDashboard.fetchTotalUser();
+    //   console.log(server_response)
+    if (server_response.status === "OK") {
+      setUser(server_response.details);
+    } else {
+      //communicate error
+      setUser("");
+    }
+  };
+  const get_business_pull_balance = async () => {
+    const server_response = await ajaxDashboard.fetch_pull_balance();
+    //   console.log(server_response)
+    if (server_response.status === "OK") {
+      setPool(server_response.details);
+    } else {
+      //communicate error
+      setPool("");
+    }
+  };
+  const get_total_clients = async () => {
+    const server_response = await ajaxDashboard.fetch_total_clients();
+    //   console.log(server_response)
+    if (server_response.status === "OK") {
+      setClients(server_response.details);
+    } else {
+      //communicate error
+      setPool("");
+    }
+  };
+  const get_total_fine = async () => {
+    const server_response = await ajaxDashboard.fetchFinesTotal();
+    //   console.log(server_response)
+    if (server_response.status === "OK") {
+      setFines(server_response.details);
+    } else {
+      //communicate error
+      setPool("");
+    }
+  };
+  const get_earned_interest = async () => {
+    const server_response = await ajaxDashboard.fetch_interest_earned();
+    //   console.log(server_response)
+    if (server_response.status === "OK") {
+      setInterest(server_response.details);
+    } else {
+      //communicate error
+      setInterest("");
+    }
+  };
+  const get_no_pendind_Approvals = async () => {
+    var data = {id: id};
+    const server_response = await ajaxDashboard.fetchNo_pendingApprove(data);
+    //   console.log(server_response)
+    if (server_response.status === "OK") {
+      setpending(server_response.details);
+    } else {
+      //communicate error
+      setpending("");
+    }
+  };
+  const get_total_loaned = async () => {
+    const server_response = await ajaxDashboard.fetchSumLoaned();
+    //   console.log(server_response)
+    if (server_response.status === "OK") {
+      setLoaned(server_response.details);
+    } else {
+      //communicate error
+      setLoaned("");
+    }
+  };
+  const active_loans_number = async () => {
+    const server_response = await ajaxDashboard.fetchNumber_activeLoans();
+    //   console.log(server_response)
+    if (server_response.status === "OK") {
+      SetACtive(server_response.details);
+    } else {
+      //communicate error
+      SetACtive("");
+    }
+  };
+  // const get_business_pull_balance = async () => {
+  //   const server_response = await ajaxDashboard.fetch_pull_balance();
+  //   //   console.log(server_response)
+  //   if (server_response.status === "OK") {
+  //     setPool(server_response.details);
+  //   } else {
+  //     //communicate error
+  //     setPool("");
+  //   }
+  // };
   return (
     <div>
       <AppContainer title="Dashboard">
@@ -29,7 +144,7 @@ function Dash() {
                     </div>
                     <div className="card-item-title mb-2">
                       <label className="main-content-label tx-13 font-weight-bold mb-1">
-                        Business Pull balance
+                        Business pool balance
                       </label>
                       <span className="d-block tx-12 mb-0 text-muted">
                         money avilable for lending
@@ -37,7 +152,9 @@ function Dash() {
                     </div>
                     <div className="card-item-body">
                       <div className="card-item-stat">
-                        <p className="font-weight-bold">Ugshs:8,000,000,5000</p>
+                        <p className="font-weight-bold">
+                          Ugshs:{pool > 0 ? pool : 0}
+                        </p>
                         <br />
                       </div>
                     </div>
@@ -64,7 +181,9 @@ function Dash() {
                     </div>
                     <div className="card-item-body">
                       <div className="card-item-stat">
-                        <h4 className="font-weight-bold">50</h4>
+                        <h4 className="font-weight-bold">
+                          {user === 0 ? 0 : user.total_p}
+                        </h4>
                         <small>
                           <b className="text-success">active user</b>
                         </small>
@@ -96,7 +215,9 @@ function Dash() {
                     </div>
                     <div className="card-item-body">
                       <div className="card-item-stat">
-                        <h4 className="font-weight-bold">10000</h4>
+                        <h4 className="font-weight-bold">
+                          {clients === 0 ? 0 : clients.total_p}
+                        </h4>
                         <small>
                           <span className="d-block tx-12 mb-0 text-muted">
                             <a
@@ -135,7 +256,10 @@ function Dash() {
                     </div>
                     <div className="card-item-body">
                       <div className="card-item-stat">
-                        <h4 className="font-weight-bold">50</h4>
+                        <h4 className="font-weight-bold">
+                          {" "}
+                          {pending === 0 ? 0 : pending}
+                        </h4>
 
                         <h3 className="d-block tx-12 mb-0 text-muted">
                           <a
@@ -172,7 +296,11 @@ function Dash() {
                     </div>
                     <div className="card-item-body">
                       <div className="card-item-stat">
-                        <h4 className="font-weight-bold">20 (Loan)</h4>
+                        <h4 className="font-weight-bold">
+                          {" "}
+                          {active === 0 ? 0 : active}
+                          {/* (Loan) */}
+                        </h4>
                         <br />
                       </div>
                     </div>
@@ -199,7 +327,9 @@ function Dash() {
                     </div>
                     <div className="card-item-body">
                       <div className="card-item-stat">
-                        <h4 className="font-weight-bold">15</h4>
+                        <p className="font-weight-bold">
+                          Ugshs:: <span> {loaned === 0 ? 0 : loaned}</span>
+                        </p>
                         <h3 className="d-block tx-12 mb-0 text-muted">
                           <a
                             className="badge bg-success-light bg-pill p-1"
@@ -235,7 +365,9 @@ function Dash() {
                     </div>
                     <div className="card-item-body">
                       <div className="card-item-stat">
-                        <h4 className="font-weight-bold">5656</h4>
+                        <h4 className="font-weight-bold">
+                          {interest === 0 ? "p" : interest}
+                        </h4>
                         <br />
                       </div>
                     </div>

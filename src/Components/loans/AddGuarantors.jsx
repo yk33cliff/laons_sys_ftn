@@ -58,7 +58,7 @@ function AddGuarantors(props) {
           type="button"
           className={`btn ripple btn-success`}
           onClick={handler}>
-          Add security
+          Add Guarantor
         </button>
       </>
     );

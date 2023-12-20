@@ -1,10 +1,18 @@
 import React, {useContext} from "react";
 import AppContainer from "../Structure/AppContainer";
 import LoansContext from "../../Context/LoansContext";
+import useStateCallback from "../../util/customHooks/useStateCallback";
+import LoanSlip from "./LoanSlip";
 
 function ActiveLoans() {
   const {activeLoans} = useContext(LoansContext);
   // console.log(activeLoans);
+  const [modal, setModal] = useStateCallback(false);
+
+  const handleModal2 = (e, item) => {
+    setModal(false, () => setModal(<LoanSlip isOpen={true} />));
+  };
+
   return (
     <div>
       <AppContainer title="Active loans">
@@ -15,6 +23,7 @@ function ActiveLoans() {
               <label className="main-content-label mb-2 pt-1">
                 Active /currently runnning loans
               </label>
+              {modal}
               <div className="card-body">
                 <div className="table-responsive">
                   <table className="table card-table text-nowrap table-bordered border-top">
@@ -33,6 +42,7 @@ function ActiveLoans() {
                           duration{" "}
                         </th>
                         <th>Deadline date </th>
+                        <th>View loan slip</th>
                         <th>
                           View loan <br /> statment
                         </th>
@@ -54,9 +64,21 @@ function ActiveLoans() {
                             <td>{loan.date_activated}</td>
                             <td>{loan.deadline}</td>
                             <td>
+                              <span className="badge  text-white bg-success bg-pill">
+                                <a
+                                  href="#"
+                                  // target="blank"
+                                  style={{fontSize: "14px"}}
+                                  onClick={() => handleModal2()}
+                                  className="text-white">
+                                  View slip
+                                </a>
+                              </span>
+                            </td>
+                            <td>
                               <span className="badge  text-white bg-primary bg-pill">
                                 <a
-                                  style={{fontSize: "16px"}}
+                                  style={{fontSize: "14px"}}
                                   className="text-white"
                                   href={`/loan_profile/${loan.id}`}>
                                   View statment

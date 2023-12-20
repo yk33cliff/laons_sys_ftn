@@ -1,9 +1,12 @@
 import React from "react";
-// import {useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import AppContainer from "../../Components/Structure/AppContainer";
+import AddLoanpayment from "../../Components/loans/AddLoanpayment";
+import useStateCallback from "../../util/customHooks/useStateCallback";
 
 function LoanProfile() {
-  //   const {id} = useParams();
+  const {id} = useParams();
+  // console.log(id);
   const Print = () => {
     let printContents = document.getElementById("printablediv").innerHTML;
     let originalContents = document.body.innerHTML;
@@ -11,20 +14,49 @@ function LoanProfile() {
     window.print();
     document.body.innerHTML = originalContents;
   };
+  const [modal, setModal] = useStateCallback(false);
+
+  const handleModal2 = (e, item) => {
+    setModal(false, () => setModal(<AddLoanpayment isOpen={true} id={id} />));
+  };
   return (
     <div>
       <AppContainer>
+        <div className="row row-sm">
+          <div className="col-lg-12 col-md-12 mx-10">
+            <div
+              style={{
+                float: "right",
+                marginBottom: "20px",
+              }}
+              className="col-lg-2 col-md-2">
+              <div className="form-group mb-0">
+                <a
+                  href="#"
+                  onClick={() => handleModal2()}
+                  className="btn col-lg -12 rounded-50 col-md-12 btn-primary">
+                  + add payment
+                </a>
+              </div>
+            </div>
+          </div>
+          <br />
+        </div>
         <div id="printablediv" style={{marginBottom: "20px", padding: "20px"}}>
           {/* Row */}
           <div className="row row-sm">
             <div className="card custom-card  col-lg-12 col-md-12 col-xl-12 pt-4">
               <div className="row">
+                {modal}
                 <div className="text-center col-lg-12 col-md-12 col-xl-12 pt-4 ">
-                  <h3>WISE LENDERS CO. LIMITED</h3>
+                  <h3> SERENITY MICROFINANCE LIMITED</h3>
                   <h6>
-                    EMAIL:{" "}
-                    <span style={{color: "blue"}}> wiselender@gmail.com</span>
+                    EMAIL:
+                    <span style={{color: "blue"}}>serenitymicro@gmail.com</span>
                   </h6>
+                  <p className="text-center">
+                    <u> clients' Loan statement</u>
+                  </p>
                 </div>
               </div>
 

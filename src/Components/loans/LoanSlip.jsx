@@ -8,6 +8,7 @@ function LoanSlip() {
     document.body.innerHTML = printContents;
 
     window.print();
+    window.location.reload();
     document.body.innerHTML = originalContents;
   };
 
@@ -15,7 +16,7 @@ function LoanSlip() {
     return (
       <>
         <button
-          className="btn ripple btn-dark"
+          classname="btn ripple btn-dark"
           type="button"
           onClick={controls.close}>
           Close
@@ -53,23 +54,27 @@ function LoanSlip() {
           <div className="row">
             <div className="col-12 ">
               <div className="row">
-                <div className="d-flex justify-content-between">
-                  <img
+                <div className="d-flex justify-content-evenly">
+                  {/* <img
                     src="../assets/img/brand/logo-light.png"
                     classname="justify-content-center header-brand-img deskhrefp-logo"
                     alt="logo"
-                    style={{height: "140px", width: "300px"}}
-                  />
-                </div>
-                <div className="">
-                  <h3 className="text-center">SERENITY MICROFINANCE LIMITED</h3>
-                  <h6 className="text-center">
-                    email:{" "}
-                    <span style={{color: "red"}}>
-                      {" "}
-                      serenitymicro@gmail.com{" "}
-                    </span>
-                  </h6>
+                    style={{height: "140px", width: "250px"}}
+                  /> */}
+                  <div className="">
+                    <h3 className="text-center">
+                      SERENITY MICROFINANCE LIMITED
+                    </h3>
+                    <h6 className="text-center">
+                      email:
+                      <span style={{color: "red"}}>
+                        serenitymicro@gmail.com
+                      </span>
+                    </h6>
+                    <p className="text-center">
+                      <u> clients' Loan slip</u>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -105,7 +110,188 @@ function LoanSlip() {
           </div>
           <div className="row">
             <div className="card">
-              <div className="col-lg-12"></div>
+              <div className="col-lg-12">
+                <div className="col-12">
+                  <div className="card custom-card card-dashboard-calendar pb-0">
+                    <label className="main-content-label mb-2 pt-1">
+                      loan details
+                    </label>
+                    <div className="card-body">
+                      <div className="row">
+                        <div className="col-6">
+                          <div className="table-responsive">
+                            <table className="table card-table text-nowrap table-bordered border-top">
+                              <tbody>
+                                <tr>
+                                  <td>Loan type</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                                <tr>
+                                  <td>Loan Amount</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+
+                                <tr>
+                                  <td>Interest Rate</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                                <tr>
+                                  <td>Processing Fees</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                                <tr>
+                                  <td>Fine Rate</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                                <tr>
+                                  <td>Laon duration</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>{" "}
+                        <div className="col-6">
+                          <div className="table-responsive">
+                            <table className="table card-table text-nowrap table-bordered border-top">
+                              <tbody>
+                                <tr>
+                                  <td>date requested </td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+
+                                <tr>
+                                  <td> date of laon start</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                                <tr>
+                                  <td>deadline</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                                <tr>
+                                  <td>Number of guarantors</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                                <tr>
+                                  <td>Number of securities</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="card">
+              <div className="col-lg-12">
+                <div className="col-12">
+                  <div className="card custom-card card-dashboard-calendar pb-0">
+                    <label className="main-content-label mb-2 pt-1">
+                      Loan Payments shedule
+                    </label>
+                    <div className="card-body">
+                      <div className="row">
+                        <div className="col-12">
+                          <div className="table-responsive">
+                            <table className="table card-table text-nowrap table-bordered border-top">
+                              <thead>
+                                <tr>
+                                  <th>date</th>
+                                  <th>amount</th>
+                                  <th>balance</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Loaned Amount</td>
+                                  <td className="text-success">Buy</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+
+                                <tr>
+                                  <td> Loan Interest </td>
+                                  <td className="text-success">Buy</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                                <tr>
+                                  <td>Processing Fees</td>
+                                  <td className="text-success">Buy</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                                <tr>
+                                  <td>Possible</td>
+                                  <td className="text-success">Buy</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="card">
+              <div className="col-lg-12">
+                <div className="col-12">
+                  <div className="card custom-card card-dashboard-calendar pb-0">
+                    <label className="main-content-label mb-2 pt-1">
+                      loan guarantors
+                    </label>
+                    <div className="card-body">
+                      <div className="row">
+                        <div className="col-12">
+                          <div className="table-responsive">
+                            <table className="table card-table text-nowrap table-bordered border-top">
+                              <thead>
+                                <tr>
+                                  <th>name</th>
+                                  <th>contact </th>
+                                  <th>Relationship</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Loaned Amount</td>
+                                  <td className="text-success">Buy</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+
+                                <tr>
+                                  <td> Loan Interest </td>
+                                  <td className="text-success">Buy</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                                <tr>
+                                  <td>Processing Fees</td>
+                                  <td className="text-success">Buy</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                                <tr>
+                                  <td>Possible</td>
+                                  <td className="text-success">Buy</td>
+                                  <td className="text-success">Buy</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
