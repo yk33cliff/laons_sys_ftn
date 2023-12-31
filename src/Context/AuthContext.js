@@ -10,12 +10,16 @@ export const AuthProvider = (props) => {
   const [userId, setUserId] = useState(functions.sessionGuard());
   const [permissionLists, setPermissionList] = useState([]);
   const [user, setUser] = useState(false);
-  const data = {id: userId};
-
+  // const data = {id: userId};
+  var data = {
+    user_id: userId,
+  };
   const getUserAccess = async () => {
     if (!userId) {
       return false;
     }
+    // console.log(userId);
+
     const server_response = await ajaxUser.getUserPermissionCodes(data);
 
     if (server_response.status === "OK") {

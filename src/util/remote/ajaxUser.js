@@ -20,8 +20,8 @@ export default {
     let response = await apiCall("user_create", data);
     return response;
   },
-  async fetchSingleUser(id) {
-    let response = await apiCall("user_single_user", id);
+  async fetchSingleUser(data) {
+    let response = await apiCall("user_single_user", data);
 
     return response;
   },
@@ -39,11 +39,7 @@ export default {
     return response;
   },
   // ==============================================================================
-  async getUserPermissionCodes(userId) {
-    let data = {
-      user_id: userId,
-    };
-
+  async getUserPermissionCodes(data) {
     let response = await apiCall("user/permission/codes", data);
     return response;
   },

@@ -1,27 +1,54 @@
-import React from "react";
-import {useParams} from "react-router-dom";
-import AppContainer from "../../Components/Structure/AppContainer";
+import React, {useEffect, useState} from "react";
+import SystemModal from "../Common/SystemModal";
+import toast from "react-hot-toast";
+
 import AddLoanpayment from "../../Components/loans/AddLoanpayment";
 import useStateCallback from "../../util/customHooks/useStateCallback";
 
-function LoanProfile() {
-  const {id} = useParams();
-  // console.log(id);
+function LoanStatement(props) {
+  const id = props.id;
   const Print = () => {
     let printContents = document.getElementById("printablediv").innerHTML;
     let originalContents = document.body.innerHTML;
     document.body.innerHTML = printContents;
+
     window.print();
+    window.location.reload();
     document.body.innerHTML = originalContents;
   };
+
   const [modal, setModal] = useStateCallback(false);
 
   const handleModal2 = (e, item) => {
     setModal(false, () => setModal(<AddLoanpayment isOpen={true} id={id} />));
   };
+
+  const RenderFooter = (controls) => {
+    return (
+      <>
+        <button
+          classname="btn ripple btn-dark"
+          type="button"
+          onClick={controls.close}>
+          Close
+        </button>
+        <button
+          type="button"
+          className={`btn ripple btn-primary`}
+          onClick={Print}>
+          Print
+        </button>
+      </>
+    );
+  };
+  // console.log(Loaned);
   return (
     <div>
-      <AppContainer>
+      <SystemModal
+        title="Loan Statement"
+        id="model-new-pass"
+        size="xl"
+        footer={RenderFooter}>
         <div className="row row-sm">
           <div className="col-lg-12 col-md-12 mx-10">
             <div
@@ -31,18 +58,33 @@ function LoanProfile() {
               }}
               className="col-lg-2 col-md-2">
               <div className="form-group mb-0">
-                <a
-                  href="#"
+                <button
+                  type="button"
                   onClick={() => handleModal2()}
-                  className="btn col-lg -12 rounded-50 col-md-12 btn-primary">
+                  className="btn col-lg -12 rounded-50 col-md-12 btn-warning">
                   + add payment
-                </a>
+                </button>
               </div>
             </div>
           </div>
           <br />
         </div>
-        <div id="printablediv" style={{marginBottom: "20px", padding: "20px"}}>
+        <div
+          id="printablediv"
+          className="mb-4 "
+          style={{
+            marginBottom: "20px",
+            padding: "20px",
+            // backgroundImage: "url()",
+            "@media print": {
+              // Media query styles for print
+              margin: "auto",
+              padding: "20px",
+              display: "block",
+              alignItems: "center",
+              justifyContent: "space-between",
+            },
+          }}>
           {/* Row */}
           <div className="row row-sm">
             <div className="card custom-card  col-lg-12 col-md-12 col-xl-12 pt-4">
@@ -250,23 +292,9 @@ function LoanProfile() {
             </div>
           </div>
         </div>
-
-        {/* End Row */}
-
-        {/* End Row */}
-        <div className="row row-sm">
-          <div className="col-lg-12 col-md-12 col-xl-12 ">
-            <button
-              style={{justifyContent: "center"}}
-              onClick={Print}
-              className="badge bg-success-light col-1 bg-pill">
-              print
-            </button>
-          </div>
-        </div>
-      </AppContainer>
+      </SystemModal>
     </div>
   );
 }
 
-export default LoanProfile;
+export default LoanStatement;

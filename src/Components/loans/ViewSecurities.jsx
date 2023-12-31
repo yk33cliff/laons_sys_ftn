@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from "react";
 import SystemModal from "../Common/SystemModal";
 import toast, {Toaster} from "react-hot-toast";
+
 import ajaxLaons from "../../util/remote/ajaxLaons";
-import functions from "../../util/functions";
 import useStateCallback from "../../util/customHooks/useStateCallback";
 import ImageModal from "./ImageModal";
-function ApproveLoan(props) {
-  const [guarantors, setGuarantors] = useState("");
+// import ajaxLaons from "../../util/remote/ajaxLaons";
+function ViewSecurities(props) {
   const [security, setSecurity] = useState("");
-  // console.log(security);
 
   useEffect(() => {
-    guarantor();
     securities();
   }, []);
   const [modal, setModal] = useStateCallback(false);
@@ -19,40 +17,14 @@ function ApproveLoan(props) {
     setModal(false, () => setModal(<ImageModal isOpen={true} image={image} />));
   };
 
-  const RenderFooter = (controls) => {
-    return (
-      <>
-        <button
-          classname="btn ripple btn-dark"
-          type="button"
-          // onClick={(guarantor(), securities(), setModal(false))}>
-          // onClick={(controls.close, window.location.reload)}>
-          onClick={controls.close}>
-          Close
-        </button>
+  const Print = () => {
+    let printContents = document.getElementById("printablediv").innerHTML;
+    let originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
 
-        <button
-          type="button"
-          className={`btn ripple btn-success`}
-          onClick={ApprovalLoan}>
-          Approve Loan
-        </button>
-      </>
-    );
-  };
-  const userId = functions.sessionGuard();
-  const guarantor = async () => {
-    var data = {
-      id: props.id,
-    };
-    const server_response = await ajaxLaons.ViewLoanGuarantors(data);
-
-    if (server_response.status === "OK") {
-      setGuarantors(server_response.details);
-    }
-    // else if (server_response.status === "Fail") {
-    // toast.error(server_response.message);
-    // }
+    window.print();
+    window.location.reload();
+    document.body.innerHTML = originalContents;
   };
   const securities = async () => {
     var data = {
@@ -67,79 +39,33 @@ function ApproveLoan(props) {
     //   toast.error(server_response.message);
     // }
   };
-
-  const ApprovalLoan = async () => {
-    let confirm = window.confirm("Are you sure approve this loan");
-    if (!confirm) {
-      return false;
-    }
-    var data = {id: props.id, status: props.status, user: userId};
-    const server_response = await ajaxLaons.approveLoans(data);
-    if (server_response.status === "OK") {
-      // props.fun();
-      window.location.reload();
-      toast.success(server_response.message);
-    } else if (server_response.status === "Fail") {
-      toast.error(server_response.message);
-    }
+  const RenderFooter = (controls) => {
+    return (
+      <>
+        <button
+          className="btn ripple btn-dark"
+          type="button"
+          onClick={controls.close}>
+          Close
+        </button>
+        <button className="btn ripple btn-dark" type="button" onClick={Print}>
+          print image
+        </button>
+      </>
+    );
   };
   return (
     <div>
       <SystemModal
-        title="Add loan Securities"
+        title="View Securities"
         id="model-update-cross"
         size="lg"
         footer={RenderFooter}>
         <Toaster />
-        <div className="mb-4">
-          <div className="row row-sm">
-            <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
-              <div className="card custom-card card-dashboard-calendar pb-0">
-                <label className="main-content-label mb-2 pt-1">
-                  customer's Guarantors
-                </label>
-                <div className="card-body">
-                  <div className="table-responsive">
-                    <table className="table card-table text-nowrap table-bordered border-top">
-                      <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Name </th>
-                          <th>contact</th>
-                          <th>Nin </th>
-                          <th>residence</th>
-                          <th>relationship</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {Array.isArray(guarantors) &&
-                          guarantors.map((person, key) => (
-                            <tr key={key}>
-                              <td>{key + 1}</td>
-                              <td>{person.name}</td>
-                              <td>{person.phone}</td>
-                              <td>{person.nin}</td>
-                              <td>{person.residence}</td>
-                              <td>{person.relationship}</td>
-                            </tr>
-                          ))}
-
-                        {!Array.isArray(guarantors) && (
-                          <tr>
-                            <td colSpan={6}>
-                              <p className="text-warning text-center">
-                                No guarantor (s) for the selected loan
-                              </p>
-                            </td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="" id="printablediv">
+          <div className="mb-4">
             {/* col end */}
+
             <div className="col-sm-12  col-md- col-lg-12 col-xl-12 mt-xl-4">
               <div className="card custom-card card-dashboard-calendar pb-0">
                 <label className="main-content-label mb-2 pt-1">
@@ -156,9 +82,9 @@ function ApproveLoan(props) {
                           <th>image 2 </th>
                           <th>Add By</th>
                         </tr>
+                        {modal}
                       </thead>
                       <tbody>
-                        {modal}
                         {Array.isArray(security) &&
                           security.map((security, key) => (
                             <tr key={key}>
@@ -216,4 +142,4 @@ function ApproveLoan(props) {
   );
 }
 
-export default ApproveLoan;
+export default ViewSecurities;

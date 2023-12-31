@@ -20,8 +20,8 @@ import ViewAllClients from "./Pages/users/ViewAllClients";
 import CreateClients from "./Pages/users/CreateClients";
 import ClientProfile from "./Pages/users/ClientProfile";
 
-import LoanProfile from "./Pages/loans/LoanProfile";
-import LoanSlip from "./Components/loans/LoanSlip";
+import ImageModal from "./Components/loans/ImageModal";
+import LoanManagement from "./Components/loans/LoanManagement";
 
 function App(props) {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -88,13 +88,13 @@ function App(props) {
               <Route path="/clients/view" element={<ViewAllClients />} />
               <Route path="/clients/Add" element={<CreateClients />} />
               <Route path="/profile/:id" element={<ClientProfile />} />
+              <Route path="/Loan_management/:id" element={<LoanManagement />} />
 
-              <Route path="/loan_profile/:id" element={<LoanProfile />} />
               <Route
                 path="/Loans/pending_installments"
                 element={<PendingInstallments />}
               />
-              <Route path="/slip" element={<LoanSlip />} />
+              <Route path="/slip" element={<ImageModal />} />
             </>
           )}
         </Switch>

@@ -2,34 +2,90 @@ import React, {useContext} from "react";
 import AppContainer from "../../Components/Structure/AppContainer";
 import LoansContext from "../../Context/LoansContext";
 import toast, {Toaster} from "react-hot-toast";
-// import ajaxLaons from "../../util/remote/ajaxLaons";
-// import functions from "../../util/functions";
 import useStateCallback from "../../util/customHooks/useStateCallback";
 import AddSecurities from "../../Components/loans/AddSecurities";
 import AddGuarantors from "../../Components/loans/AddGuarantors";
 import ApproveLoan from "../../Components/loans/ApproveLoan";
+import LoanSlip from "../../Components/loans/LoanSlip";
+import ViewSecurities from "../../Components/loans/ViewSecurities";
+import ViewGuarantors from "../../Components/loans/ViewGuarantors";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
+import LoanUpdating from "../../Components/loans/LoanUpdating";
+import ajaxLaons from "../../util/remote/ajaxLaons";
 
 function ViewLoanApplications() {
   const {LoansToApprove, getLoansToApprove} = useContext(LoansContext);
-  // console.log(LoansToApprove);
 
-  const [modal, setModal] = useStateCallback(false);
-  const [modal1, setModal1] = useStateCallback(false);
-  const [modal2, setModal2] = useStateCallback(false);
+  // loans updating
+  const [updating, setUpdating] = useStateCallback(false);
+  const handle_loan_updates = (id) => {
+    setUpdating(false, () =>
+      setUpdating(<LoanUpdating isOpen={true} id={id} />)
+    );
+  };
+  // delete loan
+  const delete_loan = async (id) => {
+    let confirm = window.confirm(
+      "Are you sure you want to delete this loan from these system"
+    );
+    if (confirm) {
+      var data = {
+        id: id,
+      };
+    }
+
+    const server_response = await ajaxLaons.deleteLoan(data);
+
+    if (server_response.status === "OK") {
+      toast.success(server_response.message);
+    } else {
+      toast.error(server_response.message);
+    }
+  };
+
   // for securities
-  const handle_mdodel = (id) => {
-    setModal(false, () => setModal(<AddSecurities isOpen={true} id={id} />));
+  const [AddSecurity, setAddSecurity] = useStateCallback(false);
+  const handle_AddSecurities = (id, customer) => {
+    setAddSecurity(false, () =>
+      setAddSecurity(
+        <AddSecurities isOpen={true} id={id} customer={customer} />
+      )
+    );
   };
   // for guarantors
-  const handle_mdodel1 = (id) => {
-    setModal1(false, () => setModal(<AddGuarantors isOpen={true} id={id} />));
+  const [AddGuarantor, setAddGuarantors] = useStateCallback(false);
+  const handle_AddGuarantors = (id) => {
+    setAddGuarantors(false, () =>
+      setAddGuarantors(<AddGuarantors isOpen={true} id={id} />)
+    );
   };
   // for Approve/
-  const handle_mdodel2 = (id, status, funct) => {
-    setModal2(false, () =>
-      setModal(
-        <ApproveLoan isOpen={true} id={id} status={status} fun={funct} />
-      )
+  const [Approve, setApprove] = useStateCallback(false);
+  const handle_approval = (id, status) => {
+    setApprove(false, () =>
+      setApprove(<ApproveLoan isOpen={true} id={id} status={status} />)
+    );
+  };
+  // loan slip
+  const [Lanslip, setLanslip] = useStateCallback(false);
+  const handle_loanslip = (id) => {
+    setLanslip(false, () =>
+      setLanslip(<LoanSlip isOpen={true} id={id} customer={id} />)
+    );
+  };
+  // secuirities view model
+  const [securities, setSecurities] = useStateCallback(false);
+  const handleSecurities = (id) => {
+    setSecurities(false, () =>
+      setSecurities(<ViewSecurities isOpen={true} id={id} customer={id} />)
+    );
+  };
+  //  view model guarantors
+  const [guarantors, setGuarantors] = useStateCallback(false);
+  const handleGuarantors = (id) => {
+    setGuarantors(false, () =>
+      setGuarantors(<ViewGuarantors isOpen={true} id={id} customer={id} />)
     );
   };
 
@@ -37,7 +93,7 @@ function ViewLoanApplications() {
     if (status === "1") {
       return (
         <p style={{fontSize: "14px"}} className="badge bg-info-light bg-pill">
-          Approval Pending
+          Pending
         </p>
       );
     } else if (status === "2") {
@@ -45,7 +101,7 @@ function ViewLoanApplications() {
         <p
           style={{fontSize: "14px"}}
           className="badge bg-warning-light bg-pill">
-          Approval in process
+          In process
         </p>
       );
     }
@@ -93,9 +149,13 @@ function ViewLoanApplications() {
                     </label>
                   </div>
                   <Toaster />
-                  {modal}
-                  {modal1}
-                  {modal2}
+                  {AddSecurity}
+                  {AddGuarantor}
+                  {Approve}
+                  {Lanslip}
+                  {securities}
+                  {guarantors}
+                  {updating}
                   <div className="card-body">
                     <div className="table-responsive">
                       <table className="table card-table text-nowrap table-bordered border-top">
@@ -118,16 +178,24 @@ function ViewLoanApplications() {
                             <th>
                               Insurance <br /> rate
                             </th>
-                            <th>fine_rate </th>
+                            <th>
+                              fine <br />
+                              rate
+                            </th>
                             <th>
                               date <br />
-                              Requested at{" "}
+                              Requested
                             </th>
+                            <th>operations</th>
+
                             <th>
                               Approval <br /> Status
                             </th>
-                            <th>add securities</th>
-                            <th>add guarantors</th>
+                            <th>
+                              Loan <br /> slip
+                            </th>
+                            <th> securities</th>
+                            <th> guarantors</th>
                             <th>
                               Approval <br />
                             </th>
@@ -149,7 +217,7 @@ function ViewLoanApplications() {
                             LoansToApprove.map((loan, key) => (
                               <tr key={key}>
                                 <td>{key + 1}</td>
-                                <td>{loan.customer_id}</td>
+                                <td>{loan.customer_id.names}</td>
                                 <td>{loan.amount}</td>
                                 <td>{loan.duration}</td>
                                 <td>{loan.interest_rate}</td>
@@ -157,81 +225,92 @@ function ViewLoanApplications() {
                                 <td>{loan.insurance_rate}</td>
                                 <td>{loan.fine_rate}</td>
                                 <td>{loan.date_requested}</td>
+                                <td>
+                                  {" "}
+                                  <button
+                                    className="badge  bg-primary-light bg-pill m-2"
+                                    onClick={() =>
+                                      handle_loan_updates(loan.id)
+                                    }>
+                                    <FontAwesomeIcon
+                                      icon={faEdit}
+                                      fade
+                                      style={{color: "orange"}}
+                                    />
+                                    update
+                                  </button>
+                                  <button
+                                    className="badge  bg-danger-light bg-pill m-2"
+                                    onClick={() => delete_loan(loan.id)}>
+                                    <FontAwesomeIcon
+                                      icon={faTrash}
+                                      fade
+                                      style={{color: "red"}}
+                                    />{" "}
+                                    Delete
+                                  </button>
+                                </td>
+
                                 <td>{getStatusBadge(loan.status)}</td>
                                 <td>
-                                  <a
-                                    href="#"
-                                    onClick={() => handle_mdodel(loan.id)}
-                                    className="badge  bg-warning-light bg-pill">
-                                    add securities
-                                  </a>
+                                  <button
+                                    className="badge  bg-primary-light bg-pill"
+                                    onClick={() => handle_loanslip(loan.id)}>
+                                    loan slip
+                                  </button>
                                 </td>
                                 <td>
-                                  <a
-                                    href="#"
-                                    onClick={() => handle_mdodel1(loan.id)}
-                                    className="badge  bg-warning-light bg-pill">
-                                    add guarantors
-                                  </a>
-                                </td>
-                                <td>
-                                  <a
-                                    href="#"
+                                  <button
                                     onClick={() =>
-                                      handle_mdodel2(
+                                      handle_AddSecurities(
+                                        loan.id,
+                                        loan.customer_id.names.id
+                                      )
+                                    }
+                                    className="badge  bg-secondary-light bg-pill">
+                                    add
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      handleSecurities(
+                                        loan.id,
+                                        loan.customer_id.names.id
+                                      )
+                                    }
+                                    className="badge  bg-primary-light bg-pill m-2">
+                                    View
+                                  </button>
+                                </td>
+                                <td>
+                                  <button
+                                    onClick={() =>
+                                      handle_AddGuarantors(loan.id)
+                                    }
+                                    className="badge  bg-warning-light bg-pill">
+                                    add
+                                  </button>
+
+                                  <button
+                                    onClick={() => handleGuarantors(loan.id)}
+                                    className="badge  bg-primary-light bg-pill m-2">
+                                    View
+                                  </button>
+                                </td>
+                                <td>
+                                  <button
+                                    onClick={() =>
+                                      handle_approval(
                                         loan.id,
                                         loan.status,
                                         getLoansToApprove()
                                       )
                                     }
-                                    style={{fontSize: "14px"}}
-                                    className="badge bg-secondary-light bg-pill">
+                                    className="badge bg-success-light bg-pill">
                                     Approve
-                                  </a>
+                                  </button>
                                 </td>
                               </tr>
                             ))}
-                          {/* <tr>
-                            <td>#12450</td>
-                            <td className="text-success">Buy</td>
-                            <td>
-                              <i className="cc BTC-alt text-warning" /> 0.37218
-                            </td>
-                            <td>
-                              <i className="cc BTC-alt text-warning" /> 0.42173
-                            </td>
-                            <td>52681.13</td>
-                            <td>$ 5273.15</td>
-                            <td>$ 5273.15</td>
-                            <td>$ 5273.15</td>
-                            <td>$ 5273.15</td>
-                          </tr> */}
-                          {/* 
-                          <tr>
-                            <td>#12454</td>
-                            <td className="text-success">Buy</td>
-                            <td>
-                              <span className="badge bg-warning-light bg-pill">
-                                Pending
-                              </span>
-                            </td>
-                            <td>
-                              <span className="badge bg-danger-light bg-pill">
-                                Cancelled
-                              </span>
-                            </td>
-                            <td>
-                              <span className="badge bg-info-light bg-pill">
-                                In Process
-                              </span>
-                            </td>
-
-                            <td>
-                              <span className="badge bg-success-light bg-pill">
-                                Completed
-                              </span>
-                            </td>
-                          </tr> */}
                         </tbody>
                       </table>
                     </div>

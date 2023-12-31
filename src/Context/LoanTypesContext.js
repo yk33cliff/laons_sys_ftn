@@ -23,7 +23,7 @@ export const LoanTypesProvider = (props) => {
       setLoanList(server_response.details);
     } else {
       //communicate error
-      setLoanList("404");
+      setLoanList("");
     }
   };
 

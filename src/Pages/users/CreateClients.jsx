@@ -14,7 +14,7 @@ function CreateClients() {
   const [location, setLocation] = useState("");
   const [role, setRole] = useState(4);
   const [pass, setPass] = useState("");
-  const [image, setImage] = useState("");
+  // const [image, setImage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +38,7 @@ function CreateClients() {
         location: location,
         role_id: role,
         password: password,
-        image: image,
+        // image: image,
       };
       const server_response = await ajaxUser.createUser(data);
       if (server_response.status === "OK") {
@@ -199,7 +199,7 @@ function CreateClients() {
                             />
                           </div>
                         </div>
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                           <div className="form-group">
                             <label className="mg-b-10">
                               NINNtional ID photo
@@ -211,7 +211,7 @@ function CreateClients() {
                               onChange={(e) => setImage(e.target.files[0])}
                             />
                           </div>
-                        </div>
+                        </div> */}
                         <div className="col-md-6">
                           <div className="form-group">
                             <label className="mg-b-10">Location</label>

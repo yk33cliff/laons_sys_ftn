@@ -52,4 +52,36 @@ export default {
     let response = await apiCall("add/loans/repayments", data);
     return response;
   },
+  async AddLoanSecurity(data) {
+    let response = await apiCall("add/loans/AddSecurity", data);
+    return response;
+  },
+  async ViewLoanSecurities(data) {
+    let response = await apiCall("view/loans/viewLoansSecurities", data);
+    return response;
+  },
+  async getLoanSlipDetails(data) {
+    let response = await apiCall("view/loans/getLoanSlipDetails", data);
+    return response;
+  },
+  async getLoanHolderDetails(data) {
+    let response = await apiCall("users/getLoanHolderDetails", data);
+    return response;
+  },
+  async updateLoanGuarantor(data) {
+    let response = await apiCall("update/loans/guarantorUpdate", data);
+    return response;
+  },
+  async deleteLoanGuarantor(data) {
+    let response = await apiCall("delete/loans/guarantordelete", data);
+    return response;
+  },
+  async UpdateLoanDetails(data) {
+    let response = await apiCall("loans/updates/updateLoan/details", data);
+    return response;
+  },
+  async deleteLoan(data) {
+    let response = await apiCall("loans/deleting/delete/this", data);
+    return response;
+  },
 };

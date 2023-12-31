@@ -94,16 +94,20 @@ const Sidebar = (props) => {
                     <i className="angle fe fe-chevron-right" />
                   </a>
                   <ul className="nav-sub">
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/applications/add">
-                        Add applications
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/Applications/View">
-                        View Applications
-                      </a>
-                    </li>
+                    <RenderSecure code="ADD-LOAN">
+                      <li className="nav-sub-item">
+                        <a className="nav-sub-link" href="/applications/add">
+                          Add applications
+                        </a>
+                      </li>
+                    </RenderSecure>
+                    <RenderSecure code="LOANS-VIEW">
+                      <li className="nav-sub-item">
+                        <a className="nav-sub-link" href="/Applications/View">
+                          View Applications
+                        </a>
+                      </li>
+                    </RenderSecure>
                   </ul>
                 </li>
 
@@ -119,11 +123,13 @@ const Sidebar = (props) => {
                     <li className="side-menu-label1">
                       <a href="javascript:void(0)">Loans</a>
                     </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/Loans/active">
-                        Active Loans
-                      </a>
-                    </li>
+                    <RenderSecure code="LOANS-VIEW">
+                      <li className="nav-sub-item">
+                        <a className="nav-sub-link" href="/Loans/active">
+                          Active Loans
+                        </a>
+                      </li>
+                    </RenderSecure>
 
                     <li className="nav-sub-item">
                       <a
@@ -138,39 +144,32 @@ const Sidebar = (props) => {
                   <a className="nav-link with-sub" href="javascript:void(0)">
                     <span className="shape1" />
                     <span className="shape2" />
-                    {/* <i class="fa-sharp fa-solid fa-cow"></i> */}
-                    <i className="ti-write sidemenu-icon menu-icon" />
+                    <i className="ti-wallet sidemenu-icon menu-icon " />
                     <span className="sidemenu-label">
-                      Payments
+                      Reports
                       <span className="sidemenu-label2"></span>
                     </span>
                     <i className="angle fe fe-chevron-right" />
                   </a>
                   <ul className="nav-sub">
                     <li className="nav-sub-item">
-                      <a
-                        className="nav-sub-link"
-                        href="/view/Application_fees_payments">
-                        Application fees payments
+                      <a className="nav-sub-link" href="/loans/performance">
+                        Loans Performance
                       </a>
                     </li>
                     <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/loan_payments/view">
-                        Loan payments
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/fines/view">
-                        fine payments
+                      <a className="nav-sub-link" href="/loans/performance">
+                        Loans Performance
                       </a>
                     </li>
                   </ul>
                 </li>
+
                 <li className="nav-item" onClick={hrefggleDropdown}>
                   <a className="nav-link with-sub" href="javascript:void(0)">
                     <span className="shape1" />
                     <span className="shape2" />
-                    {/* <i class="fa-sharp fa-solid fa-cow"></i> */}
+
                     <i className="ti-user sidemenu-icon menu-icon" />
                     <span className="sidemenu-label">
                       Clients
@@ -191,6 +190,7 @@ const Sidebar = (props) => {
                     </li>
                   </ul>
                 </li>
+
                 <li className="nav-item">
                   <a className="nav-link" href="/users/register">
                     <span className="shape1" />
@@ -200,9 +200,6 @@ const Sidebar = (props) => {
                   </a>
                 </li>
               </ul>
-              <div className="slide-right" id="slide-right">
-                <i className="fe fe-chevron-right" />
-              </div>
             </div>
           </div>
         </div>

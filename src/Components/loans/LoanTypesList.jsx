@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import LoanTypesContext from "../../Context/LoanTypesContext";
 import UpdateLoanType from "./UpdateLoanType";
 import useStateCallback from "../../util/customHooks/useStateCallback";
+import {RenderSecure} from "../../util/script/RenderSecure";
 function LoanTypesList() {
   const {LoanTypes, getLoanList} = useContext(LoanTypesContext);
   const [modal, setModal] = useStateCallback(false);
@@ -48,7 +49,9 @@ function LoanTypesList() {
                         installment
                       </th>
                       <th>status</th>
-                      <th>Update</th>
+                      <RenderSecure code="EDIT-TYPE">
+                        <th>Update</th>
+                      </RenderSecure>
                     </tr>
                   </thead>
                   <tbody>
@@ -75,16 +78,17 @@ function LoanTypesList() {
                               </span>
                             )}
                           </td>
-
-                          <td>
-                            <button
-                              className=" badge bg-danger-light bg-pill"
-                              onClick={(e) =>
-                                handleModal(e, loan, getLoanList)
-                              }>
-                              update
-                            </button>
-                          </td>
+                          <RenderSecure code="EDIT-TYPE">
+                            <td>
+                              <button
+                                className=" badge bg-danger-light bg-pill"
+                                onClick={(e) =>
+                                  handleModal(e, loan, getLoanList)
+                                }>
+                                update
+                              </button>
+                            </td>
+                          </RenderSecure>
                         </tr>
                       ))}
                   </tbody>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import ajaxPermission from "../util/remote/ajaxPermission";
 
 const PermissionContext = React.createContext();
@@ -7,7 +7,8 @@ export const PermissionConsumer = PermissionContext.Consumer;
 
 export const PermissionProvider = (props) => {
   const [permissionList, setPermissionList] = useState(false);
-  const [data, setData] = useState({ page: "1" });
+  const [data, setData] = useState({page: "1"});
+  console.log(permissionList);
 
   useEffect(() => {
     getPermissionList();
@@ -21,7 +22,7 @@ export const PermissionProvider = (props) => {
       setPermissionList(server_response.details);
     } else {
       //communicate error
-      setPermissionList("404");
+      setPermissionList("");
     }
   };
 
@@ -31,8 +32,7 @@ export const PermissionProvider = (props) => {
         permissionList,
         setData,
         getPermissionList,
-      }}
-    >
+      }}>
       {props.children}
     </PermissionContext.Provider>
   );
