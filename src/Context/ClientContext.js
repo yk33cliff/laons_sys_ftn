@@ -21,7 +21,7 @@ export const ClientProvider = (props) => {
       setClientList(server_response.details);
     } else {
       //communicate error
-      setClientList("404");
+      setClientList("");
     }
   };
 
