@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import AppContainer from "../Components/Structure/AppContainer";
+import ReactPaginate from "react-paginate";
 
 import {
   faUsers,
@@ -10,126 +11,189 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ajaxDashboard from "../util/remote/ajaxDashboard";
 import functions from "../util/functions";
-function Dash() {
+function Dashboard() {
   const [user, setUser] = useState("");
-  const [pool, setPool] = useState("");
+  const [bPool, setBpool] = useState("");
   const [clients, setClients] = useState("");
-  const [fines, setFines] = useState("");
+  const [fines, setFines] = useState(0);
   const [interest, setInterest] = useState("");
   const [pending, setpending] = useState("");
   const [loaned, setLoaned] = useState("");
+  const [quick, SetQuick] = useState("");
+  const [application, setApplication] = useState("");
 
   const [active, SetACtive] = useState("");
 
   useEffect(() => {
     getTotal_user();
+    get_application_fees_earnings();
     get_business_pull_balance();
+    get_quick_balance();
     get_total_clients();
     get_total_fine();
     get_earned_interest();
     get_no_pendind_Approvals();
     get_total_loaned();
     active_loans_number();
+    get_recent_Transactions();
   }, []);
   const id = functions.sessionGuard();
 
+  const [trans, setTrans] = useState("");
+  const get_recent_Transactions = async () => {
+    const server_response = await ajaxDashboard.get_recent_transaction();
+
+    if (server_response.status === "OK") {
+      setTrans(server_response.details);
+    } else {
+      setTrans("");
+    }
+  };
+
+  const get_application_fees_earnings = async () => {
+    const server_response = await ajaxDashboard.get_application_fees_earnings();
+
+    if (server_response.status === "OK") {
+      setApplication(server_response.details);
+    } else {
+      setApplication("");
+    }
+  };
+
   const getTotal_user = async () => {
     const server_response = await ajaxDashboard.fetchTotalUser();
-    //   console.log(server_response)
+
     if (server_response.status === "OK") {
       setUser(server_response.details);
     } else {
-      //communicate error
       setUser("");
     }
   };
   const get_business_pull_balance = async () => {
     const server_response = await ajaxDashboard.fetch_pull_balance();
-    //   console.log(server_response)
     if (server_response.status === "OK") {
-      setPool(server_response.details);
+      setBpool(server_response.details);
     } else {
-      //communicate error
-      setPool("");
+      setBpool("");
     }
   };
+
+  const get_quick_balance = async () => {
+    const server_response = await ajaxDashboard.Fetch_quick_balance();
+
+    if (server_response.status === "OK") {
+      SetQuick(server_response.details);
+    } else {
+      SetQuick("");
+    }
+  };
+
   const get_total_clients = async () => {
     const server_response = await ajaxDashboard.fetch_total_clients();
-    //   console.log(server_response)
+
     if (server_response.status === "OK") {
       setClients(server_response.details);
     } else {
-      //communicate error
-      setPool("");
+      setClients("");
     }
   };
   const get_total_fine = async () => {
     const server_response = await ajaxDashboard.fetchFinesTotal();
-    //   console.log(server_response)
+
     if (server_response.status === "OK") {
       setFines(server_response.details);
     } else {
-      //communicate error
-      setPool("");
+      setFines("");
     }
   };
   const get_earned_interest = async () => {
     const server_response = await ajaxDashboard.fetch_interest_earned();
-    //   console.log(server_response)
+
     if (server_response.status === "OK") {
       setInterest(server_response.details);
     } else {
-      //communicate error
       setInterest("");
     }
   };
+
   const get_no_pendind_Approvals = async () => {
     var data = {id: id};
     const server_response = await ajaxDashboard.fetchNo_pendingApprove(data);
-    //   console.log(server_response)
+
     if (server_response.status === "OK") {
       setpending(server_response.details);
     } else {
-      //communicate error
       setpending("");
     }
   };
   const get_total_loaned = async () => {
     const server_response = await ajaxDashboard.fetchSumLoaned();
-    //   console.log(server_response)
+
     if (server_response.status === "OK") {
       setLoaned(server_response.details);
     } else {
-      //communicate error
       setLoaned("");
     }
   };
   const active_loans_number = async () => {
     const server_response = await ajaxDashboard.fetchNumber_activeLoans();
-    //   console.log(server_response)
+
     if (server_response.status === "OK") {
       SetACtive(server_response.details);
     } else {
-      //communicate error
       SetACtive("");
     }
   };
-  // const get_business_pull_balance = async () => {
-  //   const server_response = await ajaxDashboard.fetch_pull_balance();
-  //   //   console.log(server_response)
-  //   if (server_response.status === "OK") {
-  //     setPool(server_response.details);
-  //   } else {
-  //     //communicate error
-  //     setPool("");
-  //   }
-  // };
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 20; // Change this value based on your preference
+
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected);
+  };
+
+  const offset = currentPage * itemsPerPage;
+  const paginatedItems = Array.isArray(trans)
+    ? trans.slice(offset, offset + itemsPerPage)
+    : [];
+
   return (
     <div>
       <AppContainer title="Dashboard">
         <div className="row">
           {/*top tiles row 1*/}
           <div className="row row-sm">
+            {/* business pull */}
+            <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
+              <div className="card m-1">
+                <div className="card-body">
+                  <div className="card-item">
+                    <div className="card-item-icon card-icon">
+                      <FontAwesomeIcon
+                        icon={faDollarSign}
+                        bounce
+                        style={{color: "purple"}}
+                      />
+                    </div>
+                    <div className="card-item-title mb-2">
+                      <label className="main-content-label tx-13 font-weight-bold mb-1">
+                        Balance at QuickPost
+                      </label>
+                      <span className="d-block tx-12 mb-0 text-muted">
+                        money avilable for electronic payment
+                      </span>
+                    </div>
+                    <div className="card-item-body">
+                      <div className="card-item-stat">
+                        <p className="font-weight-bold text-danger">
+                          <span> {quick} </span>
+                        </p>
+                        <br />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             {/* business pull */}
             <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
               <div className="card m-1">
@@ -152,8 +216,8 @@ function Dash() {
                     </div>
                     <div className="card-item-body">
                       <div className="card-item-stat">
-                        <p className="font-weight-bold">
-                          Ugshs:{pool > 0 ? pool : 0}
+                        <p className="font-weight-bold text-danger">
+                          <span> {bPool} </span>
                         </p>
                         <br />
                       </div>
@@ -162,6 +226,7 @@ function Dash() {
                 </div>
               </div>
             </div>
+
             {/*  sys users tile */}
             <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
               <div className="card m-1">
@@ -258,7 +323,7 @@ function Dash() {
                       <div className="card-item-stat">
                         <h4 className="font-weight-bold">
                           {" "}
-                          {pending === 0 ? 0 : pending}
+                          {pending ? pending : 0}
                         </h4>
 
                         <h3 className="d-block tx-12 mb-0 text-muted">
@@ -315,7 +380,7 @@ function Dash() {
                 <div className="card-body">
                   <div className="card-item">
                     <div className="card-item-icon card-icon">
-                      <FontAwesomeIcon icon={faUsers} beat />
+                      <FontAwesomeIcon icon={faDollarSign} beat />
                     </div>
                     <div className="card-item-title mb-2">
                       <label className="main-content-label tx-13 font-weight-bold mb-1">
@@ -328,7 +393,7 @@ function Dash() {
                     <div className="card-item-body">
                       <div className="card-item-stat">
                         <p className="font-weight-bold">
-                          Ugshs:: <span> {loaned === 0 ? 0 : loaned}</span>
+                          <span> {loaned ? loaned : 0}</span>
                         </p>
                         <h3 className="d-block tx-12 mb-0 text-muted">
                           <a
@@ -366,7 +431,7 @@ function Dash() {
                     <div className="card-item-body">
                       <div className="card-item-stat">
                         <h4 className="font-weight-bold">
-                          {interest === 0 ? "p" : interest}
+                          {interest ? interest : 0}
                         </h4>
                         <br />
                       </div>
@@ -397,7 +462,44 @@ function Dash() {
                     </div>
                     <div className="card-item-body">
                       <div className="card-item-stat">
-                        <h4 className="font-weight-bold">$8,500</h4>
+                        <h4 className="font-weight-bold">
+                          {" "}
+                          {fines > 0 ? fines : 0}
+                        </h4>
+                        <small>
+                          <br />
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* total application fees earnings */}
+            <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
+              <div className="card m-1">
+                <div className="card-body">
+                  <div className="card-item">
+                    <div className="card-item-icon card-icon">
+                      <FontAwesomeIcon
+                        icon={faDollarSign}
+                        bounce
+                        style={{color: "orange"}}
+                      />
+                    </div>
+                    <div className="card-item-title mb-2">
+                      <label className="main-content-label tx-13 font-weight-bold mb-1">
+                        total application earnings
+                      </label>
+                      <span className="d-block tx-12 mb-0 text-muted">
+                        payments of application
+                      </span>
+                    </div>
+                    <div className="card-item-body">
+                      <div className="card-item-stat">
+                        <h4 className="font-weight-bold">
+                          {application ? application : 0}
+                        </h4>
                         <small>
                           <br />
                         </small>
@@ -411,93 +513,65 @@ function Dash() {
           {/*End top tiles row 1 row*/}
         </div>
 
-        <div className="row row-sm">
-          <div className="col-sm-12  col-md-8 col-lg-8 col-xl-8 mt-xl-4">
-            <div className="card custom-card card-dashboard-calendar pb-0">
-              <label className="main-content-label mb-2 pt-1">
-                Week's expected Installments Transactions
-              </label>
-              <div className="card-body">
-                <div className="table-responsive">
-                  <table className="table card-table text-nowrap table-bordered border-top">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Customer </th>
-                        <th>Amount</th>
-                        <th>date </th>
-                        <th>contact</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>#12450</td>
-                        <td className="text-success">Buy</td>
-                        <td>
-                          <i className="cc BTC-alt text-warning" /> 0.37218
-                        </td>
-                        <td>
-                          <i className="cc BTC-alt text-warning" /> 0.42173
-                        </td>
-                        <td>52681.13</td>
-                      </tr>
-                      <tr>
-                        <td>#12450</td>
-                        <td className="text-success">Buy</td>
-                        <td>
-                          <i className="cc BTC-alt text-warning" /> 0.37218
-                        </td>
-                        <td>
-                          <i className="cc BTC-alt text-warning" /> 0.42173
-                        </td>
-                        <td>52681.13</td>
-                      </tr>
-                      <tr>
-                        <td>#12450</td>
-                        <td className="text-success">Buy</td>
-                        <td>
-                          <i className="cc BTC-alt text-warning" /> 0.37218
-                        </td>
-                        <td>
-                          <i className="cc BTC-alt text-warning" /> 0.42173
-                        </td>
-                        <td>52681.13</td>
-                      </tr>
-                      <tr>
-                        <td>#12450</td>
-                        <td className="text-success">Buy</td>
-                        <td>
-                          <i className="cc BTC-alt text-warning" /> 0.37218
-                        </td>
-                        <td>
-                          <i className="cc BTC-alt text-warning" /> 0.42173
-                        </td>
-                        <td>52681.13</td>
-                      </tr>
-                      <tr>
-                        <td>#12450</td>
-                        <td className="text-success">Buy</td>
-                        <td>
-                          <i className="cc BTC-alt text-warning" /> 0.37218
-                        </td>
-                        <td>
-                          <i className="cc BTC-alt text-warning" /> 0.42173
-                        </td>
-                        <td>52681.13</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="row row-sm mt-4">
           {/* col end */}
-          <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 mt-xl-4">
+          <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-12">
             <div className="card custom-card card-dashboard-calendar pb-0">
               <label className="main-content-label mb-2 pt-1">
                 Recent Transactions
               </label>
-              <canvas id="project" className="chart-dropshadow2 ht-250" />
+              <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
+                <div className="card custom-card card-dashboard-calendar pb-0">
+                  <div className="card-body">
+                    <div className="table-responsive">
+                      <table className="table card-table text-nowrap table-bordered border-top">
+                        <thead>
+                          <tr>
+                            <th>NO.</th>
+                            <th>account </th>
+                            <th>cash_in</th>
+                            <th>cash_out </th>
+                            <th>description</th>
+                            <th>payment_method</th>
+                            <th>phone_number</th>
+                            <th>created_at</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {paginatedItems.map((loan, key) => (
+                            <tr key={key}>
+                              <td>{key + 1}</td>
+                              <td>{loan.account}</td>
+                              <td>{loan.cash_in}</td>
+                              <td>{loan.cash_out}</td>
+                              <td>{loan.description}</td>
+                              <td>{loan.payment_method}</td>
+                              <td>{loan.phone_number}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+
+                      <ReactPaginate
+                        pageCount={Math.ceil(trans.length / itemsPerPage)}
+                        pageRangeDisplayed={3}
+                        marginPagesDisplayed={1}
+                        onPageChange={handlePageClick}
+                        containerClassName={"pagination"}
+                        activeClassName={"active"}
+                        nextLabel={"Next"}
+                        previousLabel={"Previous"}
+                        breakLabel={"..."}
+                        pageLinkClassName={"page-link"}
+                        nextClassName={"page-item"}
+                        nextLinkClassName={"page-link"}
+                        previousClassName={"page-item"}
+                        previousLinkClassName={"page-link"}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           {/* col end */}
@@ -507,4 +581,4 @@ function Dash() {
   );
 }
 
-export default Dash;
+export default Dashboard;

@@ -10,6 +10,7 @@ import toast, {Toaster} from "react-hot-toast";
 function LoanApplication() {
   const {LoanTypes} = useContext(LoanTypesContext);
   const {clientList} = useContext(ClientContext);
+  // console.log(LoanTypes);
 
   // const role_id = functions.role_user();
   const user_id = functions.sessionGuard();
@@ -24,6 +25,9 @@ function LoanApplication() {
   const [fees, setFees] = useState("");
   const [insurance, setInsurance] = useState("");
   const [fine, setFine] = useState("");
+  const [plan, setPlan] = useState("");
+  const [application_rate, setApplication_rate] = useState("");
+  const [method, setMethod] = useState("");
 
   const handler = async (e) => {
     e.preventDefault();
@@ -47,6 +51,7 @@ function LoanApplication() {
         fine: fine,
         date_in: dateRequested,
         fees: fees,
+        method: method,
       };
       const server_response = await ajaxLaons.CreateLoanApplication(formData);
       if (server_response.status === "OK") {
@@ -68,6 +73,8 @@ function LoanApplication() {
     get_loan_type_variables();
   }, [loan]);
 
+  // console.log(client);
+
   const get_loan_type_variables = () => {
     if (loan.length > 0) {
       setInterestRate("");
@@ -81,6 +88,8 @@ function LoanApplication() {
             setProcessingFees(value.processing_fee_rate);
             setInsurance(value.insurance);
             setFine(value.fine_rate);
+            setPlan(value.installment_type);
+            setApplication_rate(value.application_rate);
           }
         });
       }
@@ -158,7 +167,7 @@ function LoanApplication() {
                           <p className="mg-b-10">Amount</p>
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control text-success"
                             placeholder="Amount applied for"
                             value={amount}
                             onChange={(e) => setAmount(e.target.value)}
@@ -171,7 +180,7 @@ function LoanApplication() {
                           <label className="mg-b-10">Payment Period</label>
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control text-success"
                             name="paymentPeriod"
                             placeholder="loan duration"
                             value={paymentPeriod}
@@ -187,7 +196,7 @@ function LoanApplication() {
                           <label className="mg-b-10">Date Requested At</label>
                           <input
                             type="date"
-                            className="form-control"
+                            className="form-control text-success"
                             name="dateRequested"
                             placeholder="Date of application"
                             value={dateRequested}
@@ -195,79 +204,39 @@ function LoanApplication() {
                           />
                         </div>
                       </div>
-                      {loan && (
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">Interest Rate</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              name="interestRate"
-                              placeholder="Interest rate"
-                              value={interestRate}
-                              onChange={(e) => setInterestRate(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                      )}
-                      {loan && (
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">Processing Fees</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              name="processingFees"
-                              placeholder="Processing fees"
-                              value={processingFees}
-                              onChange={(e) =>
-                                setProcessingFees(e.target.value)
-                              }
-                            />
-                          </div>
-                        </div>
-                      )}
-                      {loan && (
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">fine Rate</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              name="interestRate"
-                              placeholder="fine rate 2"
-                              value={fine}
-                              onChange={(e) => setFine(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                      )}
-                      {loan && (
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">insurance Rate</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              name="insurance rate"
-                              placeholder="insurance rate"
-                              value={insurance}
-                              onChange={(e) => setInsurance(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                      )}
-                      {/* </>
-                      // ) : null} */}
                       <div className="col-md-6">
                         <div className="form-group">
                           <label className="mg-b-10">
-                            fine and security Fees source
+                            Method of money recieving Loan money
+                          </label>
+                          <select
+                            name=""
+                            value={method}
+                            className="form-control text-success"
+                            onChange={(e) => setMethod(e.target.value)}
+                            id="">
+                            <option
+                              className="text-center"
+                              disabled
+                              selected
+                              value="">
+                              ---------------------selet
+                              option---------------------------
+                            </option>
+                            <option value="cash">cash </option>
+                            <option value="mm">mobile money</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label className="mg-b-10">
+                            processing and insurance Fees source
                           </label>
                           <select
                             name=""
                             value={fees}
-                            className="form-control"
+                            className="form-control text-success"
                             onChange={(e) => setFees(e.target.value)}
                             id="">
                             <option
@@ -285,6 +254,111 @@ function LoanApplication() {
                           </select>
                         </div>
                       </div>
+                      {loan && (
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">
+                              payment plan for selected loan{" "}
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control text-success"
+                              name="interestRate"
+                              placeholder="Interest rate"
+                              value={plan}
+                              readOnly
+                              onChange={(e) => setInterestRate(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {loan && (
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">Interest Rate</label>
+                            <input
+                              type="text"
+                              className="form-control text-success"
+                              name="interestRate"
+                              placeholder="Interest rate"
+                              value={interestRate}
+                              readOnly
+                              onChange={(e) => setInterestRate(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {loan && (
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">Application Rate</label>
+                            <input
+                              type="text"
+                              className="form-control text-success"
+                              name="interestRate"
+                              placeholder="Interest rate"
+                              value={application_rate}
+                              readOnly
+                              onChange={(e) =>
+                                setApplication_rate(e.target.value)
+                              }
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {loan && (
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">Processing Fees</label>
+                            <input
+                              type="text"
+                              className="form-control text-success"
+                              name="processingFees"
+                              placeholder="Processing fees"
+                              value={processingFees}
+                              readOnly
+                              onChange={(e) =>
+                                setProcessingFees(e.target.value)
+                              }
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {loan && (
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">Penalty Rate</label>
+                            <input
+                              type="text"
+                              className="form-control text-success"
+                              name="interestRate"
+                              placeholder="fine rate 2"
+                              value={fine}
+                              readOnly
+                              onChange={(e) => setFine(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {loan && (
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">insurance Rate</label>
+                            <input
+                              type="text"
+                              className="form-control text-success"
+                              name="insurance rate"
+                              placeholder="insurance rate"
+                              value={insurance}
+                              readOnly
+                              onChange={(e) => setInsurance(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {/* </>
+                      // ) : null} */}
 
                       <div className="col-md-12 ">
                         <div className="form-group mb-0">

@@ -110,4 +110,10 @@ var data = [
   {
     code: "EARNED-INTEREST",
   },
+  {
+    code: "ADD-PAYMNT",
+  },
+  {
+    code: "VIEW-REPORT",
+  },
 ];

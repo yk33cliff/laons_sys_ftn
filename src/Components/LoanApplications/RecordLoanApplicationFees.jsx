@@ -1,7 +1,7 @@
-import { useState } from "react";
+import {useState} from "react";
 import SystemModal from "../Common/SystemModal";
 import Loader from "../Common/Loader";
-import { toast } from "react-hot-toast";
+import {toast} from "react-hot-toast";
 // import ajaxClientContact from "../../util/remote/ajaxClientContact";
 
 function RecordLoanApplicationFees(props) {
@@ -13,9 +13,9 @@ function RecordLoanApplicationFees(props) {
   // const handleAddClientContact = async (e) => {
   //   e.preventDefault();
   //   if (
-  //     contact_name.length > 0 ||
-  //     phone_number.length > 0 ||
-  //     designation.length > 0 ||
+  //     contact_name.length > 0 &&
+  //     phone_number.length > 0 &&
+  //     designation.length > 0 &&
   //     props.client_id > 0
   //   ) {
   //     setLoading(true);
@@ -49,8 +49,7 @@ function RecordLoanApplicationFees(props) {
           <button
             className="btn ripple btn-dark"
             type="button"
-            onClick={controls.close}
-          >
+            onClick={controls.close}>
             Close
           </button>
           <button
@@ -70,8 +69,7 @@ function RecordLoanApplicationFees(props) {
       title="Register Register Loan Application  Fees"
       id="model-application fees"
       size="md"
-      footer={RenderFooter}
-    >
+      footer={RenderFooter}>
       <div className="row row-sm">
         <div className="side-menu"></div>
         <div className="col-lg-12 col-md-12">

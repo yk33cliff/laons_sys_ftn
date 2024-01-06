@@ -5,13 +5,11 @@ import {
   Routes as Switch,
   Navigate,
 } from "react-router-dom";
-import Dash from "./Pages/Dash";
+import Dashboard from "./Pages/Dashboard";
 import LoginPage from "./Pages/LoginPage";
 import LoanTYpes from "./Components/loans/LoanTYpes";
 import CreateUser from "./Pages/users/CreateUser";
 import ViewLoanApplications from "./Pages/loans/ViewLoanApplications";
-import ViewLansToApprove from "./Components/loanProcessing/ViewLoansToApprove";
-import AddSecurities from "./Components/loanProcessing/AddSecurities";
 import ActiveLoans from "./Components/loans/ActiveLoans";
 import PendingInstallments from "./Components/loans/PendingInstallments";
 import LoanApplication from "./Pages/loans/LoanApplication";
@@ -19,7 +17,8 @@ import SuperProvider from "./Context/SuperProvider";
 import ViewAllClients from "./Pages/users/ViewAllClients";
 import CreateClients from "./Pages/users/CreateClients";
 import ClientProfile from "./Pages/users/ClientProfile";
-
+import GetLoanReciept from "./Components/loans/GetLoanReciept";
+import ApprovedLoanNotcashed from "./Components/loans/ApprovedLoanNotcashed";
 import ImageModal from "./Components/loans/ImageModal";
 import LoanManagement from "./Components/loans/LoanManagement";
 
@@ -49,7 +48,7 @@ function App(props) {
               <Route
                 path="/"
                 element={
-                  !loggedIn ? <Navigate replace to="/login" /> : <Dash />
+                  !loggedIn ? <Navigate replace to="/login" /> : <Dashboard />
                 }
               />
             </>
@@ -59,20 +58,22 @@ function App(props) {
               <Route
                 path="/"
                 element={
-                  !loggedIn ? <Navigate replace to="/login" /> : <Dash />
+                  !loggedIn ? <Navigate replace to="/login" /> : <Dashboard />
                 }
               />
               <Route
                 path="/login"
                 element={loggedIn ? <Navigate replace to="/" /> : <LoginPage />}
               />
-              <Route path="/" element={<Dash />} />
-
-              {/* <Route path="/issue-logs-chat/:id" element={<IssueLogChat />} /> */}
-
-              <Route path="*" element={<Dash />} />
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/loan_reciepts/view" element={<GetLoanReciept />} />
+              <Route
+                path="/Approved_and_not_yet_paid/view"
+                element={<ApprovedLoanNotcashed />}
+              />
+              <Route path="*" element={<Dashboard />} />
               <Route path="/login" element={<LoginPage />} />
-              <Route path="/Dashboard/home" element={<Dash />} />
+              <Route path="/Dashboard/home" element={<Dashboard />} />
 
               <Route path="/Loans/types" element={<LoanTYpes />} />
               <Route path="/users/register" element={<CreateUser />} />
@@ -82,8 +83,7 @@ function App(props) {
                 path="/Applications/View"
                 element={<ViewLoanApplications />}
               />
-              <Route path="/loans/approve" element={<ViewLansToApprove />} />
-              <Route path="/loans/record" element={<AddSecurities />} />
+
               <Route path="/loans/active" element={<ActiveLoans />} />
               <Route path="/clients/view" element={<ViewAllClients />} />
               <Route path="/clients/Add" element={<CreateClients />} />
@@ -94,7 +94,7 @@ function App(props) {
                 path="/Loans/pending_installments"
                 element={<PendingInstallments />}
               />
-              <Route path="/slip" element={<ImageModal />} />
+              {/* <Route path="/slip" element={<ImageModal />} /> */}
             </>
           )}
         </Switch>

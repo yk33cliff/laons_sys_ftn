@@ -28,14 +28,15 @@ function CreateUser() {
   const [location, setLocation] = useState("");
   const [role, setRole] = useState("");
   const [pass, setPass] = useState("");
+  console.log(role);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      fname.length > 0 ||
-      lname.length > 0 ||
-      uname.length > 0 ||
-      phone.length > 0 ||
+      fname.length > 0 &&
+      lname.length > 0 &&
+      uname.length > 0 &&
+      phone.length > 0 &&
       nin.length > 0
     ) {
       const password = btoa(pass);
@@ -51,6 +52,7 @@ function CreateUser() {
         role_id: role,
         password: password,
       };
+
       const server_response = await ajaxUser.createUser(data);
       if (server_response.status === "OK") {
         toast.success(server_response.message);
@@ -72,7 +74,7 @@ function CreateUser() {
     setNin("");
     setLocation("");
     setPhone("");
-    setRole(false);
+    setRole("");
   };
 
   return (
@@ -131,17 +133,20 @@ function CreateUser() {
                           />
                         </div>
                       </div>
+
                       <div className="col-md-6">
                         <div className="form-group">
                           <p className="mg-b-10">User role</p>
                           <Select
-                            // ref={ref}
-                            onChange={(e) => setRole(e.id)}
+                            onChange={(e) => setRole(e.role_id)}
                             getOptionLabel={(option) => option.role_name}
-                            getOptionValue={(option) => option.id}
+                            getOptionValue={(option) => option.role_id}
                             isSearchable
-                            options={roleList}
+                            options={
+                              roleList && Array.isArray(roleList) && roleList
+                            }
                             value={
+                              roleList &&
                               Array.isArray(roleList) &&
                               roleList.find((value) => value.role_id === role)
                             }

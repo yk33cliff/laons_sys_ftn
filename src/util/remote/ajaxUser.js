@@ -38,11 +38,27 @@ export default {
     let response = await apiCall("sysUser/profile/view", data);
     return response;
   },
-  // ==============================================================================
   async getUserPermissionCodes(data) {
     let response = await apiCall("user/permission/codes", data);
     return response;
   },
+  async AddclientNextOfKin(data) {
+    let response = await apiCall("Client/next_of_kin/add", data);
+    return response;
+  },
+  async fetchNextOfKindata(data) {
+    let response = await apiCall("Client/next_of_kin/get/forUSer", data);
+    return response;
+  },
+  async UpdateNextOfKin(data) {
+    let response = await apiCall("Client/next_of_kin/add/update", data);
+    return response;
+  },
+  async AddWalletCashToUser(data) {
+    let response = await apiCall("cutomer/wallet/cash/deposite", data);
+    return response;
+  },
+  // ==============================================================================
 
   async updateUser(data) {
     let response = await apiCall("user/update", data);

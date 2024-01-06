@@ -10,6 +10,7 @@ import UpdateGurantors from "./UpdateGurantors";
 // import ajaxLaons from "../../util/remote/ajaxLaons";
 function ViewGuarantors(props) {
   const [guarantors, setGuarantors] = useState("");
+  const state = props.state;
   useEffect(() => {
     guarantor();
   }, []);
@@ -93,8 +94,12 @@ function ViewGuarantors(props) {
                           <th>Nin </th>
                           <th>residence</th>
                           <th>relationship</th>
-                          <th>Update</th>
-                          <th>delete</th>
+                          {state !== 2 && (
+                            <>
+                              <th>Update</th>
+                              <th>delete</th>
+                            </>
+                          )}
                         </tr>
                       </thead>
                       <tbody>
@@ -107,31 +112,37 @@ function ViewGuarantors(props) {
                               <td>{person.nin}</td>
                               <td>{person.residence}</td>
                               <td>{person.relationship}</td>
-                              <td>
-                                <button
-                                  className="badge  bg-primary-light bg-pill m-2"
-                                  onClick={() => handleGuarantors(person)}>
-                                  <FontAwesomeIcon
-                                    icon={faEdit}
-                                    fade
-                                    style={{color: "orange"}}
-                                  />
-                                  update
-                                </button>
-                              </td>
+                              {state !== 2 && (
+                                <>
+                                  <td>
+                                    <button
+                                      className="badge  bg-primary-light bg-pill m-2"
+                                      onClick={() => handleGuarantors(person)}>
+                                      <FontAwesomeIcon
+                                        icon={faEdit}
+                                        fade
+                                        style={{color: "orange"}}
+                                      />
+                                      update
+                                    </button>
+                                  </td>
 
-                              <td>
-                                <button
-                                  className="badge  bg-danger-light bg-pill m-2"
-                                  onClick={() => deleteguarantor(person.id)}>
-                                  <FontAwesomeIcon
-                                    icon={faTrash}
-                                    fade
-                                    style={{color: "red"}}
-                                  />{" "}
-                                  Delete
-                                </button>
-                              </td>
+                                  <td>
+                                    <button
+                                      className="badge  bg-danger-light bg-pill m-2"
+                                      onClick={() =>
+                                        deleteguarantor(person.id)
+                                      }>
+                                      <FontAwesomeIcon
+                                        icon={faTrash}
+                                        fade
+                                        style={{color: "red"}}
+                                      />{" "}
+                                      Delete
+                                    </button>
+                                  </td>
+                                </>
+                              )}
                             </tr>
                           ))}
 
