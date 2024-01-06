@@ -19,6 +19,8 @@ function LoanTYpes() {
   const [installment, setInstallment] = useState("");
   const [fine, setFine] = useState("");
   const [insur, setInsur] = useState("");
+  const [application, setApplication] = useState("");
+  const [monitoring, setMonitoring] = useState("");
 
   const handler = async (e) => {
     e.preventDefault();
@@ -27,7 +29,9 @@ function LoanTYpes() {
       max.length > 0 &&
       months.length > 0 &&
       intrest.length > 0 &&
-      processing.length > 0
+      processing.length > 0 &&
+      monitoring.length > 0 &&
+      application.length > 0
     ) {
       const data = {
         name: loan,
@@ -39,6 +43,8 @@ function LoanTYpes() {
         fine: fine,
         min: min,
         insurance: insur,
+        application: application,
+        monitoring: monitoring,
       };
 
       const server_response = await ajaxLaons.createLoanType(data);
@@ -57,6 +63,8 @@ function LoanTYpes() {
         setFine("");
         setInsur("");
         getLoanList();
+        setApplication("");
+        setMonitoring("");
       } else {
         toast.error(server_response.message);
         console.log(server_response.status);
@@ -115,13 +123,15 @@ function LoanTYpes() {
                         />
                       </div>
                       <div className="form-group col-md-6">
-                        <p className="mg-b-10">maximum duration (months)</p>
+                        <p className="mg-b-10">
+                          maximum duration (months or weeks)
+                        </p>
                         <input
                           type="text"
                           className="form-control"
                           value={months}
                           onChange={(e) => setMonths(e.target.value)}
-                          placeholder="maximum months allowed for the loan"
+                          placeholder="maximum months or weeks allowed for the loan"
                         />
                       </div>
                       <div className="form-group col-md-6">
@@ -131,6 +141,16 @@ function LoanTYpes() {
                           className="form-control"
                           value={intrest}
                           onChange={(e) => setIntrest(e.target.value)}
+                          placeholder="number e.g 2  as a percentage"
+                        />
+                      </div>
+                      <div className="form-group col-md-6">
+                        <p className="mg-b-10">Monitoring Fees Rate</p>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={monitoring}
+                          onChange={(e) => setMonitoring(e.target.value)}
                           placeholder="number e.g 2  as a percentage"
                         />
                       </div>
@@ -145,7 +165,17 @@ function LoanTYpes() {
                         />
                       </div>
                       <div className="form-group col-md-6">
-                        <p className="mg-b-10">fine rate</p>
+                        <p className="mg-b-10">Application fees rate</p>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={application}
+                          onChange={(e) => setApplication(e.target.value)}
+                          placeholder="number e.g 2  as a percentage"
+                        />
+                      </div>
+                      <div className="form-group col-md-6">
+                        <p className="mg-b-10">penalty fees rate</p>
                         <input
                           type="text"
                           className="form-control"
@@ -175,7 +205,9 @@ function LoanTYpes() {
                           <option value="" selected disabled>
                             -----select payment plan------
                           </option>
+                          <option value="daily">daily</option>
                           <option value="weekly">weekly</option>
+                          <option value="fortnight">fortnight</option>
                           <option value="monthly">monthly</option>
                         </select>
                       </div>

@@ -84,4 +84,24 @@ export default {
     let response = await apiCall("loans/deleting/delete/this", data);
     return response;
   },
+  async getLoanShedule(data) {
+    let response = await apiCall("add/loans/shedule", data);
+    return response;
+  },
+  async getLoanTransactions(data) {
+    let response = await apiCall("loans/transactions", data);
+    return response;
+  },
+  async getReciepts() {
+    let response = await apiCall("loans/cashReciepts");
+    return response;
+  },
+  async getApprovedLoanNotcashed() {
+    let response = await apiCall("loans/cashLoanNotPaid");
+    return response;
+  },
+  async ActivateCashLoan(data) {
+    let response = await apiCall("loans/cashloanActivator", data);
+    return response;
+  },
 };

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import AppContainer from "../../Components/Structure/AppContainer";
 import LoansContext from "../../Context/LoansContext";
 import toast, {Toaster} from "react-hot-toast";
@@ -14,7 +14,6 @@ import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import LoanUpdating from "../../Components/loans/LoanUpdating";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import {RenderSecure} from "../../util/script/RenderSecure";
-import ReactPaginate from "react-paginate";
 
 function ViewLoanApplications() {
   const {LoansToApprove, getLoansToApprove} = useContext(LoansContext);
@@ -114,18 +113,6 @@ function ViewLoanApplications() {
     // }
   };
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 10; // Change this value based on your preference
-
-  const handlePageClick = (data) => {
-    setCurrentPage(data.selected);
-  };
-
-  const offset = currentPage * itemsPerPage;
-  const paginatedItems = Array.isArray(LoansToApprove)
-    ? LoansToApprove.slice(offset, offset + itemsPerPage)
-    : [];
-
   return (
     <div>
       <AppContainer title="View Loan Application">
@@ -213,9 +200,6 @@ function ViewLoanApplications() {
                               <th>
                                 Approval <br />
                               </th>
-                              <th>
-                                decline <br />
-                              </th>
                             </RenderSecure>
                           </tr>
                         </thead>
@@ -231,116 +215,102 @@ function ViewLoanApplications() {
                             </tr>
                           )}
 
-                          {paginatedItems.map((loan, key) => (
-                            <tr key={key}>
-                              <td>{key + 1}</td>
-                              <td>{loan.customer_id.names}</td>
-                              <td>{loan.amount}</td>
-                              <td>{loan.duration}</td>
-                              <td>{loan.interest_rate}</td>
-                              <td>{loan.processing_fee_rate}</td>
-                              <td>{loan.insurance_rate}</td>
-                              <td>{loan.fine_rate}</td>
-                              <td>{loan.date_requested}</td>
-                              <td>
-                                {" "}
-                                <button
-                                  className="badge  bg-primary-light bg-pill m-2"
-                                  onClick={() => handle_loan_updates(loan.id)}>
-                                  <FontAwesomeIcon
-                                    icon={faEdit}
-                                    fade
-                                    style={{color: "orange"}}
-                                  />
-                                  update
-                                </button>
-                                <button
-                                  className="badge  bg-danger-light bg-pill m-2"
-                                  onClick={() => delete_loan(loan.id)}>
-                                  <FontAwesomeIcon
-                                    icon={faTrash}
-                                    fade
-                                    style={{color: "red"}}
-                                  />{" "}
-                                  Delete
-                                </button>
-                              </td>
+                          {Array.isArray(LoansToApprove) &&
+                            LoansToApprove.map((loan, key) => (
+                              <tr key={key}>
+                                <td>{key + 1}</td>
+                                <td>{loan.customer_id.names}</td>
+                                <td>{loan.amount}</td>
+                                <td>{loan.duration}</td>
+                                <td>{loan.interest_rate}</td>
+                                <td>{loan.processing_fee_rate}</td>
+                                <td>{loan.insurance_rate}</td>
+                                <td>{loan.fine_rate}</td>
+                                <td>{loan.date_requested}</td>
+                                <td>
+                                  {" "}
+                                  <button
+                                    className="badge  bg-primary-light bg-pill m-2"
+                                    onClick={() =>
+                                      handle_loan_updates(loan.id)
+                                    }>
+                                    <FontAwesomeIcon
+                                      icon={faEdit}
+                                      fade
+                                      style={{color: "orange"}}
+                                    />
+                                    update
+                                  </button>
+                                  <button
+                                    className="badge  bg-danger-light bg-pill m-2"
+                                    onClick={() => delete_loan(loan.id)}>
+                                    <FontAwesomeIcon
+                                      icon={faTrash}
+                                      fade
+                                      style={{color: "red"}}
+                                    />{" "}
+                                    Delete
+                                  </button>
+                                </td>
 
-                              <td>{getStatusBadge(loan.status)}</td>
+                                <td>{getStatusBadge(loan.status)}</td>
 
-                              <td>
-                                <button
-                                  onClick={() =>
-                                    handle_AddSecurities(
-                                      loan.id,
-                                      loan.customer_id.names.id
-                                    )
-                                  }
-                                  className="badge  bg-secondary-light bg-pill">
-                                  add
-                                </button>
-                                <button
-                                  onClick={() =>
-                                    handleSecurities(
-                                      loan.id,
-                                      loan.customer_id.names.id
-                                    )
-                                  }
-                                  className="badge  bg-primary-light bg-pill m-2">
-                                  View
-                                </button>
-                              </td>
-                              <td>
-                                <button
-                                  onClick={() => handle_AddGuarantors(loan.id)}
-                                  className="badge  bg-warning-light bg-pill">
-                                  add
-                                </button>
-
-                                <button
-                                  onClick={() => handleGuarantors(loan.id)}
-                                  className="badge  bg-primary-light bg-pill m-2">
-                                  View
-                                </button>
-                              </td>
-                              <RenderSecure code="APPROV-LOAN">
                                 <td>
                                   <button
                                     onClick={() =>
-                                      handle_approval(
+                                      handle_AddSecurities(
                                         loan.id,
-                                        loan.status,
-                                        getLoansToApprove()
+                                        loan.customer_id.names.id
                                       )
                                     }
-                                    className="badge bg-success-light bg-pill">
-                                    Approve
+                                    className="badge  bg-secondary-light bg-pill">
+                                    add
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      handleSecurities(
+                                        loan.id,
+                                        loan.customer_id.names.id
+                                      )
+                                    }
+                                    className="badge  bg-primary-light bg-pill m-2">
+                                    View
                                   </button>
                                 </td>
-                              </RenderSecure>
-                            </tr>
-                          ))}
+                                <td>
+                                  <button
+                                    onClick={() =>
+                                      handle_AddGuarantors(loan.id)
+                                    }
+                                    className="badge  bg-warning-light bg-pill">
+                                    add
+                                  </button>
+
+                                  <button
+                                    onClick={() => handleGuarantors(loan.id)}
+                                    className="badge  bg-primary-light bg-pill m-2">
+                                    View
+                                  </button>
+                                </td>
+                                <RenderSecure code="APPROV-LOAN">
+                                  <td>
+                                    <button
+                                      onClick={() =>
+                                        handle_approval(
+                                          loan.id,
+                                          loan.status,
+                                          getLoansToApprove()
+                                        )
+                                      }
+                                      className="badge bg-success-light bg-pill">
+                                      Approve
+                                    </button>
+                                  </td>
+                                </RenderSecure>
+                              </tr>
+                            ))}
                         </tbody>
                       </table>
-
-                      <ReactPaginate
-                        pageCount={Math.ceil(
-                          LoansToApprove.length / itemsPerPage
-                        )}
-                        pageRangeDisplayed={3}
-                        marginPagesDisplayed={1}
-                        onPageChange={handlePageClick}
-                        containerClassName={"pagination"}
-                        activeClassName={"active"}
-                        nextLabel={"Next"}
-                        previousLabel={"Previous"}
-                        breakLabel={"..."}
-                        pageLinkClassName={"page-link"}
-                        nextClassName={"page-item"}
-                        nextLinkClassName={"page-link"}
-                        previousClassName={"page-item"}
-                        previousLinkClassName={"page-link"}
-                      />
                     </div>
                   </div>
                 </div>

@@ -10,10 +10,21 @@ function LoanSlip(props) {
     getLoanHolderDetails();
     guarantor();
     securities();
+    get_shedule();
   }, []);
 
+  //  <LoanSlip
+  //    isOpen={true}
+  //    id={id}
+  //    name1={name1}
+  //    name2={name2}
+  //    contact={contact}
+  //  />;
   const id = props.id;
   const customer_id = props.customer;
+  const Cus_name = props.name1;
+  const Cus_name2 = props.name2;
+  var contact = props.contact;
 
   const [Loaned, setLoanded] = useState("");
   const [customer, setCustomer] = useState("");
@@ -68,6 +79,36 @@ function LoanSlip(props) {
     //   toast.error(server_response.message);
     // }
   };
+
+  const [shedule, setShedule] = useState("");
+  const [balance, setBalance] = useState("");
+  const [paid, setPaid] = useState("");
+  const get_shedule = async () => {
+    var data = {
+      id: props.id,
+    };
+    const server_response = await ajaxLaons.getLoanShedule(data);
+
+    if (server_response.status === "OK") {
+      setShedule(server_response.details.shedule);
+      // setShedule(server_response.details);
+    }
+    // else if (server_response.status === "Fail") {
+    //   toast.error(server_response.message);
+    // }
+  };
+  console.log(shedule);
+  //  var  detail = {
+  //       "shedule": [
+  //           {
+  //               "installment": 35333.333333333336,
+  //               "date_expected": "2024-02-02"
+  //           },
+
+  //       ],
+  //       "paid": 0,
+  //       "balance": 212000
+  //   }
 
   const Print = () => {
     let printContents = document.getElementById("printablediv").innerHTML;
@@ -133,11 +174,20 @@ function LoanSlip(props) {
                     <h3 className="text-center">
                       SERENITY MICROFINANCE LIMITED
                     </h3>
+
+                    <h6 className="text-center">P.O.Box 310081</h6>
+                    <h6 className="text-center">
+                      Bulindo shopping centre Building
+                    </h6>
                     <h6 className="text-center">
                       email:
                       <span style={{color: "red"}}>
-                        serenitymicro@gmail.com
+                        serenitymicrofinance@gmail.com
                       </span>
+                    </h6>
+                    <h6 className="text-center">
+                      contacts:
+                      <span style={{color: "red"}}>+256771670497</span>
                     </h6>
                     <p className="text-center">
                       <u> Clients' Loan slip</u>
@@ -156,17 +206,15 @@ function LoanSlip(props) {
               <p>
                 Name:: &nbsp;&nbsp;
                 <span>
-                  {customer && customer.first_name} &nbsp;
-                  {customer && customer.first_name}
+                  {Cus_name} &nbsp;
+                  {Cus_name2}
                 </span>
               </p>
               <p>
                 contact :: &nbsp;&nbsp;+
-                <span>{customer && customer.contact}</span>
+                <span>{contact}</span>
               </p>
-              <p>
-                email:: &nbsp;&nbsp; <span>{customer && customer.email}</span>
-              </p>
+
               {/* <p>
                 Location:: &nbsp;&nbsp; <span>{customer.location}</span>
               </p> */}
@@ -183,10 +231,6 @@ function LoanSlip(props) {
               <p>
                 contact:: &nbsp; &nbsp;+
                 <span>{Loaned && Loaned.created_by.contact}&nbsp;</span>
-              </p>
-              <p>
-                email :: &nbsp; &nbsp;
-                <span>{Loaned && Loaned.created_by.email}&nbsp;</span>{" "}
               </p>
             </div>
           </div>
@@ -228,12 +272,6 @@ function LoanSlip(props) {
                                     {Loaned && Loaned.processing_fee_rate}
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td>Insurance Rate</td>
-                                  <td className="text-primary">
-                                    {Loaned && Loaned.insurance_rate}
-                                  </td>
-                                </tr>
                               </tbody>
                             </table>
                           </div>
@@ -242,6 +280,12 @@ function LoanSlip(props) {
                           <div className="table-responsive">
                             <table className="table card-table text-nowrap table-bordered border-top">
                               <tbody>
+                                <tr>
+                                  <td>Insurance Rate</td>
+                                  <td className="text-primary">
+                                    {Loaned && Loaned.insurance_rate}
+                                  </td>
+                                </tr>
                                 <tr>
                                   <td>Fine Rate</td>
                                   <td className="text-primary">
@@ -259,15 +303,6 @@ function LoanSlip(props) {
                                   <td className="text-primary">
                                     {Loaned && Loaned.date_requested}
                                   </td>
-                                </tr>
-
-                                <tr>
-                                  <td>Number of guarantors</td>
-                                  <td className="text-primary">Buy</td>
-                                </tr>
-                                <tr>
-                                  <td>Number of securities</td>
-                                  <td className="text-primary">Buy</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -316,30 +351,13 @@ function LoanSlip(props) {
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td>Processing Fees</td>
-                                  <td className="text-primary">
-                                    {Loaned &&
-                                      (Loaned.amount *
-                                        Loaned.processing_fee_rate) /
-                                        100}
-                                  </td>
+                                  <td>Loan paid</td>
+                                  <td className="text-primary">xxxxxx</td>
                                 </tr>
                                 <tr>
-                                  <td>Insurance Fees</td>
-                                  <td className="text-primary">
-                                    {Loaned &&
-                                      (Loaned.amount * Loaned.insurance_rate) /
-                                        100}
-                                  </td>
+                                  <td>loan balance </td>
+                                  <td className="text-primary">xxxxxx</td>
                                 </tr>
-                                {/* <tr>
-                                  <td>Total </td>
-                                  <td className="text-primary">
-                                    {Loaned &&
-                                      (Loaned.amount * Loaned.insurance_rate) /
-                                        100}
-                                  </td>
-                                </tr> */}
                               </tbody>
                             </table>
                           </div>
@@ -358,7 +376,7 @@ function LoanSlip(props) {
                 <div className="col-12">
                   <div className="card custom-card card-dashboard-calendar pb-0">
                     <label className="main-content-label mb-2 pt-1">
-                      loan guarantor (s)
+                      loan payment schedule
                     </label>
                     <div className="card-body">
                       <div className="row">
@@ -367,37 +385,22 @@ function LoanSlip(props) {
                             <table className="table card-table text-nowrap table-bordered border-top">
                               <thead>
                                 <tr>
-                                  <th>NO.</th>
-                                  <th>name</th>
-                                  <th>contact </th>
-                                  <th>Relationship</th>
+                                  <th>date</th>
+                                  <th>installments</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                {/* id : "4" name : "jessy" nin : "cm1000027727fg"
-                                phone : "256703433364" relationship : "brother"
-                                residence : "gomba" */}
-                                {Array.isArray(guarantors) &&
-                                  guarantors.map((item, key) => (
+                                {Array.isArray(shedule) &&
+                                  shedule.map((item, key) => (
                                     <tr key={key}>
-                                      <td>{key + 1}</td>
-                                      <td className="text-primary">
-                                        {item.name}
-                                      </td>
-                                      <td className="text-primary">
-                                        {item.phone}
-                                      </td>
-                                      <td className="text-primary">
-                                        {item.relationship}
-                                      </td>
+                                      <td>{item.date_expected}</td>
+                                      <td>{item.installment}</td>
                                     </tr>
                                   ))}
-                                {!Array.isArray(guarantors) && (
+                                {!Array.isArray(shedule) && (
                                   <tr>
-                                    <td
-                                      colSpan={4}
-                                      className="text-danger text-center">
-                                      No guarantor (s) attached to the loan
+                                    <td>
+                                      <p>cliffede</p>
                                     </td>
                                   </tr>
                                 )}
@@ -412,59 +415,6 @@ function LoanSlip(props) {
               </div>
             </div>
           </div>
-          {/* <div className="row">
-            <div className="card">
-              <div className="col-lg-12">
-                <div className="col-12">
-                  <div className="card custom-card card-dashboard-calendar pb-0">
-                    <label className="main-content-label mb-2 pt-1">
-                      loan securities
-                    </label>
-                    <div className="card-body">
-                      <div className="row">
-                        <div className="col-12">
-                          <div className="table-responsive">
-                            <table className="table card-table text-nowrap table-bordered border-top">
-                              <thead>
-                                <tr>
-                                  <th>name</th>
-                                  <th>contact </th>
-                                  <th>Relationship</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>Loaned Amount</td>
-                                  <td className="text-primary">Buy</td>
-                                  <td className="text-primary">Buy</td>
-                                </tr>
-
-                                <tr>
-                                  <td> Loan Interest </td>
-                                  <td className="text-primary">Buy</td>
-                                  <td className="text-primary">Buy</td>
-                                </tr>
-                                <tr>
-                                  <td>Processing Fees</td>
-                                  <td className="text-primary">Buy</td>
-                                  <td className="text-primary">Buy</td>
-                                </tr>
-                                <tr>
-                                  <td>Possible</td>
-                                  <td className="text-primary">Buy</td>
-                                  <td className="text-primary">Buy</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       </SystemModal>
     </div>

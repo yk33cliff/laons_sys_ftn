@@ -88,18 +88,27 @@ function LoanStatement(props) {
           {/* Row */}
           <div className="row row-sm">
             <div className="card custom-card  col-lg-12 col-md-12 col-xl-12 pt-4">
-              <div className="row">
-                {modal}
-                <div className="text-center col-lg-12 col-md-12 col-xl-12 pt-4 ">
-                  <h3> SERENITY MICROFINANCE LIMITED</h3>
-                  <h6>
-                    EMAIL:
-                    <span style={{color: "blue"}}>serenitymicro@gmail.com</span>
-                  </h6>
-                  <p className="text-center">
-                    <u> clients' Loan statement</u>
-                  </p>
-                </div>
+              {modal}
+              <div className="">
+                <h3 className="text-center">SERENITY MICROFINANCE LIMITED</h3>
+
+                <h6 className="text-center">P.O.Box 310081</h6>
+                <h6 className="text-center">
+                  Bulindo shopping centre Building
+                </h6>
+                <h6 className="text-center">
+                  email:
+                  <span style={{color: "red"}}>
+                    serenitymicrofinance@gmail.com
+                  </span>
+                </h6>
+                <h6 className="text-center">
+                  contacts:
+                  <span style={{color: "red"}}>+256771670497</span>
+                </h6>
+                <p className="text-center">
+                  <u> Clients' Loan slip</u>
+                </p>
               </div>
 
               <div className="row">

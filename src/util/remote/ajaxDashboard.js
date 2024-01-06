@@ -34,6 +34,18 @@ export default {
     let response = await apiCall("dashboard/total/activeLoansNumber");
     return response;
   },
+  async Fetch_quick_balance() {
+    let response = await apiCall("dashboard/get/request/electronic_balance/");
+    return response;
+  },
+  async get_application_fees_earnings() {
+    let response = await apiCall("dashboard/get/applicationfees/");
+    return response;
+  },
+  async get_recent_transaction() {
+    let response = await apiCall("RecentTransactions/get");
+    return response;
+  },
   //   async enableUser(user_id) {
   //     let data = {
   //       user_id: user_id,

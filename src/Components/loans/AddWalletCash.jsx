@@ -2,37 +2,44 @@ import React, {useState} from "react";
 import SystemModal from "../Common/SystemModal";
 import toast, {Toaster} from "react-hot-toast";
 import ajaxLaons from "../../util/remote/ajaxLaons";
+import ajaxUser from "../../util/remote/ajaxUser";
 import functions from "../../util/functions";
-function AddLoanpayment(props) {
+import useStateCallback from "../../util/customHooks/useStateCallback";
+import LoanCashReceipt from "./LoanCashReciept";
+function AddWalletCash(props) {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
-  const [contact, setContact] = useState("");
-  const id = props.id;
-  var user_id = functions.sessionGuard();
-  console.log(props.customer);
+
+  var user = functions.sessionGuard();
+
+  const [reciept, setReciept] = useStateCallback(false);
+  const handleGuarantors = (id) => {
+    setReciept(false, () =>
+      setReciept(<LoanCashReceipt isOpen={true} id={id} />)
+    );
+  };
   const handler = async (e) => {
     e.preventDefault();
-    if (amount.length > 0) {
+    if (amount.length > 0 && date.length > 0) {
       var data = {
-        Loan_id: id,
-        amount: amount,
-        contact: contact,
-        user_id: user_id,
+        customer_id: props.id,
+        amount_in: amount,
         date: date,
-        customer: props.customer,
+        added_by: user,
       };
 
-      const server_response = await ajaxLaons.AddLoanRepayment(data);
+      const server_response = await ajaxUser.AddWalletCashToUser(data);
       if (server_response.status === "OK") {
         // resetForm();
         toast.success(server_response.message);
         setAmount("");
         setDate("");
+        handleGuarantors(server_response.details);
       } else {
         toast.error(server_response.message);
       }
     } else {
-      toast.error("Amount is mandatory");
+      toast.error("Fill all the fields, they are mandatory");
     }
   };
 
@@ -57,36 +64,38 @@ function AddLoanpayment(props) {
   return (
     <div>
       <SystemModal
-        title="Add laon payment for cash payment"
+        title="Add User wallet cash"
         id="model-update-cross"
         size="md"
         footer={RenderFooter}>
         <Toaster />
+        {reciept}
         <div className="mb-4">
-          <label htmlFor="">amount Paid</label>
+          <label htmlFor="">Amount </label>
           <input
             type="text"
-            className="form-control"
-            placeholder="amount paid by the user"
+            className="form-control text-dark"
+            placeholder="amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
         </div>
-        <div className="mb-4">
-          <label htmlFor="">Customer Contact</label>
+        {/* <div className="mb-4">
+          <label htmlFor="">customer,s contact </label>
           <input
             type="text"
-            className="form-control"
-            placeholder="customer's contact"
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
+            className="form-control text-dark"
+            placeholder="customers contact"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
-        </div>
+        </div> */}
+
         <div className="mb-4">
-          <label htmlFor="">payment date</label>
+          <label htmlFor="">Date paid</label>
           <input
             type="date"
-            className="form-control"
+            className="form-control text-dark"
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
@@ -96,4 +105,4 @@ function AddLoanpayment(props) {
   );
 }
 
-export default AddLoanpayment;
+export default AddWalletCash;

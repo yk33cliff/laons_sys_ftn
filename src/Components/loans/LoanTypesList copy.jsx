@@ -1,10 +1,8 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import LoanTypesContext from "../../Context/LoanTypesContext";
 import UpdateLoanType from "./UpdateLoanType";
 import useStateCallback from "../../util/customHooks/useStateCallback";
 import {RenderSecure} from "../../util/script/RenderSecure";
-import ReactPaginate from "react-paginate";
-
 function LoanTypesList() {
   const {LoanTypes, getLoanList} = useContext(LoanTypesContext);
   const [modal, setModal] = useStateCallback(false);
@@ -44,18 +42,6 @@ function LoanTypesList() {
       );
     }
   };
-  const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 10; // Change this value based on your preference
-
-  const handlePageClick = (data) => {
-    setCurrentPage(data.selected);
-  };
-
-  const offset = currentPage * itemsPerPage;
-  const paginatedItems = Array.isArray(LoanTypes)
-    ? LoanTypes.slice(offset, offset + itemsPerPage)
-    : [];
-
   return (
     <div>
       <div className="row row-sm">
@@ -115,51 +101,53 @@ function LoanTypesList() {
                     </tr>
                   </thead>
                   <tbody>
-                    {paginatedItems.map((loan, key) => (
-                      <tr key={key}>
-                        <td>{key + 1}</td>
-                        <td>{loan.name}</td>
-                        <td>
-                          <p>
-                            <span>{loan.duration}</span>
-                            <span style={{fontSize: "12px"}}>
-                              {getStatusBadge(loan.installment_type)}
-                            </span>
-                          </p>
-                        </td>
-                        <td>{loan.interest_rate}</td>
-                        <td>{loan.application_rate}</td>
-                        <td>{loan.processing_fee_rate}</td>
-                        <td>{loan.insurance}</td>
-                        <td>{loan.fine_rate}</td>
-                        <td>{loan.min_amount}</td>
-                        <td>{loan.maximum_amount}</td>
-                        <td>{loan.installment_type}</td>
-
-                        <td>
-                          {loan.status === "1" ? (
-                            <span className="badge bg-success-light bg-pill">
-                              active
-                            </span>
-                          ) : (
-                            <span className="badge bg-danger-light bg-pill">
-                              inactive
-                            </span>
-                          )}
-                        </td>
-                        <RenderSecure code="EDIT-TYPE">
+                    {LoanTypes &&
+                      Array.isArray(LoanTypes) &&
+                      LoanTypes.map((loan, key) => (
+                        <tr key={key}>
+                          <td>{key + 1}</td>
+                          <td>{loan.name}</td>
                           <td>
-                            <button
-                              className=" badge bg-danger-light bg-pill"
-                              onClick={(e) =>
-                                handleModal(e, loan, getLoanList)
-                              }>
-                              update
-                            </button>
+                            <p>
+                              <span>{loan.duration}</span>
+                              <span style={{fontSize: "12px"}}>
+                                {getStatusBadge(loan.installment_type)}
+                              </span>
+                            </p>
                           </td>
-                        </RenderSecure>
-                      </tr>
-                    ))}
+                          <td>{loan.interest_rate}</td>
+                          <td>{loan.application_rate}</td>
+                          <td>{loan.processing_fee_rate}</td>
+                          <td>{loan.insurance}</td>
+                          <td>{loan.fine_rate}</td>
+                          <td>{loan.min_amount}</td>
+                          <td>{loan.maximum_amount}</td>
+                          <td>{loan.installment_type}</td>
+
+                          <td>
+                            {loan.status === "1" ? (
+                              <span className="badge bg-success-light bg-pill">
+                                active
+                              </span>
+                            ) : (
+                              <span className="badge bg-danger-light bg-pill">
+                                inactive
+                              </span>
+                            )}
+                          </td>
+                          <RenderSecure code="EDIT-TYPE">
+                            <td>
+                              <button
+                                className=" badge bg-danger-light bg-pill"
+                                onClick={(e) =>
+                                  handleModal(e, loan, getLoanList)
+                                }>
+                                update
+                              </button>
+                            </td>
+                          </RenderSecure>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
@@ -167,23 +155,6 @@ function LoanTypesList() {
           </div>
         </div>
       </div>
-      {/* Render the pagination component */}
-      <ReactPaginate
-        pageCount={Math.ceil(LoanTypes.length / itemsPerPage)}
-        pageRangeDisplayed={10}
-        marginPagesDisplayed={1}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination"}
-        activeClassName={"active"}
-        nextLabel={"Next"}
-        previousLabel={"Previous"}
-        breakLabel={"..."}
-        pageLinkClassName={"page-link"}
-        nextClassName={"page-item"}
-        nextLinkClassName={"page-link"}
-        previousClassName={"page-item"}
-        previousLinkClassName={"page-link"}
-      />
     </div>
   );
 }

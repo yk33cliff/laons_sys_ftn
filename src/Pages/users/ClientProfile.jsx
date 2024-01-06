@@ -5,6 +5,10 @@ import ajaxUser from "../../util/remote/ajaxUser";
 import toast, {Toaster} from "react-hot-toast";
 import dictionary from "../../util/dictionary";
 import ajaxLaons from "../../util/remote/ajaxLaons";
+import useStateCallback from "../../util/customHooks/useStateCallback";
+import AddWalletCash from "../../Components/loans/AddWalletCash";
+import {RenderSecure} from "../../util/script/RenderSecure";
+import LoanStatement from "../../Components/loans/LoanStatement";
 
 function ClientProfile(props) {
   const {id} = useParams();
@@ -12,6 +16,8 @@ function ClientProfile(props) {
   const [user, setUser] = useState();
   const getUserInfo = async () => {
     const data = {id: id};
+    console.log(id);
+
     const server_response = await ajaxUser.fetchSingleUser(data);
 
     if (server_response.status === "OK") {
@@ -20,7 +26,6 @@ function ClientProfile(props) {
       // Handle error
     }
   };
-
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -46,15 +51,15 @@ function ClientProfile(props) {
 
   useEffect(() => {
     updateState(user);
-  }, [user]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      fname.length > 0 ||
-      lname.length > 0 ||
-      uname.length > 0 ||
-      phone.length > 0 ||
+      fname.length > 0 &&
+      lname.length > 0 &&
+      uname.length > 0 &&
+      phone.length > 0 &&
       nin.length > 0
     ) {
       const data = {
@@ -72,6 +77,7 @@ function ClientProfile(props) {
 
       if (server_response.status === "OK") {
         toast.success(server_response.message);
+        getUserInfo();
       } else if (server_response.status === "Fail") {
         toast.error(server_response.message);
       }
@@ -99,57 +105,68 @@ function ClientProfile(props) {
   useEffect(() => {
     userLoans();
   }, []);
-  console.log(userLoan);
+  // console.log(userLoan);
   const getStatusBadge = (status) => {
-    if ((status = 1)) {
+    if (status === 1) {
       return (
-        <span
-          style={{fontSize: "16px"}}
-          className="badge bg-info-light bg-pill">
+        <span style={{fontSize: "16px"}} className="badge p-2 bg-info bg-pill">
           Pending
         </span>
       );
-    } else if ((status = 2)) {
+    } else if (status === 2) {
       return (
-        <span
-          style={{fontSize: "16px"}}
-          className="badge bg-info-light bg-pill">
+        <span style={{fontSize: "16px"}} className="badge p-2 bg-info bg-pill">
           In Progress
         </span>
       );
-    } else if ((status = 3)) {
+    } else if (status === 3) {
       return (
         <span
           style={{fontSize: "16px"}}
-          className="badge bg-sucess-light bg-pill">
-          Approval in Progress
+          className="badge p-2 bg-success bg-pill">
+          active
         </span>
       );
-    } else if ((status = 4)) {
-      <span
-        style={{fontSize: "16px"}}
-        className="badge bg-success-light bg-pill">
-        Approved
-      </span>;
-    } else if ((status = 5)) {
-      <span
-        style={{fontSize: "16px"}}
-        className="badge bg-danger-light bg-pill">
-        Denied
-      </span>;
+    } else if (status === 5) {
+      return (
+        <span
+          style={{fontSize: "16px"}}
+          className="badge p-2 bg-danger bg-pill">
+          Denied
+        </span>
+      );
     }
+  };
+  // handling wallet balance payment
+  const [payment, setPayment] = useStateCallback(false);
+  const paymentHandler = (id) => {
+    setPayment(false, () =>
+      setPayment(<AddWalletCash isOpen={true} id={id} />)
+    );
+  };
+
+  // loanstatement handlers
+  const [statment, setStatement] = useStateCallback(false);
+
+  const handleStatement = (id) => {
+    setStatement(false, () =>
+      setStatement(<LoanStatement isOpen={true} id={id} />)
+    );
   };
 
   return (
     <div>
       <AppContainer title="user profile">
         <Toaster />
+        {statment}
         <div className="row">
           <>
             <div
               className="row square"
               // style={{height: "400px"}}
             >
+              {/* modal rendering */}
+              {payment}
               <div className="col-lg-12 col-md-12">
                 <div className="card custom-card">
                   <div className="card-body">
@@ -163,12 +180,17 @@ function ClientProfile(props) {
                           {fname} &nbsp;{lname}
                         </h3>
                       </div>
-                      <div className="btn-profile">
-                        <button className="btn btn-rounded btn-danger">
-                          <i className="fa fa-plus" />
-                          <span>role</span>
-                        </button>
-                      </div>
+                      <RenderSecure code="ADD-PAYMNT">
+                        <div className="btn-profile">
+                          <button
+                            className="btn btn-rounded btn-primary"
+                            onClick={paymentHandler}>
+                            <i className="fa fa-plus" /> &nbsp;
+                            <span>wallet deposit</span>
+                          </button>
+                        </div>
+                      </RenderSecure>
+
                       <div className="profile-cover__action bg-img" />
                       <div className="profile-cover__info">
                         <ul className="nav">
@@ -486,7 +508,12 @@ function ClientProfile(props) {
                                         <th>duration </th>
                                         <th>start Date</th>
                                         <th>Loan status </th>
-                                        <th>View Loan </th>
+                                        <RenderSecure code="LOANS-STMNT">
+                                          <th>View Loan </th>
+                                        </RenderSecure>
+                                        <RenderSecure code="LOANS-STMNT">
+                                          <th>manage Loan </th>
+                                        </RenderSecure>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -511,66 +538,35 @@ function ClientProfile(props) {
                                             <td>{loan.duration}</td>
                                             <td>{loan.date_requested}</td>
                                             <td>
-                                              {getStatusBadge(
-                                                loan.getStatusBadge
-                                              )}
+                                              {getStatusBadge(loan.status)}
+                                              {loan.status}
                                             </td>
-                                            <td>
-                                              <span className="badge  text-white bg-primary bg-pill">
-                                                <a
-                                                  style={{fontSize: "16px"}}
-                                                  className="text-white"
-                                                  href={`/loan_profile/${loan.id}`}>
-                                                  View statment
-                                                </a>
-                                              </span>
-                                            </td>
+                                            <RenderSecure code="LOANS-STMNT">
+                                              <td>
+                                                <button
+                                                  className="badge  text-white bg-primary bg-pill"
+                                                  style={{fontSize: "14px"}}
+                                                  onClick={() =>
+                                                    handleStatement(loan.id)
+                                                  }>
+                                                  Loan statment
+                                                </button>
+                                              </td>
+                                            </RenderSecure>
+                                            <RenderSecure code="LOANS-STMNT">
+                                              <td>
+                                                <button
+                                                  className="badge  text-white bg-primary bg-pill"
+                                                  style={{fontSize: "14px"}}
+                                                  onClick={() =>
+                                                    handleStatement(loan.id)
+                                                  }>
+                                                  Loan statment
+                                                </button>
+                                              </td>
+                                            </RenderSecure>
                                           </tr>
                                         ))}
-                                      {/* <tr>
-                                        <th scope="row">2</th>
-                                        <td>Joan Powell</td>
-                                        <td>Associate Developer</td>
-                                        <td>$450,870</td>
-                                        <td>
-                                          <span className="badge bg-danger-light bg-pill">
-                                            Cancelled
-                                          </span>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">3</th>
-                                        <td>Joan Powell</td>
-                                        <td>Associate Developer</td>
-                                        <td>$450,870</td>
-                                        <td>
-                                          <span className="badge bg-warning-light bg-pill">
-                                            Pending
-                                          </span>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">4</th>
-                                        <td>Joan Powell</td>
-                                        <td>Associate Developer</td>
-                                        <td>$450,870</td>
-                                        <td>
-                                          <span className="badge bg-success-light bg-pill">
-                                            Completed
-                                          </span>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <th scope="row">5</th>
-                                        <td>Joan Powell</td>
-                                        <td>Associate Developer</td>
-                                        <td>$450,870</td>
-                                        <td>
-                                          <span className="badge bg-info-light bg-pill">
-                                            In Process
-                                          </span>
-                                        </td>
-                                      </tr> */}
                                     </tbody>
                                   </table>
                                 </div>

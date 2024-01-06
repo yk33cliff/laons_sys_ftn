@@ -2,27 +2,24 @@ import React, {useState} from "react";
 import SystemModal from "../Common/SystemModal";
 import toast, {Toaster} from "react-hot-toast";
 import ajaxLaons from "../../util/remote/ajaxLaons";
-import functions from "../../util/functions";
-function AddLoanpayment(props) {
+function AddWalletCash(props) {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
-  const [contact, setContact] = useState("");
-  const id = props.id;
-  var user_id = functions.sessionGuard();
-  console.log(props.customer);
+  const [residence, setResidence] = useState("");
+  const [phone, setPhone] = useState("");
+  const [relationship, setRelationship] = useState("");
+
+  //   console.log(props.id);
   const handler = async (e) => {
     e.preventDefault();
-    if (amount.length > 0) {
+    if (amount.length > 0 && date.length > 0) {
       var data = {
-        Loan_id: id,
+        id: props.id,
         amount: amount,
-        contact: contact,
-        user_id: user_id,
         date: date,
-        customer: props.customer,
       };
 
-      const server_response = await ajaxLaons.AddLoanRepayment(data);
+      const server_response = await ajaxLaons.addLoanGuarantor(data);
       if (server_response.status === "OK") {
         // resetForm();
         toast.success(server_response.message);
@@ -32,7 +29,7 @@ function AddLoanpayment(props) {
         toast.error(server_response.message);
       }
     } else {
-      toast.error("Amount is mandatory");
+      toast.error("Fill all the fields, they are mandatory");
     }
   };
 
@@ -57,36 +54,26 @@ function AddLoanpayment(props) {
   return (
     <div>
       <SystemModal
-        title="Add laon payment for cash payment"
+        title="Add Loan  guarantor"
         id="model-update-cross"
         size="md"
         footer={RenderFooter}>
         <Toaster />
         <div className="mb-4">
-          <label htmlFor="">amount Paid</label>
+          <label htmlFor="">Amount </label>
           <input
             type="text"
-            className="form-control"
-            placeholder="amount paid by the user"
+            className="form-control text-dark"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           />
         </div>
+
         <div className="mb-4">
-          <label htmlFor="">Customer Contact</label>
+          <label htmlFor="">Date paid</label>
           <input
             type="text"
-            className="form-control"
-            placeholder="customer's contact"
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="">payment date</label>
-          <input
-            type="date"
-            className="form-control"
+            className="form-control text-dark"
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
@@ -96,4 +83,4 @@ function AddLoanpayment(props) {
   );
 }
 
-export default AddLoanpayment;
+export default AddWalletCash;

@@ -15,10 +15,10 @@ function UpdateGurantors(props) {
   const handler = async (e) => {
     e.preventDefault();
     if (
-      name.length > 0 ||
-      nin.length > 0 ||
-      residence.length > 0 ||
-      phone.length > 0 ||
+      name.length > 0 &&
+      nin.length > 0 &&
+      residence.length > 0 &&
+      phone.length > 0 &&
       relationship.length > 0
     ) {
       var data = {

@@ -11,7 +11,7 @@ const ChangePassword = (props) => {
 
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
-    if (props.id > 0 || old_password.length > 0 || new_password.length > 0) {
+    if (props.id > 0 && old_password.length > 0 && new_password.length > 0) {
       var pass = btoa(old_password);
       var passn = btoa(new_password);
       var data = {id: props.id, old_p: pass, new_p: passn};

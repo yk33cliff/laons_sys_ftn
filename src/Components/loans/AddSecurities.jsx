@@ -10,8 +10,6 @@ function AddSecurities(props) {
   const [picture2, setPicture2] = useState("");
   const id = props.id;
   const user_id = functions.sessionGuard();
-  // console.log(user_id);
-  // console.log(id);/
 
   const changePicture = (e) => {
     e.preventDefault();
@@ -26,7 +24,7 @@ function AddSecurities(props) {
       setPicture(e.target.result);
     };
   };
-  // console.log(picture);
+
   const changePicture2 = (e) => {
     e.preventDefault();
 
@@ -40,7 +38,6 @@ function AddSecurities(props) {
       setPicture2(e.target.result);
     };
   };
-  // console.log(picture2);
 
   const handler = async (e) => {
     e.preventDefault();
