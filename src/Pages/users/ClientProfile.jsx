@@ -15,11 +15,11 @@ function ClientProfile(props) {
   //+++++++++code  for updating user profile++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [user, setUser] = useState();
   const getUserInfo = async () => {
-    const data = {id: id};
-    console.log(id);
+    const data = {user_id: id};
+    // console.log(id);
 
     const server_response = await ajaxUser.fetchSingleUser(data);
-
+    // console.log(server_response)
     if (server_response.status === "OK") {
       setUser(server_response.details);
     } else {
@@ -38,8 +38,12 @@ function ClientProfile(props) {
 
   const [nin, setNin] = useState("");
   const [location, setLocation] = useState("");
+  const [wallet_balance, setWalletBalance] = useState("...");
+  const [total_deposits, setTotalDeposits] = useState("...");
+  const [total_withdraws, setTotalWithdraws] = useState("...");
+  const [photo, setPhoto] = useState("avatar.png");
 
-  const updateState = (user) => {
+  const updateState = () => {
     user && setFname(user?.first_name);
     user && setLname(user?.last_name);
     user && setUname(user?.username);
@@ -47,11 +51,13 @@ function ClientProfile(props) {
     user && setPhone(user?.contact);
     user && setLocation(user?.location);
     user && setNin(user?.nin);
+    user && setWalletBalance(user?.wallet_balance);
+    user && setPhoto(user?.photo);
   };
 
   useEffect(() => {
     updateState(user);
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -173,7 +179,7 @@ function ClientProfile(props) {
                     <div className=" profile-cover">
                       <div className="profile-cover__img">
                         <img
-                          src={dictionary.apiHost + "img/avatar.png"}
+                          src={dictionary.apiHost +"upload/"+ photo}
                           alt="user "
                         />
                         <h3 className="h3">
@@ -195,15 +201,15 @@ function ClientProfile(props) {
                       <div className="profile-cover__info">
                         <ul className="nav">
                           <li>
-                            <p> Ugsh.50,000,000</p>
+                            <p> Ugsh. {wallet_balance}</p>
                             <p className="text-primary">Wallet balance</p>
                           </li>
                           <li>
-                            <p> Ugsh.50,000,000</p>
+                            <p> Ugsh. {total_deposits}</p>
                             <p className="text-success">Total Deposites</p>
                           </li>
                           <li>
-                            <p> Ugsh.50,000,000</p>
+                            <p> Ugsh. {total_withdraws}</p>
                             <p className="text-warning">Total withdraws</p>
                           </li>
                         </ul>
