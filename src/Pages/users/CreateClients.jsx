@@ -13,7 +13,7 @@ function CreateClients() {
   const [gender, setGender] = useState("");
   const [nin, setNin] = useState("");
   const [location, setLocation] = useState("");
-  const [role, setRole] = useState(4);
+  const [role, setRole] = useState(5);
   const [pass, setPass] = useState("");
   const [others, setOthers] = useState("");
   const [photo, setPhoto] = useState("");
@@ -160,7 +160,7 @@ function CreateClients() {
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="choice user name"
+                              placeholder="other user names"
                               value={others}
                               onChange={(e) => setOthers(e.target.value)}
                             />
@@ -184,7 +184,7 @@ function CreateClients() {
                             <input
                               type="file"
                               className="form-control"
-                              placeholder="choice user name"
+                              placeholder="choice username"
                               onChange={(e) => changePicture(e)}
                             />
                           </div>
@@ -213,7 +213,7 @@ function CreateClients() {
                             <input
                               type="text"
                               className="form-control"
-                              name="example-text-input"
+                             
                               placeholder="user email"
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
@@ -267,7 +267,7 @@ function CreateClients() {
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="other Identification e.g passwords"
+                              placeholder="other Identification e.g passport"
                               value={ide}
                               onChange={(e) => SetIde(e.target.value)}
                             />
@@ -304,7 +304,7 @@ function CreateClients() {
                             <input
                               type="password"
                               className="form-control"
-                              placeholder="user location"
+                              placeholder="user password"
                               value={pass}
                               onChange={(e) => setPass(e.target.value)}
                             />
