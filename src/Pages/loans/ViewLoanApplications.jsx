@@ -96,7 +96,14 @@ function ViewLoanApplications() {
   const [Approve, setApprove] = useStateCallback(false);
   const handle_approval = (id, status) => {
     setApprove(false, () =>
-      setApprove(<ApproveLoan isOpen={true} id={id} status={status} />)
+      setApprove(
+        <ApproveLoan
+          isOpen={true}
+          id={id}
+          status={status}
+          function={getLoansToApprove}
+        />
+      )
     );
   };
   // for decline/

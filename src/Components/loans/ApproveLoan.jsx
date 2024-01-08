@@ -50,6 +50,7 @@ function ApproveLoan(props) {
 
     if (server_response.status === "OK") {
       setGuarantors(server_response.details);
+      props.function();
     }
     // else if (server_response.status === "Fail") {
     // toast.error(server_response.message);

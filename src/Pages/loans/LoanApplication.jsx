@@ -11,7 +11,6 @@ import {differenceInDays} from "date-fns";
 function LoanApplication() {
   const {LoanTypes} = useContext(LoanTypesContext);
   const {clientList} = useContext(ClientContext);
-  // console.log(LoanTypes);
 
   // const role_id = functions.role_user();
   const user_id = functions.sessionGuard();
@@ -30,12 +29,7 @@ function LoanApplication() {
   const [application_rate, setApplication_rate] = useState("");
   const [method, setMethod] = useState("");
 
-  const isDaysDivisible = (period, interval) => {
-    const daysInPeriod = differenceInDays(
-      new Date(period),
-      new Date(dateRequested)
-    );
-
+  const isDaysDivisible = (daysInPeriod, interval) => {
     switch (interval) {
       case "daily":
         return true; // Any number of days is divisible by daily
@@ -47,6 +41,7 @@ function LoanApplication() {
         // Note: This is a basic check and may not cover all cases due to varying month lengths
         return daysInPeriod % 30 === 0;
       default:
+        return false;
     }
   };
   const handler = async (e) => {
@@ -104,8 +99,6 @@ function LoanApplication() {
   useEffect(() => {
     get_loan_type_variables();
   }, [loan]);
-
-  // console.log(client);
 
   const get_loan_type_variables = () => {
     if (loan.length > 0) {
