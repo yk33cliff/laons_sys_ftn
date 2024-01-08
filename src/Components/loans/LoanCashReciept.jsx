@@ -95,7 +95,7 @@ function LoanCashReceipt(props) {
                         <div className="col-lg-6">
                           <p className="float-start main-content-label  p-3 mb-0 mt-2">
                             Reciept NO.{" "}
-                            <span className="text-danger">seren001</span>
+                            <span className="text-danger">seren0{data.id}</span>
                           </p>
                           <p className="float-start main-content-label mb-0 mt-2">
                             Payment Date : <span>12/01/2023</span>

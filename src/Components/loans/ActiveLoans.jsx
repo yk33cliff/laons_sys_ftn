@@ -116,11 +116,11 @@ function ActiveLoans() {
                           Details{" "}
                         </th>
                         <th>loan slip</th>
-                        <RenderSecure code="LOANS-STMNT">
+                        {/* <RenderSecure code="LOANS-STMNT">
                           <th>
                             loan <br /> statment
                           </th>
-                        </RenderSecure>
+                        </RenderSecure> */}
 
                         <RenderSecure code="ADD-PAYMNT">
                           <th>
@@ -143,7 +143,8 @@ function ActiveLoans() {
                           <td>{loan.amount}</td>
                           <td>{loan.date_activated}</td>
                           <td>{loan.duration}</td>
-                          <td>Loan_balance</td>
+                          <td>{loan.loanBalance}</td>
+
                           <td>{loan.deadline}</td>
                           <td>
                             <span>
@@ -163,23 +164,21 @@ function ActiveLoans() {
                             </span>
                           </td>
                           <td>
-                            <span>
-                              <button
-                                className="badge  text-white bg-secondary bg-pill"
-                                style={{fontSize: "14px"}}
-                                onClick={() =>
-                                  handleSlip(
-                                    loan.id,
-                                    loan.customer.contact,
-                                    loan.customer.first_name,
-                                    loan.customer.last_name
-                                  )
-                                }>
-                                Loan_slip
-                              </button>
-                            </span>
+                            <button
+                              className="badge  text-white bg-secondary bg-pill"
+                              style={{fontSize: "14px"}}
+                              onClick={() =>
+                                handleSlip(
+                                  loan.id,
+                                  loan.customer.contact,
+                                  loan.customer.first_name,
+                                  loan.customer.last_name
+                                )
+                              }>
+                              Loan_slip
+                            </button>
                           </td>
-                          <RenderSecure code="LOANS-STMNT">
+                          {/* <RenderSecure code="LOANS-STMNT">
                             <td>
                               <button
                                 className="badge  text-white bg-primary bg-pill"
@@ -188,7 +187,7 @@ function ActiveLoans() {
                                 statment
                               </button>
                             </td>
-                          </RenderSecure>
+                          </RenderSecure> */}
                           <RenderSecure code="ADD-PAYMNT">
                             <td>
                               <button
@@ -226,16 +225,6 @@ function ActiveLoans() {
               </div>
             </div>
           </div>
-          {/* col end */}
-          <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 mt-xl-4">
-            <div className="card custom-card card-dashboard-calendar pb-0">
-              <label className="main-content-label mb-2 pt-1">
-                Recent Transactions
-              </label>
-              {/* <canvas id="project" className="chart-dropshadow2 ht-330" /> */}
-            </div>
-          </div>
-          {/* col end */}
         </div>
       </AppContainer>
     </div>

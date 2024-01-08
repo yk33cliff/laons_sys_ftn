@@ -14,7 +14,7 @@ import ClientContext from "../../Context/ClientContext";
 
 function ClientProfile(props) {
   const {id} = useParams();
-  const {getClientList} = useContext(ClientContext);
+  const {gettrans} = useContext(ClientContext);
   //+++++++++code  for updating user profile++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [user, setUser] = useState();
   const getUserInfo = async () => {
@@ -113,12 +113,8 @@ function ClientProfile(props) {
   };
   useEffect(() => {
     userLoans();
-  }, []);
-
-  useEffect(() => {
     getUserTrans();
   }, []);
-
   // console.log(userLoan);
   const getStatusBadge = (status) => {
     if (status === 1) {
@@ -155,9 +151,7 @@ function ClientProfile(props) {
   const [payment, setPayment] = useStateCallback(false);
   const paymentHandler = (id) => {
     setPayment(false, () =>
-      setPayment(
-        <AddWalletCash isOpen={true} id={id} function={getClientList} />
-      )
+      setPayment(<AddWalletCash isOpen={true} id={id} function={gettrans} />)
     );
   };
 
@@ -171,7 +165,7 @@ function ClientProfile(props) {
   };
   // handles user transactions
 
-  const [trans, setTrans] = useState("");
+  const [trans, setTrans] = useState();
   const getUserTrans = async () => {
     const data = {user_id: id};
     // console.log(id);
@@ -186,13 +180,12 @@ function ClientProfile(props) {
   };
   // pagination workings
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 20; // Change this value based on your preference
+  const itemsPerPage = 15; // Change this value based on your preference
 
   const offset = currentPage * itemsPerPage;
-  const paginatedItems =
-    trans && Array.isArray(trans)
-      ? trans.slice(offset, offset + itemsPerPage)
-      : [];
+  const paginatedItems = Array.isArray(trans)
+    ? trans.slice(offset, offset + itemsPerPage)
+    : [];
   const handlePageClick = (data) => {
     setCurrentPage(data.selected);
   };
@@ -433,37 +426,25 @@ function ClientProfile(props) {
                                         </tr>
                                       </thead>
                                       <tbody>
-                                        {paginatedItems.map((loan, key) => (
-                                          <tr key={key}>
-                                            <td>{key + 1}</td>
-                                            <td>{loan.account}</td>
-                                            <td>{loan.cash_in}</td>
-                                            <td>{loan.cash_out}</td>
-                                            <td>{loan.payment_method}</td>
-                                            <td>{loan.phone_number}</td>
-                                          </tr>
-                                        ))}
+                                        {/* {
+          
+            "description": "deposting to customer wallet",
+            "created_at": "2024-01-08 15:09:37",
+            "payment_method": "Cash payment",
+            "phone_number": "256780390967" */}
+                                        {Array.isArray(trans) &&
+                                          trans.map((loan, key) => (
+                                            <tr key={key}>
+                                              <td>{key + 1}</td>
+                                              <td>{loan.account}</td>
+                                              <td>{loan.cash_in}</td>
+                                              <td>{loan.cash_out}</td>
+                                              <td>{loan.payment_method}</td>
+                                              <td>{loan.phone_number}</td>
+                                            </tr>
+                                          ))}
                                       </tbody>
                                     </table>
-
-                                    <ReactPaginate
-                                      pageCount={Math.ceil(
-                                        trans.length / itemsPerPage
-                                      )}
-                                      pageRangeDisplayed={3}
-                                      marginPagesDisplayed={1}
-                                      onPageChange={handlePageClick}
-                                      containerClassName={"pagination"}
-                                      activeClassName={"active"}
-                                      nextLabel={"Next"}
-                                      previousLabel={"Previous"}
-                                      breakLabel={"..."}
-                                      pageLinkClassName={"page-link"}
-                                      nextClassName={"page-item"}
-                                      nextLinkClassName={"page-link"}
-                                      previousClassName={"page-item"}
-                                      previousLinkClassName={"page-link"}
-                                    />
                                   </div>
                                 </div>
                               </div>

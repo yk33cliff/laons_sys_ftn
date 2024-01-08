@@ -6,6 +6,7 @@ import ajaxUser from "../../util/remote/ajaxUser";
 import Select from "react-select";
 
 import ViewUsers from "../../Components/Users/ViewUsers";
+import UserContext from "../../Context/UserContext";
 
 function CreateUser() {
   /**
@@ -13,6 +14,7 @@ function CreateUser() {
    *
    *
    */
+  const {userList, getUserList} = useContext(UserContext);
 
   const {roleList} = useContext(RoleContext);
   // console.log(roleList);
@@ -57,6 +59,7 @@ function CreateUser() {
       if (server_response.status === "OK") {
         toast.success(server_response.message);
         resetForm();
+        getUserList();
       } else {
         toast.error(server_response.message);
       }
@@ -226,7 +229,7 @@ function CreateUser() {
                           <input
                             type="password"
                             className="form-control"
-                            placeholder="user location"
+                            placeholder="user password"
                             value={pass}
                             onChange={(e) => setPass(e.target.value)}
                           />

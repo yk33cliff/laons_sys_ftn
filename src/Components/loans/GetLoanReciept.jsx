@@ -132,16 +132,6 @@ function GetLoanReciept() {
               </div>
             </div>
           </div>
-          {/* col end */}
-          <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 mt-xl-4">
-            <div className="card custom-card card-dashboard-calendar pb-0">
-              <label className="main-content-label mb-2 pt-1">
-                Recent Transactions
-              </label>
-              {/* <canvas id="project" className="chart-dropshadow2 ht-330" /> */}
-            </div>
-          </div>
-          {/* col end */}
         </div>
       </AppContainer>
     </div>

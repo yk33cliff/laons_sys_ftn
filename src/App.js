@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Routes as Switch,
   Navigate,
+  redirect,
 } from "react-router-dom";
 import Dashboard from "./Pages/Dashboard";
 import LoginPage from "./Pages/LoginPage";
@@ -21,9 +22,12 @@ import GetLoanReciept from "./Components/loans/GetLoanReciept";
 import ApprovedLoanNotcashed from "./Components/loans/ApprovedLoanNotcashed";
 import ImageModal from "./Components/loans/ImageModal";
 import LoanManagement from "./Components/loans/LoanManagement";
+import functions from "./util/functions";
+import ActivateAccount from "./Pages/ActivateAccount";
 
 function App(props) {
   const [loggedIn, setLoggedIn] = useState(true);
+  // const [secure, setSecure] = useState(false);
 
   function checkLogin() {
     if (!window.localStorage.getItem("logs@user")) {
@@ -33,9 +37,24 @@ function App(props) {
     }
   }
 
+  const secure = functions.checkSecureAccount();
+  // function checkSecure() {
+  //   const secure = functions.checkSecureAccount();
+
+  //   if (secure === 1) {
+  //     setSecure(true);
+  //   } else {
+  //     setSecure(false);
+  //   }
+  // }
+  // console.log(secure);
+
   useEffect(() => {
     checkLogin();
+    // checkSecure();
   }, []);
+
+  // console.log(loggedIn);
 
   return (
     <SuperProvider>
@@ -53,18 +72,20 @@ function App(props) {
               />
             </>
           )}
-          {loggedIn && (
+
+          {loggedIn && secure * 1 === 0 && (
             <>
+              <Route path="/Activate/account" element={<ActivateAccount />} />
               <Route
                 path="/"
-                element={
-                  !loggedIn ? <Navigate replace to="/login" /> : <Dashboard />
-                }
+                element={<Navigate replace to="/Activate/account" />}
               />
-              <Route
-                path="/login"
-                element={loggedIn ? <Navigate replace to="/" /> : <LoginPage />}
-              />
+            </>
+          )}
+
+          {loggedIn && secure * 1 === 1 && (
+            <>
+              <Route path="*" element={<Dashboard />} />
               <Route path="/" element={<Dashboard />} />
               <Route path="/loan_reciepts/view" element={<GetLoanReciept />} />
               <Route

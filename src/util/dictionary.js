@@ -4,8 +4,8 @@ const dictionary = {
   _completeFields: "Complete all fields and try again",
   _toastTimeOut: 5000,
   _uiRefreshRate: 1000,
-  // apiHost: "http://localhost/loans_system_bkd/",
-  apiHost: "https://api.serenity.studentdigpay.com/",
+  apiHost: "http://localhost/loans_system_bkd/",
+  // apiHost: "https://api.serenity.studentdigpay.com/",
   captiveHost: functions.getCaptiveHost(),
   _exportBtnFormats: ["excel", "pdf", "csv", "print", "copy"],
   _styledExportBtnFormats: {

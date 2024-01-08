@@ -8,14 +8,8 @@ import ViewClientNextOfKin from "../../Components/Users/ViewClientNextOfKin";
 import AddWalletCash from "../../Components/loans/AddWalletCash";
 
 function ViewAllClients() {
-  const {clientList} = useContext(ClientContext);
+  const {clientList, getClientList} = useContext(ClientContext);
 
-  const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 15; // Change this value based on your preference
-
-  const handlePageClick = (data) => {
-    setCurrentPage(data.selected);
-  };
   const [Addkin, setAddkin] = useStateCallback(false);
   const handle_next_of_kin = (id) => {
     setAddkin(false, () =>
@@ -33,16 +27,22 @@ function ViewAllClients() {
   const [payment, setPayment] = useStateCallback(false);
   const paymentHandler = (id) => {
     setPayment(false, () =>
-      setPayment(<AddWalletCash isOpen={true} id={id} />)
+      setPayment(
+        <AddWalletCash isOpen={true} id={id} function={getClientList} />
+      )
     );
   };
   // pagination workings
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 15; // Change this value based on your preference
 
   const offset = currentPage * itemsPerPage;
   const paginatedItems = Array.isArray(clientList)
     ? clientList.slice(offset, offset + itemsPerPage)
     : [];
-
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected);
+  };
   return (
     <div>
       <AppContainer title="View clients">

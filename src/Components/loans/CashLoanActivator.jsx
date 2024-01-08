@@ -22,6 +22,7 @@ function CashLoanActivator(props) {
       // resetForm();
       toast.success(server_response.message);
       props.customer();
+      window.location.reload();
       setDate("");
     } else {
       toast.error(server_response.message);

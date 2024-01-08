@@ -16,7 +16,7 @@ function LoanTYpes() {
   const [months, setMonths] = useState("");
   const [intrest, setIntrest] = useState("");
   const [processing, setProcessing] = useState("");
-  const [installment, setInstallment] = useState("");
+
   const [fine, setFine] = useState("");
   const [insur, setInsur] = useState("");
   const [application, setApplication] = useState("");
@@ -30,6 +30,8 @@ function LoanTYpes() {
       months.length > 0 &&
       intrest.length > 0 &&
       processing.length > 0 &&
+      min.length > 0 &&
+      max.length > 0 &&
       monitoring.length > 0 &&
       application.length > 0
     ) {
@@ -39,7 +41,6 @@ function LoanTYpes() {
         max_amount: max,
         Interest_rate: intrest,
         processing_fee: processing,
-        installment_type: installment,
         fine: fine,
         min: min,
         insurance: insur,
@@ -59,7 +60,6 @@ function LoanTYpes() {
         setMonths("");
         setIntrest("");
         setProcessing("");
-        setInstallment("");
         setFine("");
         setInsur("");
         getLoanList();
@@ -83,7 +83,6 @@ function LoanTYpes() {
               <div className="card custom-card">
                 <div className="card-body">
                   <div>
-                    {/* <!-- Row --> */}
                     <h5 className="main-content-label mb-1">
                       create loan type
                     </h5>
@@ -123,9 +122,7 @@ function LoanTYpes() {
                         />
                       </div>
                       <div className="form-group col-md-6">
-                        <p className="mg-b-10">
-                          maximum duration (months or weeks)
-                        </p>
+                        <p className="mg-b-10">maximum duration (in days)</p>
                         <input
                           type="text"
                           className="form-control"
@@ -194,23 +191,7 @@ function LoanTYpes() {
                           placeholder="number e.g 2  as a percentage of the loan "
                         />
                       </div>
-                      <div className="form-group col-md-6">
-                        <p className="mg-b-10">Allowed Installments</p>
-                        <select
-                          name=""
-                          id=""
-                          className="form-control col-12"
-                          value={installment}
-                          onChange={(e) => setInstallment(e.target.value)}>
-                          <option value="" selected disabled>
-                            -----select payment plan------
-                          </option>
-                          <option value="daily">daily</option>
-                          <option value="weekly">weekly</option>
-                          <option value="fortnight">fortnight</option>
-                          <option value="monthly">monthly</option>
-                        </select>
-                      </div>
+
                       <div className="col-md-12 ">
                         <div className="form-group mb-0">
                           <button

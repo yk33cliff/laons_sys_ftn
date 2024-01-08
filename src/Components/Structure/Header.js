@@ -1,14 +1,16 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faLock} from "@fortawesome/free-solid-svg-icons";
 import functions from "../../util/functions";
 import useStateCallback from "../../util/customHooks/useStateCallback";
 import ChangePassword from "../Users/ChangePassword";
-import {Modal} from "bootstrap";
-import dictionary from "../../util/dictionary";
 
+import dictionary from "../../util/dictionary";
+import ClientContext from "../../Context/ClientContext";
+import Select from "react-select";
 export default function Header() {
+  const navigate = useNavigate();
+  const {clientList} = useContext(ClientContext);
+  const [client, setClient] = useState("");
   const [modal, setModal] = useStateCallback(false);
   const nav = useNavigate();
   const onLogout = () => {
@@ -22,6 +24,13 @@ export default function Header() {
     setModal(false, () =>
       setModal(<ChangePassword isOpen={false} id={user} set />)
     );
+  };
+
+  const handle_search = (e) => {
+    e.preventDefault();
+    if (client) {
+      navigate(`/profile/${client}`);
+    }
   };
   return (
     <div className="main-header side-header sticky">
@@ -66,13 +75,30 @@ export default function Header() {
               /> */}
             </a>
           </div>
-          <div className="input-group">
-            <input
+          <div className="input-group" style={{width: "400px"}}>
+            <Select
+              className="col-9"
+              onChange={(e) => setClient(e.id)}
+              getOptionLabel={(option) => option.name}
+              getOptionValue={(option) => option.id}
+              isSearchable
+              options={clientList && Array.isArray(clientList) && clientList}
+              value={
+                clientList &&
+                Array.isArray(clientList) &&
+                clientList.find((value) => value.id === client)
+              }
+              placeholder="----search user----"
+            />
+            {/* <input
               type="search"
               className="form-control rounded-0"
               placeholder="Search client..."
-            />
-            <button className="btn search-btn">
+            /> */}
+            <button
+              className="btn search-btn"
+              type="button"
+              onClick={(e) => handle_search(e)}>
               <i className="fe fe-search" />
             </button>
           </div>
@@ -100,30 +126,34 @@ export default function Header() {
                     <i className="fe fe-search header-icons" />
                   </a>
                   <div className="dropdown-menu">
-                    <div className="main-form-search p-2">
-                      <div className="input-group">
-                        <input
-                          type="search"
-                          className="form-control"
-                          placeholder="Search customer..."
-                        />
-                        <button className="btn search-btn">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={20}
-                            height={20}
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="feather feather-search">
-                            <circle cx={11} cy={11} r={8} />
-                            <line x1={21} y1={21} x2="16.65" y2="16.65" />
-                          </svg>
-                        </button>
-                      </div>
+                    <div className="input-group" style={{width: "400px"}}>
+                      <Select
+                        className="col-9"
+                        onChange={(e) => setClient(e.id)}
+                        getOptionLabel={(option) => option.name}
+                        getOptionValue={(option) => option.id}
+                        isSearchable
+                        options={
+                          clientList && Array.isArray(clientList) && clientList
+                        }
+                        value={
+                          clientList &&
+                          Array.isArray(clientList) &&
+                          clientList.find((value) => value.id === client)
+                        }
+                        placeholder="----search user----"
+                      />
+                      {/* <input
+              type="search"
+              className="form-control rounded-0"
+              placeholder="Search client..."
+            /> */}
+                      <button
+                        className="btn search-btn"
+                        type="button"
+                        onClick={(e) => handle_search(e)}>
+                        <i className="fe fe-search" />
+                      </button>
                     </div>
                   </div>
                 </div>

@@ -9,7 +9,7 @@ import LoanCashReceipt from "./LoanCashReciept";
 function AddWalletCash(props) {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
-
+  console.log(props.id);
   var user = functions.sessionGuard();
 
   const [reciept, setReciept] = useStateCallback(false);
@@ -32,6 +32,7 @@ function AddWalletCash(props) {
       if (server_response.status === "OK") {
         // resetForm();
         toast.success(server_response.message);
+        props.function();
         setAmount("");
         setDate("");
         handleGuarantors(server_response.details);

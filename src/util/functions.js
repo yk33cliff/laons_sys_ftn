@@ -32,6 +32,7 @@ export default {
     } else {
       const access_token = localStorage.getItem("logs@user");
       const decorded_token = this.parseJwt(access_token);
+      // console.log(decorded_token);
       return decorded_token["data"]["role_id"];
     }
   },
@@ -59,7 +60,7 @@ export default {
       const decorded_token = this.parseJwt(access_token);
       return decorded_token["data"]["secure"];
     } else {
-      return "UNLOGGED";
+      return 0;
     }
   },
 

@@ -387,6 +387,7 @@ function LoanSlip(props) {
                                 <tr>
                                   <th>date</th>
                                   <th>installments</th>
+                                  <th>Balance</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -395,12 +396,13 @@ function LoanSlip(props) {
                                     <tr key={key}>
                                       <td>{item.date_expected}</td>
                                       <td>{item.installment}</td>
+                                      <td>{item.balance}</td>
                                     </tr>
                                   ))}
                                 {!Array.isArray(shedule) && (
                                   <tr>
                                     <td>
-                                      <p>cliffede</p>
+                                      <p>No shedule generated forthis loan</p>
                                     </td>
                                   </tr>
                                 )}
