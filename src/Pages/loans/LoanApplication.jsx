@@ -14,7 +14,7 @@ function LoanApplication() {
 
   // const role_id = functions.role_user();
   const user_id = functions.sessionGuard();
-
+  const [installment, setInstallment] = useState("");
   const [loan, setLoan] = useState("");
   const [client, setClient] = useState("");
   const [amount, setAmount] = useState("");
@@ -25,7 +25,7 @@ function LoanApplication() {
   const [fees, setFees] = useState("");
   const [insurance, setInsurance] = useState("");
   const [fine, setFine] = useState("");
-  const [plan, setPlan] = useState("");
+  // const [plan, setPlan] = useState("");
   const [application_rate, setApplication_rate] = useState("");
   const [method, setMethod] = useState("");
 
@@ -37,12 +37,16 @@ function LoanApplication() {
       loan.length > 0 &&
       amount.length > 0 &&
       paymentPeriod.length > 0 &&
+      dateRequested.length > 0 &&
+      method.length > 0 &&
+      insurance.length > 0 &&
+      installment.length > 0 &&
       fees.length > 0
     ) {
       const formData = {
         create_by: user_id,
         customer_id: client,
-        amount,
+        amount: amount,
         loan_type: loan,
         repayment_period: paymentPeriod,
         interest_rate: interestRate,
@@ -52,6 +56,7 @@ function LoanApplication() {
         date_in: dateRequested,
         fees: fees,
         method: method,
+        installment_type: installment,
       };
       const server_response = await ajaxLaons.CreateLoanApplication(formData);
       if (server_response.status === "OK") {
@@ -88,7 +93,7 @@ function LoanApplication() {
             setProcessingFees(value.processing_fee_rate);
             setInsurance(value.insurance);
             setFine(value.fine_rate);
-            setPlan(value.installment_type);
+            // setPlan(value.installment_type);
             setApplication_rate(value.application_rate);
           }
         });
@@ -207,7 +212,7 @@ function LoanApplication() {
                       <div className="col-md-6">
                         <div className="form-group">
                           <label className="mg-b-10">
-                            Method of money recieving Loan money
+                            Method of recieving Loan money
                           </label>
                           <select
                             name=""
@@ -225,6 +230,9 @@ function LoanApplication() {
                             </option>
                             <option value="cash">cash </option>
                             <option value="mm">mobile money</option>
+                            <option value="bank" disabled>
+                              Bank
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -249,29 +257,29 @@ function LoanApplication() {
                             </option>
                             <option value="wallet"> cutomer wallet</option>
                             <option value="loan_reduction">
-                              loan_reduction{" "}
+                              loan_reduction
                             </option>
                           </select>
                         </div>
                       </div>
-                      {loan && (
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">
-                              payment plan for selected loan{" "}
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control text-success"
-                              name="interestRate"
-                              placeholder="Interest rate"
-                              value={plan}
-                              readOnly
-                              onChange={(e) => setInterestRate(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                      )}
+
+                      <div className="form-group col-md-6">
+                        <p className="mg-b-10">Allowed Installments</p>
+                        <select
+                          name=""
+                          id=""
+                          className="form-control col-12"
+                          value={installment}
+                          onChange={(e) => setInstallment(e.target.value)}>
+                          <option value="" selected disabled>
+                            -----select payment plan------
+                          </option>
+                          <option value="daily">daily</option>
+                          <option value="weekly">weekly</option>
+                          <option value="fortnight">fortnight</option>
+                          <option value="monthly">monthly</option>
+                        </select>
+                      </div>
 
                       {loan && (
                         <div className="col-md-6">
@@ -283,7 +291,6 @@ function LoanApplication() {
                               name="interestRate"
                               placeholder="Interest rate"
                               value={interestRate}
-                              readOnly
                               onChange={(e) => setInterestRate(e.target.value)}
                             />
                           </div>
@@ -299,7 +306,6 @@ function LoanApplication() {
                               name="interestRate"
                               placeholder="Interest rate"
                               value={application_rate}
-                              readOnly
                               onChange={(e) =>
                                 setApplication_rate(e.target.value)
                               }
@@ -317,7 +323,6 @@ function LoanApplication() {
                               name="processingFees"
                               placeholder="Processing fees"
                               value={processingFees}
-                              readOnly
                               onChange={(e) =>
                                 setProcessingFees(e.target.value)
                               }
@@ -350,8 +355,8 @@ function LoanApplication() {
                               className="form-control text-success"
                               name="insurance rate"
                               placeholder="insurance rate"
-                              value={insurance}
                               readOnly
+                              value={insurance}
                               onChange={(e) => setInsurance(e.target.value)}
                             />
                           </div>

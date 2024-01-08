@@ -58,6 +58,10 @@ export default {
     let response = await apiCall("cutomer/wallet/cash/deposite", data);
     return response;
   },
+  async ActivateAccount(data) {
+    let response = await apiCall("user/account/activate", data);
+    return response;
+  },
   // ==============================================================================
 
   async updateUser(data) {

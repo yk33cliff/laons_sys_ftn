@@ -18,6 +18,8 @@ import {RenderSecure} from "../../util/script/RenderSecure";
 function ViewLoanApplications() {
   const {LoansToApprove, getLoansToApprove} = useContext(LoansContext);
 
+  console.log(LoansToApprove);
+
   // loans updating
   const [updating, setUpdating] = useStateCallback(false);
   const handle_loan_updates = (id) => {

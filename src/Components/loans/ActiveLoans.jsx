@@ -143,7 +143,8 @@ function ActiveLoans() {
                           <td>{loan.amount}</td>
                           <td>{loan.date_activated}</td>
                           <td>{loan.duration}</td>
-                          <td>Loan_balance</td>
+                          <td>{loan.loanBalance}</td>
+
                           <td>{loan.deadline}</td>
                           <td>
                             <span>
@@ -163,21 +164,19 @@ function ActiveLoans() {
                             </span>
                           </td>
                           <td>
-                            <span>
-                              <button
-                                className="badge  text-white bg-secondary bg-pill"
-                                style={{fontSize: "14px"}}
-                                onClick={() =>
-                                  handleSlip(
-                                    loan.id,
-                                    loan.customer.contact,
-                                    loan.customer.first_name,
-                                    loan.customer.last_name
-                                  )
-                                }>
-                                Loan_slip
-                              </button>
-                            </span>
+                            <button
+                              className="badge  text-white bg-secondary bg-pill"
+                              style={{fontSize: "14px"}}
+                              onClick={() =>
+                                handleSlip(
+                                  loan.id,
+                                  loan.customer.contact,
+                                  loan.customer.first_name,
+                                  loan.customer.last_name
+                                )
+                              }>
+                              Loan_slip
+                            </button>
                           </td>
                           <RenderSecure code="LOANS-STMNT">
                             <td>

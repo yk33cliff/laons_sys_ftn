@@ -6,7 +6,6 @@ function CreateClients() {
   // +++++++++++++++++++++++++++++++++++++++++++++
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
-  const [uname, setUname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [phone2, setPhone2] = useState("");
@@ -14,26 +13,24 @@ function CreateClients() {
   const [nin, setNin] = useState("");
   const [location, setLocation] = useState("");
   const [role, setRole] = useState(5);
-  const [pass, setPass] = useState("");
   const [others, setOthers] = useState("");
   const [photo, setPhoto] = useState("");
   const [ide, SetIde] = useState("");
-
+  const [job, setJob] = useState("");
+  const [dob, setDob] = useState("");
+  const [marital, setMarital] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (
       fname.length > 0 &&
       lname.length > 0 &&
-      uname.length > 0 &&
       phone.length > 0 &&
       nin.length > 0
     ) {
-      const password = btoa(pass);
       const data = {
         first_name: fname,
         last_name: lname,
-        username: uname,
         othernames: others,
         nin: nin,
         gender: gender,
@@ -42,9 +39,11 @@ function CreateClients() {
         email: email,
         location: location,
         role_id: role,
-        password: password,
         photo: photo,
         otherId: ide,
+        job: job,
+        dob: dob,
+        marital: marital,
       };
 
       const server_response = await ajaxUser.createUser(data);
@@ -54,6 +53,7 @@ function CreateClients() {
         resetForm();
       } else {
         toast.error(server_response.message);
+        console.log(server_response.message);
       }
     } else {
       toast.error("Complete all fields and try again");
@@ -77,8 +77,6 @@ function CreateClients() {
   const resetForm = () => {
     setFname("");
     setLname("");
-    setUname("");
-    setPass("");
     setEmail("");
     setNin("");
     setLocation("");
@@ -129,150 +127,210 @@ function CreateClients() {
                       onSubmit={handleSubmit}
                       enctype="multipart/form-data">
                       <div className="row">
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <p className="mg-b-10">First Name</p>
-                            <input
-                              type="text"
-                              className="form-control"
-                              name="example-text-input"
-                              placeholder="users first name"
-                              value={fname}
-                              onChange={(e) => setFname(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <p className="mg-b-10">Last Name</p>
-                            <input
-                              type="text"
-                              value={lname}
-                              onChange={(e) => setLname(e.target.value)}
-                              className="form-control"
-                              placeholder="user last name"
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <p className="mg-b-10">Other Names</p>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="other user names"
-                              value={others}
-                              onChange={(e) => setOthers(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <p className="mg-b-10">UserName</p>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="choice user name"
-                              value={uname}
-                              onChange={(e) => setUname(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <p className="mg-b-10">client's passport photo</p>
-                            <input
-                              type="file"
-                              className="form-control"
-                              placeholder="choice username"
-                              onChange={(e) => changePicture(e)}
-                            />
+                        <div className="col-lg-12 col-md-12">
+                          <div className="row">
+                            <div className="col-md-6 col-lg-6">
+                              {/* left hand side  */}
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <p className="mg-b-10">First Name</p>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    name="example-text-input"
+                                    placeholder="users first name"
+                                    value={fname}
+                                    onChange={(e) => setFname(e.target.value)}
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <p className="mg-b-10">Last Name</p>
+                                  <input
+                                    type="text"
+                                    value={lname}
+                                    onChange={(e) => setLname(e.target.value)}
+                                    className="form-control"
+                                    placeholder="user last name"
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <p className="mg-b-10">Other Names</p>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="other user names"
+                                    value={others}
+                                    onChange={(e) => setOthers(e.target.value)}
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <label className="mg-b-10">Gender</label>
+                                  <select
+                                    name=""
+                                    className="form-control"
+                                    id=""
+                                    value={gender}
+                                    onChange={(e) => setGender(e.target.value)}>
+                                    <option value="" disabled>
+                                      ------select gender-------
+                                    </option>
+                                    <option value="male">male</option>
+                                    <option value="female">female</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <p className="mg-b-10">
+                                    client's passport photo
+                                  </p>
+                                  <input
+                                    type="file"
+                                    className="form-control"
+                                    placeholder="choice username"
+                                    onChange={(e) => changePicture(e)}
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <label className="mg-b-10">
+                                    Date of birth
+                                  </label>
+                                  <input
+                                    type="date"
+                                    className="form-control"
+                                    placeholder="date"
+                                    value={dob}
+                                    onChange={(e) => setDob(e.target.value)}
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <label className="mg-b-10">Location</label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="user location"
+                                    value={location}
+                                    onChange={(e) =>
+                                      setLocation(e.target.value)
+                                    }
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="col-12"></div>
+                            </div>
+                            <div className="col-md-6 col-lg-6">
+                              {/* right hand side  */}
+                              <div className="col-12">
+                                <div className="form-group">
+                                  Primary contact
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="user telephone number"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <label className="mg-b-10">
+                                    Alternative contact
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="client second telephone number"
+                                    value={phone2}
+                                    onChange={(e) => setPhone2(e.target.value)}
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                {" "}
+                                <div className="form-group">
+                                  <label className="mg-b-10">email </label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="user email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <label className="mg-b-10">NIN number</label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="user nin number"
+                                    value={nin}
+                                    onChange={(e) => setNin(e.target.value)}
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <label className="mg-b-10">
+                                    other Identification Means
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="other Identification e.g passport"
+                                    value={ide}
+                                    onChange={(e) => SetIde(e.target.value)}
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <label className="mg-b-10">
+                                    occupation / business activity
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="users jobs"
+                                    value={job}
+                                    onChange={(e) => setJob(e.target.value)}
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="col-12">
+                                <div className="form-group">
+                                  <label className="mg-b-10">
+                                    Marital status
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="marital status"
+                                    value={marital}
+                                    onChange={(e) => setMarital(e.target.value)}
+                                  />
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
 
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">Gender</label>
-                            <select
-                              name=""
-                              className="form-control"
-                              id=""
-                              value={gender}
-                              onChange={(e) => setGender(e.target.value)}>
-                              <option value="" disabled>
-                                ------select gender-------
-                              </option>
-                              <option value="male">male</option>
-                              <option value="female">female</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">email</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                             
-                              placeholder="user email"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            Primary contact
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="user telephone number"
-                              value={phone}
-                              onChange={(e) => setPhone(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">
-                              Alternative contact
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="client second telephone number"
-                              value={phone2}
-                              onChange={(e) => setPhone2(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">NIN number</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="user nin number"
-                              value={nin}
-                              onChange={(e) => setNin(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">
-                              other Identification Means
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="other Identification e.g passport"
-                              value={ide}
-                              onChange={(e) => SetIde(e.target.value)}
-                            />
-                          </div>
-                        </div>
                         {/* <div className="col-md-6">
                           <div className="form-group">
                             <label className="mg-b-10">
@@ -286,30 +344,6 @@ function CreateClients() {
                             />
                           </div>
                         </div> */}
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">Location</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="user location"
-                              value={location}
-                              onChange={(e) => setLocation(e.target.value)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">password</label>
-                            <input
-                              type="password"
-                              className="form-control"
-                              placeholder="user password"
-                              value={pass}
-                              onChange={(e) => setPass(e.target.value)}
-                            />
-                          </div>
-                        </div>
 
                         <div className="col-md-12 ">
                           <div className="form-group mb-0">

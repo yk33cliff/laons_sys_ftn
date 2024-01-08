@@ -226,7 +226,7 @@ function CreateUser() {
                           <input
                             type="password"
                             className="form-control"
-                            placeholder="user location"
+                            placeholder="user password"
                             value={pass}
                             onChange={(e) => setPass(e.target.value)}
                           />

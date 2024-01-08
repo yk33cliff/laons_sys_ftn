@@ -8,6 +8,7 @@ import ImageModal from "./ImageModal";
 function ApproveLoan(props) {
   const [guarantors, setGuarantors] = useState("");
   const [security, setSecurity] = useState("");
+  const [comment, setComment] = useState("");
   // console.log(security);
 
   useEffect(() => {
@@ -73,7 +74,12 @@ function ApproveLoan(props) {
     if (!confirm) {
       return false;
     }
-    var data = {id: props.id, status: props.status, user: userId};
+    var data = {
+      id: props.id,
+      status: props.status,
+      user: userId,
+      comment: comment,
+    };
     const server_response = await ajaxLaons.approveLoans(data);
     if (server_response.status === "OK") {
       // props.fun();
@@ -209,6 +215,26 @@ function ApproveLoan(props) {
               </div>
             </div>
             {/* col end */}
+          </div>
+          <div className="col-sm-12  col-md- col-lg-12 col-xl-12 mt-xl-4">
+            <div className="form-group">
+              <label className="mg-b-10">
+                <u>Already existing comment</u>{" "}
+              </label>
+            </div>
+          </div>
+          <div className="col-sm-12  col-md- col-lg-12 col-xl-12 mt-xl-4">
+            <div className="form-group">
+              <label className="mg-b-10">Interest Rate</label>
+              <input
+                type="text"
+                className="form-control text-success"
+                name="interestRate"
+                placeholder="comment on approval"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+            </div>
           </div>
         </div>
       </SystemModal>

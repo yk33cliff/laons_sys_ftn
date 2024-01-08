@@ -104,4 +104,20 @@ export default {
     let response = await apiCall("loans/cashloanActivator", data);
     return response;
   },
+  async declineLoanApplication(data) {
+    let response = await apiCall("loans/declineLoan", data);
+    return response;
+  },
+  async fetchUserTransactions(data) {
+    let response = await apiCall("Accountability/user/userTranctions", data);
+    return response;
+  },
+  async getDeclinedLOans() {
+    let response = await apiCall("loans/declinedLoan");
+    return response;
+  },
+  async reactivate_loan(data) {
+    let response = await apiCall("loans/reactivateLoan", data);
+    return response;
+  },
 };

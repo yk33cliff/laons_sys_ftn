@@ -10,20 +10,33 @@ import LoanSlip from "../../Components/loans/LoanSlip";
 import ViewSecurities from "../../Components/loans/ViewSecurities";
 import ViewGuarantors from "../../Components/loans/ViewGuarantors";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faEye, faTrash} from "@fortawesome/free-solid-svg-icons";
 import LoanUpdating from "../../Components/loans/LoanUpdating";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import {RenderSecure} from "../../util/script/RenderSecure";
 import ReactPaginate from "react-paginate";
+import functions from "../../util/functions";
+import DeclineLoan from "../../Components/loans/DeclineLoan";
+import ViewLoanDetails from "./ViewLoanDetails";
+import DeclinedLoans from "../../Components/loans/DeclinedLoans";
 
 function ViewLoanApplications() {
   const {LoansToApprove, getLoansToApprove} = useContext(LoansContext);
+  // Approved_by1;
+  const user_id = functions.sessionGuard();
 
   // loans updating
   const [updating, setUpdating] = useStateCallback(false);
   const handle_loan_updates = (id) => {
     setUpdating(false, () =>
       setUpdating(<LoanUpdating isOpen={true} id={id} />)
+    );
+  };
+  // loans details
+  const [details, setDetails] = useStateCallback(false);
+  const handle_loan_detail = (loan) => {
+    setDetails(false, () =>
+      setDetails(<ViewLoanDetails isOpen={true} loan={loan} />)
     );
   };
   // delete loan
@@ -36,7 +49,6 @@ function ViewLoanApplications() {
         id: id,
       };
     }
-
     const server_response = await ajaxLaons.deleteLoan(data);
 
     if (server_response.status === "OK") {
@@ -62,13 +74,6 @@ function ViewLoanApplications() {
       setAddGuarantors(<AddGuarantors isOpen={true} id={id} />)
     );
   };
-  // for Approve/
-  const [Approve, setApprove] = useStateCallback(false);
-  const handle_approval = (id, status) => {
-    setApprove(false, () =>
-      setApprove(<ApproveLoan isOpen={true} id={id} status={status} />)
-    );
-  };
 
   // secuirities view model
   const [securities, setSecurities] = useStateCallback(false);
@@ -87,20 +92,36 @@ function ViewLoanApplications() {
     );
   };
 
+  // for Approve/
+  const [Approve, setApprove] = useStateCallback(false);
+  const handle_approval = (id, status) => {
+    setApprove(false, () =>
+      setApprove(<ApproveLoan isOpen={true} id={id} status={status} />)
+    );
+  };
+  // for decline/
+  const [decline, setDecline] = useStateCallback(false);
+  const handle_decline = (id, status) => {
+    setDecline(false, () =>
+      setDecline(<DeclineLoan isOpen={true} id={id} function={status} />)
+    );
+  };
   const getStatusBadge = (status) => {
     if (status === "1") {
       return (
-        <p style={{fontSize: "14px"}} className="badge bg-info-light bg-pill">
+        <button
+          style={{fontSize: "14px"}}
+          className="badge bg-primary-light bg-pill">
           Pending
-        </p>
+        </button>
       );
     } else if (status === "2") {
       return (
-        <p
+        <button
           style={{fontSize: "14px"}}
           className="badge bg-warning-light bg-pill">
           In process
-        </p>
+        </button>
       );
     }
     // else if (status === 3) {
@@ -162,43 +183,30 @@ function ViewLoanApplications() {
                   {AddSecurity}
                   {AddGuarantor}
                   {Approve}
-
+                  {decline}
                   {securities}
                   {guarantors}
                   {updating}
+                  {details}
                   <div className="card-body">
                     <div className="table-responsive">
                       <table className="table card-table text-nowrap table-bordered border-top">
                         <thead>
                           <tr>
-                            <th>No.</th>
                             <th>customer</th>
                             <th>Amount</th>
                             <th>
                               Loan <br /> duration
                             </th>
-                            <th>
-                              interest <br />
-                              rate
-                            </th>
-                            <th>
-                              processing <br />
-                              fee
-                            </th>
-                            <th>
-                              Insurance <br /> rate
-                            </th>
-                            <th>
-                              fine <br />
-                              rate
-                            </th>
+
                             <th>
                               date <br />
                               Requested
                             </th>
-                            <RenderSecure code="EDIT-LOAN">
+                            <th>Loan Details</th>
+                            {/* <RenderSecure code="EDIT-LOAN">
                               <th>operations</th>
-                            </RenderSecure>
+                            </RenderSecure> */}
                             <th>
                               Approval <br /> status
                             </th>
@@ -211,7 +219,10 @@ function ViewLoanApplications() {
                             </RenderSecure>
                             <RenderSecure code="APPROV-LOAN">
                               <th>
-                                Approval <br />
+                                Approved_by <br />
+                              </th>
+                              <th>
+                                Approval <br /> action
                               </th>
                               <th>
                                 decline <br />
@@ -233,17 +244,27 @@ function ViewLoanApplications() {
 
                           {paginatedItems.map((loan, key) => (
                             <tr key={key}>
-                              <td>{key + 1}</td>
                               <td>{loan.customer_id.names}</td>
                               <td>{loan.amount}</td>
                               <td>{loan.duration}</td>
-                              <td>{loan.interest_rate}</td>
-                              <td>{loan.processing_fee_rate}</td>
-                              <td>{loan.insurance_rate}</td>
-                              <td>{loan.fine_rate}</td>
+                              {/* <td>{loan.interest_rate}</td> */}
+
                               <td>{loan.date_requested}</td>
                               <td>
-                                {" "}
+                                <button
+                                  className="badge  bg-primary-light bg-pill m-2"
+                                  onClick={() => handle_loan_detail(loan)}>
+                                  <FontAwesomeIcon
+                                    icon={faEye}
+                                    fade
+                                    style={{color: "orange"}}
+                                  />
+                                  &nbsp; loan rates
+                                  <br />
+                                  details
+                                </button>
+                              </td>
+                              {/* <td>
                                 <button
                                   className="badge  bg-primary-light bg-pill m-2"
                                   onClick={() => handle_loan_updates(loan.id)}>
@@ -254,17 +275,7 @@ function ViewLoanApplications() {
                                   />
                                   update
                                 </button>
-                                <button
-                                  className="badge  bg-danger-light bg-pill m-2"
-                                  onClick={() => delete_loan(loan.id)}>
-                                  <FontAwesomeIcon
-                                    icon={faTrash}
-                                    fade
-                                    style={{color: "red"}}
-                                  />{" "}
-                                  Delete
-                                </button>
-                              </td>
+                              </td> */}
 
                               <td>{getStatusBadge(loan.status)}</td>
 
@@ -303,19 +314,49 @@ function ViewLoanApplications() {
                                   View
                                 </button>
                               </td>
+                              <td> {loan.Approved_name1}</td>
                               <RenderSecure code="APPROV-LOAN">
                                 <td>
-                                  <button
-                                    onClick={() =>
-                                      handle_approval(
-                                        loan.id,
-                                        loan.status,
-                                        getLoansToApprove()
-                                      )
-                                    }
-                                    className="badge bg-success-light bg-pill">
-                                    Approve
-                                  </button>
+                                  {loan.Approved_by1 !== user_id ? (
+                                    <button
+                                      onClick={() =>
+                                        handle_approval(
+                                          loan.id,
+                                          loan.status,
+                                          getLoansToApprove()
+                                        )
+                                      }
+                                      className="badge bg-success-light bg-pill">
+                                      Approve
+                                    </button>
+                                  ) : (
+                                    <button className="badge bg-danger bg-pill">
+                                      you have <br />
+                                      approved
+                                    </button>
+                                  )}
+                                </td>
+                              </RenderSecure>
+                              <RenderSecure code="APPROV-LOAN">
+                                <td>
+                                  {loan.Approved_by1 !== user_id ? (
+                                    <button
+                                      onClick={() =>
+                                        handle_decline(
+                                          loan.id,
+                                          getLoansToApprove()
+                                        )
+                                      }
+                                      className="badge bg-primary bg-pill">
+                                      decline <br />
+                                      loan
+                                    </button>
+                                  ) : (
+                                    <button className="badge bg-danger bg-pill">
+                                      decline <br />
+                                      disabled
+                                    </button>
+                                  )}
                                 </td>
                               </RenderSecure>
                             </tr>
@@ -344,6 +385,12 @@ function ViewLoanApplications() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div className="row row-sm">
+              <div className="col-xl-12 col-md-12 col-lg-12">
+                <DeclinedLoans />
               </div>
             </div>
           </div>
