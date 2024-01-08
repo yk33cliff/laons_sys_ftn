@@ -6,6 +6,7 @@ import functions from "../../util/functions";
 import ClientContext from "../../Context/ClientContext";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import toast, {Toaster} from "react-hot-toast";
+import {differenceInDays} from "date-fns";
 
 function LoanApplication() {
   const {LoanTypes} = useContext(LoanTypesContext);
@@ -29,6 +30,25 @@ function LoanApplication() {
   const [application_rate, setApplication_rate] = useState("");
   const [method, setMethod] = useState("");
 
+  const isDaysDivisible = (period, interval) => {
+    const daysInPeriod = differenceInDays(
+      new Date(period),
+      new Date(dateRequested)
+    );
+
+    switch (interval) {
+      case "daily":
+        return true; // Any number of days is divisible by daily
+      case "weekly":
+        return daysInPeriod % 7 === 0;
+      case "fortnight":
+        return daysInPeriod % 14 === 0;
+      case "monthly":
+        // Note: This is a basic check and may not cover all cases due to varying month lengths
+        return daysInPeriod % 30 === 0;
+      default:
+    }
+  };
   const handler = async (e) => {
     e.preventDefault();
 
@@ -43,6 +63,13 @@ function LoanApplication() {
       installment.length > 0 &&
       fees.length > 0
     ) {
+      if (!isDaysDivisible(paymentPeriod, installment)) {
+        alert(
+          "number of days selected is not divisible with the selected payment plan"
+        );
+        return false;
+      }
+
       const formData = {
         create_by: user_id,
         customer_id: client,
