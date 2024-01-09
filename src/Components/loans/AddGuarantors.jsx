@@ -9,7 +9,7 @@ function AddGuarantors(props) {
   const [phone, setPhone] = useState("");
   const [relationship, setRelationship] = useState("");
   const [limit, SetLimit] = useState("");
-  const [occuption, setOccuption] = useState("");
+  const [occupation, setoccupation] = useState("");
 
   //   console.log(props.id);
   const handler = async (e) => {
@@ -30,6 +30,7 @@ function AddGuarantors(props) {
         phone: phone,
         relationship: relationship,
         limit: limit,
+        occupation: occupation,
       };
 
       const server_response = await ajaxLaons.addLoanGuarantor(data);
@@ -41,6 +42,8 @@ function AddGuarantors(props) {
         setPhone("");
         setRelationship("");
         setResidence("");
+        setoccupation("");
+        SetLimit("");
       } else {
         toast.error(server_response.message);
       }
@@ -131,14 +134,14 @@ function AddGuarantors(props) {
             type="text"
             className="form-control"
             placeholder="occupation of guarantor"
-            value={occuption}
-            onChange={(e) => setOccuption(e.target.value)}
+            value={occupation}
+            onChange={(e) => setoccupation(e.target.value)}
           />
         </div>
         <div className="mb-4">
           <label htmlFor="">Guarantor's Limit</label>
           <input
-            type="text"
+            type="number"
             className="form-control"
             placeholder="amount of the loan the person backs up"
             value={limit}

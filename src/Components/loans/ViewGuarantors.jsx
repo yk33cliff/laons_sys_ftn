@@ -4,7 +4,7 @@ import toast, {Toaster} from "react-hot-toast";
 import dictionary from "../../util/dictionary";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDeleteLeft, faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import useStateCallback from "../../util/customHooks/useStateCallback";
 import UpdateGurantors from "./UpdateGurantors";
 // import ajaxLaons from "../../util/remote/ajaxLaons";
@@ -94,6 +94,8 @@ function ViewGuarantors(props) {
                           <th>Nin </th>
                           <th>residence</th>
                           <th>relationship</th>
+                          <th>occupation</th>
+                          <th>guarantee limit</th>
                           {state !== 2 && (
                             <>
                               <th>Update</th>
@@ -112,6 +114,9 @@ function ViewGuarantors(props) {
                               <td>{person.nin}</td>
                               <td>{person.residence}</td>
                               <td>{person.relationship}</td>
+                              <td>{person.occupation}</td>
+                              <td>{person.loan_limit}</td>
+
                               {state !== 2 && (
                                 <>
                                   <td>
