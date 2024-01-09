@@ -18,7 +18,7 @@ export const AuthProvider = (props) => {
     if (!userId) {
       return false;
     }
-    // console.log(userId);
+    // //console.log(userId);
 
     const server_response = await ajaxUser.getUserPermissionCodes(data);
 

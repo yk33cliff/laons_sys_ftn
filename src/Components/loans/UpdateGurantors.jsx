@@ -10,8 +10,8 @@ function UpdateGurantors(props) {
   const [relationship, setRelationship] = useState(
     props.guarantor.relationship
   );
-  console.log(props.guarantor);
-  //   console.log(props.id);
+  //console.log(props.guarantor);
+  //   //console.log(props.id);
   const handler = async (e) => {
     e.preventDefault();
     if (

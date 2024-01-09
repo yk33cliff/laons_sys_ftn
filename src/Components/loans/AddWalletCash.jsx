@@ -9,7 +9,7 @@ import LoanCashReceipt from "./LoanCashReciept";
 function AddWalletCash(props) {
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
-  console.log(props.id);
+  //console.log(props.id);
   var user = functions.sessionGuard();
 
   const [reciept, setReciept] = useStateCallback(false);

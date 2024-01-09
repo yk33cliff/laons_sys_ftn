@@ -6,7 +6,7 @@ import functions from "../../util/functions";
 function DeclineLoan(props) {
   const [comment, setComment] = useState("");
   const user_id = functions.sessionGuard();
-  //   console.log(props.id);
+  //   //console.log(props.id);
   const handler = async (e) => {
     e.preventDefault();
     if (comment.length > 0) {

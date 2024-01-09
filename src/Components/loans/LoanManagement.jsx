@@ -11,7 +11,7 @@ function LoanManagement(props) {
     getLoanDetail();
   }, []);
   const [loan, setLoan] = useState("");
-
+  console.log(loan);
   const getLoanDetail = async () => {
     var data = {id: id};
     const server_response = await ajaxLaons.getLoanDetails(data);
@@ -44,7 +44,7 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>LN_001</u>
+                            <u>{loan.id}</u>
                           </span>
                         </p>
                         <p>
@@ -53,7 +53,7 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>School fees loan</u>
+                            <u>{loan.loan_type}</u>
                           </span>
                         </p>
                         <p>
@@ -62,10 +62,10 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>12/12/2023</u>
+                            <u>{loan.date_requested}</u>
                           </span>
                         </p>
-                        <p>
+                        {/* <p>
                           date approved and awarded &nbsp;
                           &nbsp;&nbsp;&nbsp;&nbsp;
                           <span
@@ -74,14 +74,14 @@ function LoanManagement(props) {
                             }}>
                             <u>LN_001</u>
                           </span>
-                        </p>
+                        </p> */}
                         <p>
                           Loan period &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                           <span
                             style={{
                               color: "grey",
                             }}>
-                            <u> 12 months</u>
+                            <u>{loan.duration} (days)</u>
                           </span>
                         </p>
                         <p>
@@ -90,17 +90,26 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>weekly</u>
+                            <u>{loan.installment_type}</u>
                           </span>
                         </p>
-
                         <p>
-                          Loan created by plan &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                          interest rate &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                           <span
                             style={{
                               color: "grey",
                             }}>
-                            <u>weekly</u>
+                            <u>{loan.interest_rate}</u>
+                          </span>
+                        </p>
+
+                        <p>
+                          Monitoring fee rate &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                          <span
+                            style={{
+                              color: "grey",
+                            }}>
+                            <u>{loan.monitoring_fees}</u>
                           </span>
                         </p>
                       </div>
@@ -114,10 +123,11 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u> desire twin</u>
+                            <u>{loan.customer_id.names}</u>
                           </span>
                         </p>
-                        <p>
+
+                        {/* <p>
                           Customer's contact &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                           <span
                             style={{
@@ -125,16 +135,7 @@ function LoanManagement(props) {
                             }}>
                             <u> +256702322823</u>
                           </span>
-                        </p>
-                        <p>
-                          Customer's contact &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-                          <span
-                            style={{
-                              color: "grey",
-                            }}>
-                            <u> +256702322823</u>
-                          </span>
-                        </p>
+                        </p> */}
 
                         {/* ----------------- */}
                         <label className="main-content-label my-auto pt-2">
@@ -146,7 +147,10 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u> desire twin</u>
+                            <u>
+                              {loan.created_by.first_name} &nbsp;
+                              {loan.created_by.last_name}{" "}
+                            </u>
                           </span>
                         </p>
                         <p>
@@ -155,7 +159,7 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u> +256702322823</u>
+                            <u> + {loan.created_by.contact} </u>
                           </span>
                         </p>
                       </div>

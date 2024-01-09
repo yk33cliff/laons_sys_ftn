@@ -11,7 +11,7 @@ import ajaxLaons from "../../util/remote/ajaxLaons";
 function LoanUpdating(props) {
   const {LoanTypes} = useContext(LoanTypesContext);
   const {clientList} = useContext(ClientContext);
-  // console.log(props.id);
+  // //console.log(props.id);
 
   // const role_id = functions.role_user();
   const user_id = functions.sessionGuard();

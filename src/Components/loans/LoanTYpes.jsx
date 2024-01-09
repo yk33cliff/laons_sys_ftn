@@ -67,7 +67,7 @@ function LoanTYpes() {
         setMonitoring("");
       } else {
         toast.error(server_response.message);
-        console.log(server_response.status);
+        //console.log(server_response.status);
       }
     } else {
       toast.error("Fill all the required fields");

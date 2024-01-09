@@ -9,7 +9,7 @@ function AddWalletCash(props) {
   const [phone, setPhone] = useState("");
   const [relationship, setRelationship] = useState("");
 
-  //   console.log(props.id);
+  //   //console.log(props.id);
   const handler = async (e) => {
     e.preventDefault();
     if (amount.length > 0 && date.length > 0) {

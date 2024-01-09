@@ -17,7 +17,7 @@ const UserProfile = (props) => {
 
   const getUserProfile = async (id) => {
     const server_response = await ajaxUser.fetchUserProfile(id);
-    // console.log(server_response)
+    // //console.log(server_response)
     if (server_response.status === "OK") {
       //store results
       setUserProfile(server_response.details);
@@ -29,7 +29,7 @@ const UserProfile = (props) => {
 
   const getUserClients = async (id) => {
     const server_response = await ajaxClient.fetchUserClients(id);
-    //   console.log(server_response)
+    //   //console.log(server_response)
     if (server_response.status === "OK") {
       //store results
       setUserClients(server_response.details);

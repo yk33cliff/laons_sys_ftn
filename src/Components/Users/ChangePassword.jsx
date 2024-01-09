@@ -7,7 +7,7 @@ import ajaxUser from "../../util/remote/ajaxUser";
 const ChangePassword = (props) => {
   const [old_password, setOldPassword] = useState("");
   const [new_password, setNewPassword] = useState("");
-  console.log(props.id);
+  //console.log(props.id);
 
   const handleUpdatePassword = async (e) => {
     e.preventDefault();

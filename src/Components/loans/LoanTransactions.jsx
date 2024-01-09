@@ -20,7 +20,7 @@ function LoanTransactions(props) {
     // toast.error(server_response.message);
     // }
   };
-  console.log(items);
+  //console.log(items);
   // {
   //       "amount": "9400",
   //       "issue": "principal payment",

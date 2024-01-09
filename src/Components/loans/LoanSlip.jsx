@@ -30,7 +30,7 @@ function LoanSlip(props) {
   const [customer, setCustomer] = useState("");
   const [guarantors, setGuarantors] = useState("");
   const [security, setSecurity] = useState("");
-  console.log(Loaned);
+  //console.log(Loaned);
 
   const getLoanDetails = async (e) => {
     var data = {id: id};
@@ -97,7 +97,7 @@ function LoanSlip(props) {
     //   toast.error(server_response.message);
     // }
   };
-  console.log(shedule);
+  //console.log(shedule);
   //  var  detail = {
   //       "shedule": [
   //           {
@@ -138,7 +138,7 @@ function LoanSlip(props) {
       </>
     );
   };
-  // console.log(Loaned);
+  // //console.log(Loaned);
   return (
     <div>
       <SystemModal

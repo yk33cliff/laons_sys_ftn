@@ -19,10 +19,10 @@ function ClientProfile(props) {
   const [user, setUser] = useState();
   const getUserInfo = async () => {
     const data = {user_id: id};
-    // console.log(id);
+    // //console.log(id);
 
     const server_response = await ajaxUser.fetchSingleUser(data);
-    // console.log(server_response)
+    // //console.log(server_response)
     if (server_response.status === "OK") {
       setUser(server_response.details);
     } else {
@@ -95,7 +95,7 @@ function ClientProfile(props) {
     }
   };
 
-  // console.log(user);
+  // //console.log(user);
 
   /**
    * fetching user's loans//
@@ -115,7 +115,7 @@ function ClientProfile(props) {
     userLoans();
     getUserTrans();
   }, []);
-  // console.log(userLoan);
+  // //console.log(userLoan);
   const getStatusBadge = (status) => {
     if (status === 1) {
       return (
@@ -168,10 +168,10 @@ function ClientProfile(props) {
   const [trans, setTrans] = useState();
   const getUserTrans = async () => {
     const data = {user_id: id};
-    // console.log(id);
+    // //console.log(id);
 
     const server_response = await ajaxLaons.fetchUserTransactions(data);
-    // console.log(server_response)
+    // //console.log(server_response)
     if (server_response.status === "OK") {
       setTrans(server_response.details);
     } else {

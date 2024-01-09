@@ -9,7 +9,7 @@ function ApproveLoan(props) {
   const [guarantors, setGuarantors] = useState("");
   const [security, setSecurity] = useState("");
   const [comment, setComment] = useState("");
-  // console.log(security);
+  // //console.log(security);
 
   useEffect(() => {
     guarantor();

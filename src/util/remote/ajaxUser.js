@@ -71,7 +71,7 @@ export default {
 
   async updatePassword(data) {
     let response = await apiCall("password/update", data);
-    console.log(data.id);
+    //console.log(data.id);
     return response;
   },
 

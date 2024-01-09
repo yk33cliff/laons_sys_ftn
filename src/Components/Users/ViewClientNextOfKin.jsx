@@ -6,9 +6,9 @@ import ajaxUser from "../../util/remote/ajaxUser";
 import useStateCallback from "../../util/customHooks/useStateCallback";
 import UpdateNextOfKin from "./UpdateNextOfKin";
 function ViewClientNextOfKin(props) {
-  // console.log(props.id);
+  // //console.log(props.id);
   const [Kin, setKin] = useState("");
-  console.log(Kin);
+  //console.log(Kin);
   useEffect(() => {
     Fetchdata();
   }, []);

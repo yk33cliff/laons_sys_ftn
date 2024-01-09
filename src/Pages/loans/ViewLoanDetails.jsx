@@ -5,7 +5,7 @@ function ViewLoanDetails(props) {
   const [details, setDetails] = useState(props.loan);
 
   const RenderFooter = (controls) => {
-    // console.log(details);
+    // //console.log(details);
     return (
       <>
         <button

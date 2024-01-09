@@ -53,7 +53,7 @@ function CreateClients() {
         resetForm();
       } else {
         toast.error(server_response.message);
-        console.log(server_response.message);
+        //console.log(server_response.message);
       }
     } else {
       toast.error("Complete all fields and try again");

@@ -1,7 +1,7 @@
 import axios from "axios";
 import dictionary from "../dictionary";
 const apiHost = dictionary.apiHost;
-console.log(apiHost);
+//console.log(apiHost);
 // const apiHost = "https://projectmanagerapi.studentdigpay.com/";
 const ACCESS_TOKEN = localStorage.getItem("logs@user");
 

@@ -12,7 +12,7 @@ function LoanCashReceipt(props) {
     document.body.innerHTML = originalContents;
   };
   const data = props.id;
-  console.log(data);
+  //console.log(data);
 
   const RenderFooter = (controls) => (
     <>

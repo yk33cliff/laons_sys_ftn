@@ -47,14 +47,14 @@ function App(props) {
   //     setSecure(false);
   //   }
   // }
-  // console.log(secure);
+  // //console.log(secure);
 
   useEffect(() => {
     checkLogin();
     // checkSecure();
   }, []);
 
-  // console.log(loggedIn);
+  // //console.log(loggedIn);
 
   return (
     <SuperProvider>

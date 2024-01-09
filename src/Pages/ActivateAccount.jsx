@@ -10,7 +10,7 @@ function ActivateAccount() {
   const navigate = useNavigate();
 
   const user_id = functions.sessionGuard();
-  // console.log(user_id);
+  // //console.log(user_id);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -20,7 +20,7 @@ function ActivateAccount() {
       const data = {id: user_id, password: hashedPassword};
       const server_response = await ajaxUser.ActivateAccount(data);
 
-      // console.log(server_response);
+      // //console.log(server_response);
 
       if (server_response.status === "OK") {
         localStorage.removeItem("logs@user");

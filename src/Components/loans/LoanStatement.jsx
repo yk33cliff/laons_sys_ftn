@@ -41,7 +41,7 @@ function LoanStatement(props) {
       </>
     );
   };
-  // console.log(Loaned);
+  // //console.log(Loaned);
   return (
     <div>
       <SystemModal

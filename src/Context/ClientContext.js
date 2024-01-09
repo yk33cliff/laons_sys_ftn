@@ -16,7 +16,7 @@ export const ClientProvider = (props) => {
 
   const getClientList = async () => {
     const server_response = await ajaxUser.fetchCustomers();
-    //   console.log(server_response)
+    //   //console.log(server_response)
     if (server_response.status === "OK") {
       setClientList(server_response.details);
     } else {

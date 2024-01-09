@@ -9,7 +9,7 @@ function AddLoanpayment(props) {
   const [contact, setContact] = useState("");
   const id = props.id;
   var user_id = functions.sessionGuard();
-  console.log(props.customer);
+  //console.log(props.customer);
   const handler = async (e) => {
     e.preventDefault();
     if (amount.length > 0) {

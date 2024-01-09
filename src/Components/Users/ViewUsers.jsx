@@ -10,7 +10,7 @@ function ViewUsers() {
   const handle_model = (id) => {
     setModal(false, () => setModal(<UserProfile isOpen={false} id={id} />));
   };
-  // console.log(userList);
+  // //console.log(userList);
   return (
     <div>
       <div>

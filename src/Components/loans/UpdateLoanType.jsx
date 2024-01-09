@@ -17,7 +17,7 @@ const UpdateLoanType = (props) => {
   const [insur, setInsur] = useState(props.loan.insurance);
   const [application, setApplication] = useState(props.loan.application_rate);
   const [monitoring, setMonitoring] = useState(props.loan.monitoring);
-  // console.log(props);
+  // //console.log(props);
   const handler = async (e) => {
     e.preventDefault();
     if (
@@ -51,7 +51,7 @@ const UpdateLoanType = (props) => {
         props.getLoanList();
       } else {
         toast.error(server_response.message);
-        console.log(server_response.status);
+        //console.log(server_response.status);
       }
     } else {
       toast.error("Fill all the required fields");

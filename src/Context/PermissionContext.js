@@ -8,7 +8,7 @@ export const PermissionConsumer = PermissionContext.Consumer;
 export const PermissionProvider = (props) => {
   const [permissionList, setPermissionList] = useState(false);
   const [data, setData] = useState({page: "1"});
-  console.log(permissionList);
+  //console.log(permissionList);
 
   useEffect(() => {
     getPermissionList();
@@ -16,7 +16,7 @@ export const PermissionProvider = (props) => {
 
   const getPermissionList = async () => {
     const server_response = await ajaxPermission.fetchDistributionList(data);
-    //   console.log(server_response)
+    //   //console.log(server_response)
     if (server_response.status === "OK") {
       //store results
       setPermissionList(server_response.details);

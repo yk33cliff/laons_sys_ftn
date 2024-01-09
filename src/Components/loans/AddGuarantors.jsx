@@ -11,7 +11,7 @@ function AddGuarantors(props) {
   const [limit, SetLimit] = useState("");
   const [occupation, setoccupation] = useState("");
 
-  //   console.log(props.id);
+  //   //console.log(props.id);
   const handler = async (e) => {
     e.preventDefault();
     if (

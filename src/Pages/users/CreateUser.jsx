@@ -17,7 +17,7 @@ function CreateUser() {
   const {userList, getUserList} = useContext(UserContext);
 
   const {roleList} = useContext(RoleContext);
-  // console.log(roleList);
+  // //console.log(roleList);
 
   // +++++++++++++++++++++++++++++++++++++++++++++
   const [fname, setFname] = useState("");
@@ -30,7 +30,7 @@ function CreateUser() {
   const [location, setLocation] = useState("");
   const [role, setRole] = useState("");
   const [pass, setPass] = useState("");
-  console.log(role);
+  //console.log(role);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -12,7 +12,7 @@ import ReactPaginate from "react-paginate";
 
 function ActiveLoans() {
   const {activeLoans} = useContext(LoansContext);
-  // console.log(activeLoans);
+  // //console.log(activeLoans);
   const [modal, setModal] = useStateCallback(false);
 
   const handleSlip = (id, contact, name1, name2) => {

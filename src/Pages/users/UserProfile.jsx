@@ -5,7 +5,7 @@ import SystemModal from "../../Components/Common/SystemModal";
 import dictionary from "../../util/dictionary";
 
 function UserProfile(props) {
-  console.log(props.id);
+  //console.log(props.id);
   const RenderFooter = (controls) => {
     return (
       <>

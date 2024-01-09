@@ -15,7 +15,7 @@ function Login() {
     const password = btoa(pass);
     const server_response = await ajaxUser.loginUser(username, password);
 
-    console.log(server_response);
+    //console.log(server_response);
     if (server_response.status === "OK") {
       localStorage.setItem("logs@user", server_response.details);
       navigate("/");

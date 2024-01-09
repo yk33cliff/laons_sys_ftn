@@ -4,7 +4,7 @@ import SystemModal from "../Common/SystemModal";
 import toast, {Toaster} from "react-hot-toast";
 import ajaxUser from "../../util/remote/ajaxUser";
 function AddClientNextOfKin(props) {
-  // console.log(props.id);
+  // //console.log(props.id);
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [othername, setOthername] = useState("");
