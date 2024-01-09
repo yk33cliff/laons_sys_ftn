@@ -30,11 +30,11 @@ function LoanSlip(props) {
   const [customer, setCustomer] = useState("");
   const [guarantors, setGuarantors] = useState("");
   const [security, setSecurity] = useState("");
-  // console.log(guarantors);
+  console.log(Loaned);
 
   const getLoanDetails = async (e) => {
     var data = {id: id};
-    const server_response = await ajaxLaons.getLoanSlipDetails(data);
+    const server_response = await ajaxLaons.getLoanDetails(data);
 
     if (server_response.status === "OK") {
       setLoanded(server_response.details);
@@ -352,11 +352,16 @@ function LoanSlip(props) {
                                 </tr>
                                 <tr>
                                   <td>Loan paid</td>
-                                  <td className="text-primary">xxxxxx</td>
+                                  <td className="text-primary">
+                                    {Loaned && Loaned.loan_paid}
+                                  </td>
                                 </tr>
                                 <tr>
                                   <td>loan balance </td>
-                                  <td className="text-primary">xxxxxx</td>
+                                  <td className="text-primary">
+                                    {" "}
+                                    {Loaned && Loaned.loanBalance}
+                                  </td>
                                 </tr>
                               </tbody>
                             </table>

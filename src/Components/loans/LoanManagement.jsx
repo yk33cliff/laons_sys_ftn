@@ -1,10 +1,27 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import AppContainer from "../Structure/AppContainer";
 import LoanTransactions from "./LoanTransactions";
 import {useParams} from "react-router-dom";
+import ajaxLaons from "../../util/remote/ajaxLaons";
 
 function LoanManagement(props) {
   var {id} = useParams();
+
+  useEffect(() => {
+    getLoanDetail();
+  }, []);
+  const [loan, setLoan] = useState("");
+
+  const getLoanDetail = async () => {
+    var data = {id: id};
+    const server_response = await ajaxLaons.getLoanDetails(data);
+
+    if (server_response.status === "OK") {
+      setLoan(server_response.details);
+    } else {
+      setLoan("");
+    }
+  };
 
   return (
     <div>

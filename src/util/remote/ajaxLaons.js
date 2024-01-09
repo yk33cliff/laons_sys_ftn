@@ -60,8 +60,8 @@ export default {
     let response = await apiCall("view/loans/viewLoansSecurities", data);
     return response;
   },
-  async getLoanSlipDetails(data) {
-    let response = await apiCall("view/loans/getLoanSlipDetails", data);
+  async getLoanDetails(data) {
+    let response = await apiCall("view/loans/getLoanDetails", data);
     return response;
   },
   async getLoanHolderDetails(data) {
