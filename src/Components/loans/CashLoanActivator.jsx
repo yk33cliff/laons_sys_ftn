@@ -45,7 +45,7 @@ function CashLoanActivator(props) {
           type="button"
           className={`btn ripple btn-success`}
           onClick={handler}>
-          Add security
+          Activate loan
         </button>
       </>
     );

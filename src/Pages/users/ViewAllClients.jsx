@@ -84,6 +84,9 @@ function ViewAllClients() {
                       <thead>
                         <tr>
                           <th>No.</th>
+                          <th>
+                            system <br /> Number
+                          </th>
                           <th>Name</th>
                           <th>username</th>
                           <th>contact</th>
@@ -107,6 +110,7 @@ function ViewAllClients() {
                         {paginatedItems.map((client, key) => (
                           <tr key={key}>
                             <td>{key + 1}</td>
+                            <td>{client.id}</td>
                             <td>{client.name}</td>
                             <td>{client.username}</td>
                             <td>{client.contact}</td>

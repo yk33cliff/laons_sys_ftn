@@ -181,7 +181,7 @@ function LoanManagement(props) {
                           <tr>
                             <td>Loan principle</td>
                             <td>
-                              <i className="cc BTC-alt text-warning" /> 1000000
+                              <u>1000000</u>
                             </td>
                           </tr>
                           <tr>

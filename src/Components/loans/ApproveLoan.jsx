@@ -217,13 +217,13 @@ function ApproveLoan(props) {
             </div>
             {/* col end */}
           </div>
-          <div className="col-sm-12  col-md- col-lg-12 col-xl-12 mt-xl-4">
+          {/* <div className="col-sm-12  col-md- col-lg-12 col-xl-12 mt-xl-4">
             <div className="form-group">
               <label className="mg-b-10">
                 <u>Already existing comment</u>{" "}
               </label>
             </div>
-          </div>
+          </div> */}
           <div className="col-sm-12  col-md- col-lg-12 col-xl-12 mt-xl-4">
             <div className="form-group">
               <label className="mg-b-10">Interest Rate</label>

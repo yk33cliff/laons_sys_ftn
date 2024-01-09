@@ -182,41 +182,41 @@ const Sidebar = (props) => {
                       <span className="shape1" />
                       <span className="shape2" />
                       <i className="ti-book sidemenu-icon menu-icon" />
-                      <span className="sidemenu-label"> Loan not cashed</span>
+                      <span className="sidemenu-label"> Loan cashout</span>
                     </a>
                   </li>
                 </RenderSecure>
+                <RenderSecure code="VIEW-USER">
+                  <li className="nav-item" onClick={hrefggleDropdown}>
+                    <a className="nav-link with-sub" href="javascript:void(0)">
+                      <span className="shape1" />
+                      <span className="shape2" />
 
-                <li className="nav-item" onClick={hrefggleDropdown}>
-                  <a className="nav-link with-sub" href="javascript:void(0)">
-                    <span className="shape1" />
-                    <span className="shape2" />
-
-                    <i className="ti-user sidemenu-icon menu-icon" />
-                    <span className="sidemenu-label">
-                      Clients
-                      <span className="sidemenu-label2"></span>
-                    </span>
-                    <i className="angle fe fe-chevron-right" />
-                  </a>
-                  <ul className="nav-sub">
-                    <RenderSecure code="ADD-USER">
-                      <li className="nav-sub-item">
-                        <a className="nav-sub-link" href="/clients/Add">
-                          register client
-                        </a>
-                      </li>
-                    </RenderSecure>
-                    <RenderSecure code="VIEW-USER">
-                      <li className="nav-sub-item">
-                        <a className="nav-sub-link" href="/clients/view">
-                          view clients
-                        </a>
-                      </li>
-                    </RenderSecure>
-                  </ul>
-                </li>
-
+                      <i className="ti-user sidemenu-icon menu-icon" />
+                      <span className="sidemenu-label">
+                        Clients
+                        <span className="sidemenu-label2"></span>
+                      </span>
+                      <i className="angle fe fe-chevron-right" />
+                    </a>
+                    <ul className="nav-sub">
+                      <RenderSecure code="ADD-USER">
+                        <li className="nav-sub-item">
+                          <a className="nav-sub-link" href="/clients/Add">
+                            register client
+                          </a>
+                        </li>
+                      </RenderSecure>
+                      <RenderSecure code="VIEW-USER">
+                        <li className="nav-sub-item">
+                          <a className="nav-sub-link" href="/clients/view">
+                            view clients
+                          </a>
+                        </li>
+                      </RenderSecure>
+                    </ul>
+                  </li>
+                </RenderSecure>
                 <RenderSecure code="VIEW-USER">
                   <li className="nav-item">
                     <a className="nav-link" href="/users/register">

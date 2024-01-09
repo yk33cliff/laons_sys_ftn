@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ajaxDashboard from "../util/remote/ajaxDashboard";
 import functions from "../util/functions";
+import {RenderSecure} from "../util/script/RenderSecure";
 function Dashboard() {
   const [user, setUser] = useState("");
   const [bPool, setBpool] = useState("");
@@ -325,14 +326,15 @@ function Dashboard() {
                           {" "}
                           {pending ? pending : 0}
                         </h4>
-
-                        <h3 className="d-block tx-12 mb-0 text-muted">
-                          <a
-                            className="badge bg-success-light bg-pill p-1"
-                            href="/Applications/View">
-                            approve loans
-                          </a>
-                        </h3>
+                        <RenderSecure code="APPROV-LOAN">
+                          <h3 className="d-block tx-12 mb-0 text-muted">
+                            <a
+                              className="badge bg-success-light bg-pill p-1"
+                              href="/Applications/View">
+                              approve loans
+                            </a>
+                          </h3>
+                        </RenderSecure>
                       </div>
                     </div>
                   </div>
