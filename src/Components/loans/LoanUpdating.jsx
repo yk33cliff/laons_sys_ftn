@@ -11,59 +11,62 @@ import ajaxLaons from "../../util/remote/ajaxLaons";
 function LoanUpdating(props) {
   const {LoanTypes} = useContext(LoanTypesContext);
   const {clientList} = useContext(ClientContext);
-  // //console.log(props.id);
+  const loand = props.loan;
 
   // const role_id = functions.role_user();
   const user_id = functions.sessionGuard();
-  const [loan, setLoan] = useState("");
-  const [client, setClient] = useState("");
-  const [amount, setAmount] = useState("");
-  const [paymentPeriod, setPaymentPeriod] = useState("");
-  const [interestRate, setInterestRate] = useState("");
-  const [processingFees, setProcessingFees] = useState("");
-  const [dateRequested, setDateRequested] = useState("");
-  const [fees, setFees] = useState("");
-  const [insurance, setInsurance] = useState("");
-  const [fine, setFine] = useState("");
+  const [loan, setLoan] = useState(loand.Loan_id);
+  const [client, setClient] = useState(loand.customer_id.id);
+  const [amount, setAmount] = useState(loand.amount);
+  const [paymentPeriod, setPaymentPeriod] = useState(loand.duration);
+  const [interestRate, setInterestRate] = useState(loand.interest_rate);
+  const [processingFees, setProcessingFees] = useState(
+    loand.processing_fee_rate
+  );
+  const [dateRequested, setDateRequested] = useState(loand.date_requested);
+  const [fees, setFees] = useState(loand.Loan_id);
+  const [insurance, setInsurance] = useState(loand.insurance_rate);
+  const [fine, setFine] = useState(1);
 
   const handler = async (e) => {
     e.preventDefault();
-    alert("desire");
 
-    // if (
-    //   client.length > 0 &&
-    //   loan.length > 0 &&
-    //   amount.length > 0 &&
-    //   paymentPeriod.length > 0 &&
-    //   fees.length > 0
-    // ) {
-    //   const formData = {
-    //     create_by: user_id,
-    //     customer_id: client,
-    //     amount,
-    //     loan_type: loan,
-    //     repayment_period: paymentPeriod,
-    //     interest_rate: interestRate,
-    //     processing_fee: processingFees,
-    //     insurance: insurance,
-    //     fine: fine,
-    //     date_in: dateRequested,
-    //     fees: fees,
-    //   };
-    //   const server_response = await ajaxLaons.UpdateLoanDetails(formData);
-    //   if (server_response.status === "OK") {
-    //     resetForm();
-    //     setClient("");
-    //     setLoan("");
-    //     toast.success(server_response.message);
-    //   } else {
-    //     toast.error(server_response.message);
-    //   }
-    // } else {
-    //   toast.error(
-    //     "Fill loan, client, amount, payment period, fine and security Fees source; they are mandatory"
-    //   );
-    // }
+    if (
+      client.length > 0 &&
+      loan.length > 0 &&
+      amount.length > 0 &&
+      paymentPeriod.length > 0 &&
+      fees.length > 0
+    ) {
+      const data = {
+        create_by: user_id,
+        customer_id: client,
+        amount,
+        loan_type: loan,
+        repayment_period: paymentPeriod,
+        interest_rate: interestRate,
+        processing_fee: processingFees,
+        insurance: insurance,
+        fine: fine,
+        date_in: dateRequested,
+        fees: fees,
+        id: loand.id,
+      };
+      const server_response = await ajaxLaons.UpdateLoanDetails(data);
+      if (server_response.status === "OK") {
+        resetForm();
+        setClient("");
+        setLoan("");
+        props.function();
+        toast.success(server_response.message);
+      } else {
+        toast.error(server_response.message);
+      }
+    } else {
+      toast.error(
+        "Fill loan, client, amount, payment period, fine and security Fees source; they are mandatory"
+      );
+    }
   };
 
   useEffect(() => {

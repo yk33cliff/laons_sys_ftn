@@ -151,7 +151,7 @@ $(function () {
   });
 
   // ______________Toast
-  $(".toast").toast();
+  // $(".toast").toast();
 
   // ______________Back-top-button
   $(window).on("scroll", function (e) {

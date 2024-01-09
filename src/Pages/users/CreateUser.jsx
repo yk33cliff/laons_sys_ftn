@@ -223,7 +223,7 @@ function CreateUser() {
                           />
                         </div>
                       </div>
-                      <div className="col-md-6">
+                      {/* <div className="col-md-6">
                         <div className="form-group">
                           <label className="mg-b-10">password</label>
                           <input
@@ -234,7 +234,7 @@ function CreateUser() {
                             onChange={(e) => setPass(e.target.value)}
                           />
                         </div>
-                      </div>
+                      </div> */}
 
                       <div className="col-md-12 ">
                         <div className="form-group mb-0">
