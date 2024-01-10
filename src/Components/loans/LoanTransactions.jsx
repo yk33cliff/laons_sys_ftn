@@ -50,7 +50,8 @@ function LoanTransactions(props) {
                     </tr>
                   </thead>
                   <tbody>
-                    {Array.isArray(items) &&
+                    {items &&
+                      Array.isArray(items) &&
                       items.map((item, key) => (
                         <tr key={key}>
                           <td>{key + 1}</td>

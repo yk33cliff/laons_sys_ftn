@@ -81,16 +81,44 @@ const Sidebar = (props) => {
                     <span className="sidemenu-label"> Loan Types</span>
                   </a>
                 </li>
-
+                <li className="nav-item" onClick={hrefggleDropdown}>
+                  <a className="nav-link with-sub" href="javascript:void(0)">
+                    <span className="shape1" />
+                    <span className="shape2" />
+                    {/* <i class="fa-sharp fa-solid fa-cow"></i> */}
+                    <i className="ti-write sidemenu-icon menu-icon" />
+                    <span className="sidemenu-label">
+                      Loans
+                      <span className="sidemenu-label2"> aplications</span>
+                    </span>
+                    <i className="angle fe fe-chevron-right" />
+                  </a>
+                  <ul className="nav-sub">
+                    <RenderSecure code="ADD-LOAN">
+                      <li className="nav-sub-item">
+                        <a className="nav-sub-link" href="/applications/add">
+                          Add applications
+                        </a>
+                      </li>
+                    </RenderSecure>
+                    <RenderSecure code="LOANS-VIEW">
+                      <li className="nav-sub-item">
+                        <a className="nav-sub-link" href="/Applications/View">
+                          View Applications
+                        </a>
+                      </li>
+                    </RenderSecure>
+                  </ul>
+                </li>
                 {/* <RenderSecure code="VIEW-USER"> */}
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a className="nav-link" href="/applications/add">
                     <span className="shape1" />
                     <span className="shape2" />
                     <i className="ti-book sidemenu-icon menu-icon" />
                     <span className="sidemenu-label"> Loan applications</span>
                   </a>
-                </li>
+                </li> */}
                 {/* </RenderSecure> */}
                 <li className="nav-item" onClick={hrefggleDropdown}>
                   <a className="nav-link with-sub" href="javascript:void(0)">

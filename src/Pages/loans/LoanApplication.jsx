@@ -6,12 +6,10 @@ import functions from "../../util/functions";
 import ClientContext from "../../Context/ClientContext";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import toast, {Toaster} from "react-hot-toast";
-import {differenceInDays} from "date-fns";
-import DeclinedLoans from "../../Components/loans/DeclinedLoans";
-import ViewLoanApplications from "./ViewLoanApplications";
+
 import LoansContext from "../../Context/LoansContext";
 import {RenderSecure} from "../../util/script/RenderSecure";
-// import DeclinedLoans from "../../Components/loans/DeclinedLoans";
+import Applications from "./Applications";
 
 function LoanApplication() {
   const {LoanTypes} = useContext(LoanTypesContext);
@@ -416,7 +414,7 @@ function LoanApplication() {
           <RenderSecure code="LOANS-VIEW">
             <div className="row row-sm">
               <div className="col-xl-12 col-md-12 col-lg-12">
-                <ViewLoanApplications />
+                <Applications />
               </div>
             </div>
           </RenderSecure>

@@ -11,7 +11,7 @@ function LoanManagement(props) {
     getLoanDetail();
   }, []);
   const [loan, setLoan] = useState("");
-  // console.log(loan);
+  console.log(loan);
   const getLoanDetail = async () => {
     var data = {id: id};
     const server_response = await ajaxLaons.getLoanDetails(data);
@@ -28,7 +28,7 @@ function LoanManagement(props) {
       <AppContainer title="loan management">
         <>
           {/* Row*/}
-          <div className="row row-sm">
+          {/* <div className="row row-sm">
             <div className="col-xl-8 col-lg-8 col-md-8">
               <div className="card custom-card overflow-hidden crypto-buysell-card">
                 <div className="card-body">
@@ -44,7 +44,7 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>{loan && loan.id}</u>
+                            <u>{loan.id}</u>
                           </span>
                         </p>
                         <p>
@@ -53,7 +53,7 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>{loan && loan.loan_type}</u>
+                            <u>{loan.loan_type}</u>
                           </span>
                         </p>
                         <p>
@@ -62,17 +62,26 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>{loan && loan.date_requested}</u>
+                            <u>{loan.date_requested}</u>
                           </span>
                         </p>
-
+                        {/* <p>
+                          date approved and awarded &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <span
+                            style={{
+                              color: "grey",
+                            }}>
+                            <u>LN_001</u>
+                          </span>
+                        </p> */}
                         <p>
                           Loan period &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
                           <span
                             style={{
                               color: "grey",
                             }}>
-                            <u>{loan && loan.duration} (days)</u>
+                            <u>{loan.duration} (days)</u>
                           </span>
                         </p>
                         <p>
@@ -81,7 +90,7 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>{loan && loan.installment_type}</u>
+                            <u>{loan.installment_type}</u>
                           </span>
                         </p>
                         <p>
@@ -90,7 +99,7 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>{loan && loan.interest_rate}</u>
+                            <u>{loan.interest_rate}</u>
                           </span>
                         </p>
 
@@ -100,7 +109,7 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>{loan && loan.monitoring_fees}</u>
+                            <u>{loan.monitoring_fees}</u>
                           </span>
                         </p>
                       </div>
@@ -114,10 +123,21 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>{loan && loan.customer_id.names}</u>
+                            <u>{loan.customer_id.names}</u>
                           </span>
                         </p>
 
+                        {/* <p>
+                          Customer's contact &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                          <span
+                            style={{
+                              color: "grey",
+                            }}>
+                            <u> +256702322823</u>
+                          </span>
+                        </p> */}
+
+                        {/* ----------------- */}
                         <label className="main-content-label my-auto pt-2">
                           Served by
                         </label>
@@ -128,8 +148,8 @@ function LoanManagement(props) {
                               color: "grey",
                             }}>
                             <u>
-                              {loan && loan.created_by.first_name} &nbsp;
-                              {loan && loan.created_by.last_name}{" "}
+                              {loan.created_by.first_name} &nbsp;
+                              {loan.created_by.last_name}{" "}
                             </u>
                           </span>
                         </p>
@@ -139,7 +159,7 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u> + {loan && loan.created_by.contact} </u>
+                            <u> + {loan.created_by.contact} </u>
                           </span>
                         </p>
                       </div>
@@ -201,7 +221,7 @@ function LoanManagement(props) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* Row End */}
 
           {/* Row*/}
@@ -302,6 +322,9 @@ function LoanManagement(props) {
               </div>
             </div>
           </div>
+          {/* Row End */}
+          {/* Row*/}
+          <div className="row row-sm"></div>
           {/* Row End */}
         </>
       </AppContainer>

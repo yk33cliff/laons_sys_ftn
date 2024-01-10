@@ -10,7 +10,7 @@ import Dashboard from "./Pages/Dashboard";
 import LoginPage from "./Pages/LoginPage";
 import LoanTYpes from "./Components/loans/LoanTYpes";
 import CreateUser from "./Pages/users/CreateUser";
-// import ViewLoanApplications from "./Pages/loans/ViewLoanApplications";
+import ViewLoanApplications from "./Pages/loans/ViewLoanApplications";
 import ActiveLoans from "./Components/loans/ActiveLoans";
 import PendingInstallments from "./Components/loans/PendingInstallments";
 import LoanApplication from "./Pages/loans/LoanApplication";
@@ -100,16 +100,16 @@ function App(props) {
               <Route path="/users/register" element={<CreateUser />} />
 
               <Route path="/applications/add" element={<LoanApplication />} />
-              {/* <Route
+              <Route
                 path="/Applications/View"
                 element={<ViewLoanApplications />}
-              /> */}
+              />
 
               <Route path="/loans/active" element={<ActiveLoans />} />
               <Route path="/clients/view" element={<ViewAllClients />} />
               <Route path="/clients/Add" element={<CreateClients />} />
               <Route path="/profile/:id" element={<ClientProfile />} />
-              <Route path="/Loan_management/:id" element={<LoanManagement />} />
+              <Route path="/LoanManagement/:id" element={<LoanManagement />} />
 
               <Route
                 path="/Loans/pending_installments"
