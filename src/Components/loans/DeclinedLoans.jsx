@@ -3,6 +3,7 @@ import ajaxLaons from "../../util/remote/ajaxLaons";
 import ReactPaginate from "react-paginate";
 import {RenderSecure} from "../../util/script/RenderSecure";
 import toast, {Toaster} from "react-hot-toast";
+import functions from "../../util/functions";
 
 function DeclinedLoans() {
   const [trans, setTrans] = useState("");
@@ -50,6 +51,7 @@ function DeclinedLoans() {
       toast.error(server_response.message);
     }
   };
+  const is_approver = functions.check_is_approver();
 
   return (
     <div>
@@ -73,9 +75,7 @@ function DeclinedLoans() {
                       <th>Amount</th>
                       <th>Decliner</th>
                       <th>Decline's reason</th>
-                      <RenderSecure code="APPROV-LOAN">
-                        <th>Reactivate loan</th>
-                      </RenderSecure>
+                      {is_approver == 1 && <th>Reactivate loan</th>}
                     </tr>
                   </thead>
 
@@ -88,7 +88,7 @@ function DeclinedLoans() {
                         <td>{loan.amount}</td>
                         <td>{loan.decliner1}</td>
                         <td>{loan.declined_comment1}</td>
-                        <RenderSecure code="APPROV-LOAN">
+                        {is_approver == 1 && (
                           <td>
                             <button
                               onClick={() => handle_reactivate(loan.id)}
@@ -97,7 +97,7 @@ function DeclinedLoans() {
                               loan
                             </button>
                           </td>
-                        </RenderSecure>
+                        )}
                       </tr>
                     ))}
                   </tbody>

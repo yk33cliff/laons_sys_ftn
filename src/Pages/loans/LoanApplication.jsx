@@ -6,12 +6,10 @@ import functions from "../../util/functions";
 import ClientContext from "../../Context/ClientContext";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import toast, {Toaster} from "react-hot-toast";
-import {differenceInDays} from "date-fns";
-import DeclinedLoans from "../../Components/loans/DeclinedLoans";
-import ViewLoanApplications from "./ViewLoanApplications";
+
 import LoansContext from "../../Context/LoansContext";
 import {RenderSecure} from "../../util/script/RenderSecure";
-// import DeclinedLoans from "../../Components/loans/DeclinedLoans";
+import Applications from "./Applications";
 
 function LoanApplication() {
   const {LoanTypes} = useContext(LoanTypesContext);
@@ -31,7 +29,7 @@ function LoanApplication() {
   const [fees, setFees] = useState("");
   const [insurance, setInsurance] = useState("");
   const [fine, setFine] = useState("");
-  // const [plan, setPlan] = useState("");
+  const [monitoring, setMonitoring] = useState("");
   const [application_rate, setApplication_rate] = useState("");
   const [method, setMethod] = useState("");
 
@@ -85,6 +83,7 @@ function LoanApplication() {
         fees: fees,
         method: method,
         installment_type: installment,
+        monitoring: monitoring,
       };
       const server_response = await ajaxLaons.CreateLoanApplication(formData);
       if (server_response.status === "OK") {
@@ -117,7 +116,7 @@ function LoanApplication() {
           if (value.id === loan) {
             setInterestRate(value.interest_rate);
             setProcessingFees(value.processing_fee_rate);
-            setProcessingFees(value.processing_fee_rate);
+            setMonitoring(value.monitoring);
             setInsurance(value.insurance);
             setFine(value.fine_rate);
             // setPlan(value.installment_type);
@@ -326,6 +325,24 @@ function LoanApplication() {
                             </div>
                           </div>
                         )}
+
+                        {loan && (
+                          <div className="col-md-6">
+                            <div className="form-group">
+                              <label className="mg-b-10">
+                                Monitoring Fees Rate
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control text-success"
+                                name="interestRate"
+                                placeholder="monitoring fees rate"
+                                value={monitoring}
+                                onChange={(e) => setMonitoring(e.target.value)}
+                              />
+                            </div>
+                          </div>
+                        )}
                         {loan && (
                           <div className="col-md-6">
                             <div className="form-group">
@@ -416,7 +433,7 @@ function LoanApplication() {
           <RenderSecure code="LOANS-VIEW">
             <div className="row row-sm">
               <div className="col-xl-12 col-md-12 col-lg-12">
-                <ViewLoanApplications />
+                <Applications />
               </div>
             </div>
           </RenderSecure>

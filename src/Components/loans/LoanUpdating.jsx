@@ -27,6 +27,11 @@ function LoanUpdating(props) {
   const [fees, setFees] = useState(loand.Loan_id);
   const [insurance, setInsurance] = useState(loand.insurance_rate);
   const [fine, setFine] = useState(1);
+  const [installment, setInstallment] = useState(loand.installment_type);
+
+  // const [plan, setPlan] = useState("");
+  const [application_rate, setApplication_rate] = useState("");
+  const [method, setMethod] = useState(loand.cashing_method);
 
   const handler = async (e) => {
     e.preventDefault();
@@ -41,7 +46,7 @@ function LoanUpdating(props) {
       const data = {
         create_by: user_id,
         customer_id: client,
-        amount,
+        amount: amount,
         loan_type: loan,
         repayment_period: paymentPeriod,
         interest_rate: interestRate,
@@ -50,6 +55,8 @@ function LoanUpdating(props) {
         fine: fine,
         date_in: dateRequested,
         fees: fees,
+        method: method,
+        installment_type: installment,
         id: loand.id,
       };
       const server_response = await ajaxLaons.UpdateLoanDetails(data);
@@ -86,6 +93,8 @@ function LoanUpdating(props) {
             setProcessingFees(value.processing_fee_rate);
             setInsurance(value.insurance);
             setFine(value.fine_rate);
+            // setPlan(value.installment_type);
+            setApplication_rate(value.application_rate);
           }
         });
       }
@@ -129,210 +138,267 @@ function LoanUpdating(props) {
         size="lg "
         footer={RenderFooter}>
         {/* <Toaster /> */}
-        <div className="" id="printablediv">
-          <div className="mb-4">
-            <div className="row row-sm">
-              <div className="col-lg-12 col-md-12">
-                <div className="card custom-card">
-                  <div className="card-body">
-                    <div>
-                      <h5 className="main-content-label mb-1">
-                        Register Loan Application
-                      </h5>
-                      <Toaster />
-                    </div>
-                    <div className="row row-sm">
-                      <form action="">
-                        <div className="row">
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <p className="mg-b-10">Select clients</p>
-                              <Select
-                                onChange={(e) => setClient(e.id)}
-                                getOptionLabel={(option) => option.name}
-                                getOptionValue={(option) => option.id}
-                                isSearchable
-                                options={
-                                  clientList &&
-                                  Array.isArray(clientList) &&
-                                  clientList
-                                }
-                                value={
-                                  clientList &&
-                                  Array.isArray(clientList) &&
-                                  clientList.find(
-                                    (value) => value.id === client
-                                  )
-                                }
-                              />
-                            </div>
-                          </div>
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <p className="mg-b-10">Select Loan Type</p>
-                              <Select
-                                onChange={(e) => setLoan(e.id)}
-                                getOptionLabel={(option) => option.name}
-                                getOptionValue={(option) => option.id}
-                                isSearchable
-                                options={Array.isArray(LoanTypes) && LoanTypes}
-                                value={
-                                  LoanTypes &&
-                                  Array.isArray(LoanTypes) &&
-                                  LoanTypes.find((value) => value.id === loan)
-                                }
-                              />
-                            </div>
-                          </div>
+        <div className="row row-sm">
+          <div className="col-lg-12 col-md-12">
+            <div className="card custom-card">
+              <div className="card-body">
+                <div>
+                  <h5 className="main-content-label mb-1">
+                    Register Loan Application
+                  </h5>
+                  <Toaster />
+                </div>
+                <div className="row row-sm">
+                  <form action="" onSubmit={handler}>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <p className="mg-b-10">Select clients</p>
+                          <Select
+                            onChange={(e) => setClient(e.id)}
+                            getOptionLabel={(option) => option.name}
+                            getOptionValue={(option) => option.id}
+                            isSearchable
+                            options={
+                              clientList &&
+                              Array.isArray(clientList) &&
+                              clientList
+                            }
+                            value={
+                              clientList &&
+                              Array.isArray(clientList) &&
+                              clientList.find((value) => value.id === client)
+                            }
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <p className="mg-b-10">Select Loan Type</p>
+                          <Select
+                            onChange={(e) => setLoan(e.id)}
+                            getOptionLabel={(option) => option.name}
+                            getOptionValue={(option) => option.id}
+                            isSearchable
+                            options={Array.isArray(LoanTypes) && LoanTypes}
+                            value={
+                              LoanTypes &&
+                              Array.isArray(LoanTypes) &&
+                              LoanTypes.find((value) => value.id === loan)
+                            }
+                          />
+                        </div>
+                      </div>
 
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <p className="mg-b-10">Amount</p>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Amount applied for"
-                                value={amount}
-                                onChange={(e) => setAmount(e.target.value)}
-                              />
-                            </div>
-                          </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <p className="mg-b-10">Amount</p>
+                          <input
+                            type="text"
+                            className="form-control text-success"
+                            placeholder="Amount applied for"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                          />
+                        </div>
+                      </div>
 
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <label className="mg-b-10">Payment Period</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                name="paymentPeriod"
-                                placeholder="loan duration"
-                                value={paymentPeriod}
-                                onChange={(e) =>
-                                  setPaymentPeriod(e.target.value)
-                                }
-                              />
-                            </div>
-                          </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label className="mg-b-10">
+                            Payment Period(In days)
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control text-success"
+                            name="paymentPeriod"
+                            placeholder="loan duration"
+                            value={paymentPeriod}
+                            onChange={(e) => setPaymentPeriod(e.target.value)}
+                          />
+                        </div>
+                      </div>
 
-                          {/* {role_id !== 4 ? (
+                      {/* {role_id !== 4 ? (
                         <> */}
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <label className="mg-b-10">
-                                Date Requested At
-                              </label>
-                              <input
-                                type="date"
-                                className="form-control"
-                                name="dateRequested"
-                                placeholder="Date of application"
-                                value={dateRequested}
-                                onChange={(e) =>
-                                  setDateRequested(e.target.value)
-                                }
-                              />
-                            </div>
-                          </div>
-                          {loan && (
-                            <div className="col-md-6">
-                              <div className="form-group">
-                                <label className="mg-b-10">Interest Rate</label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="interestRate"
-                                  placeholder="Interest rate"
-                                  value={interestRate}
-                                  onChange={(e) =>
-                                    setInterestRate(e.target.value)
-                                  }
-                                />
-                              </div>
-                            </div>
-                          )}
-                          {loan && (
-                            <div className="col-md-6">
-                              <div className="form-group">
-                                <label className="mg-b-10">
-                                  Processing Fees
-                                </label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="processingFees"
-                                  placeholder="Processing fees"
-                                  value={processingFees}
-                                  onChange={(e) =>
-                                    setProcessingFees(e.target.value)
-                                  }
-                                />
-                              </div>
-                            </div>
-                          )}
-                          {loan && (
-                            <div className="col-md-6">
-                              <div className="form-group">
-                                <label className="mg-b-10">fine Rate</label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="interestRate"
-                                  placeholder="fine rate 2"
-                                  value={fine}
-                                  onChange={(e) => setFine(e.target.value)}
-                                />
-                              </div>
-                            </div>
-                          )}
-                          {loan && (
-                            <div className="col-md-6">
-                              <div className="form-group">
-                                <label className="mg-b-10">
-                                  insurance Rate
-                                </label>
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="insurance rate"
-                                  placeholder="insurance rate"
-                                  value={insurance}
-                                  onChange={(e) => setInsurance(e.target.value)}
-                                />
-                              </div>
-                            </div>
-                          )}
-                          {/* </>
-                      // ) : null} */}
-                          <div className="col-md-6">
-                            <div className="form-group">
-                              <label className="mg-b-10">
-                                fine and security Fees source
-                              </label>
-                              <select
-                                name=""
-                                value={fees}
-                                className="form-control"
-                                onChange={(e) => setFees(e.target.value)}
-                                id="">
-                                <option
-                                  className="text-center"
-                                  disabled
-                                  selected
-                                  value="">
-                                  ---------------------selet
-                                  option---------------------------
-                                </option>
-                                <option value="wallet"> cutomer wallet</option>
-                                <option value="loan_reduction">
-                                  loan_reduction{" "}
-                                </option>
-                              </select>
-                            </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label className="mg-b-10">Date Requested At</label>
+                          <input
+                            type="date"
+                            className="form-control text-success"
+                            name="dateRequested"
+                            placeholder="Date of application"
+                            value={dateRequested}
+                            onChange={(e) => setDateRequested(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label className="mg-b-10">Mode of payment</label>
+                          <select
+                            name=""
+                            value={method}
+                            className="form-control text-success"
+                            onChange={(e) => setMethod(e.target.value)}
+                            id="">
+                            <option
+                              className="text-center"
+                              disabled
+                              selected
+                              value="">
+                              ---------------------selet
+                              option---------------------------
+                            </option>
+                            <option value="cash">cash </option>
+                            <option value="mm">mobile money</option>
+                            <option value="bank" disabled>
+                              Bank
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label className="mg-b-10">
+                            processing and insurance Fees source
+                          </label>
+                          <select
+                            name=""
+                            value={fees}
+                            className="form-control text-success"
+                            onChange={(e) => setFees(e.target.value)}
+                            id="">
+                            <option
+                              className="text-center"
+                              disabled
+                              selected
+                              value="">
+                              ---------------------selet
+                              option---------------------------
+                            </option>
+                            <option value="wallet"> cutomer wallet</option>
+                            <option value="loan_reduction">
+                              loan_reduction
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="form-group col-md-6">
+                        <p className="mg-b-10">Allowed Installments</p>
+                        <select
+                          name=""
+                          id=""
+                          className="form-control col-12"
+                          value={installment}
+                          onChange={(e) => setInstallment(e.target.value)}>
+                          <option value="" selected disabled>
+                            -----select payment plan------
+                          </option>
+                          <option value="daily">daily</option>
+                          <option value="weekly">weekly</option>
+                          <option value="fortnight">fortnight</option>
+                          <option value="monthly">monthly</option>
+                        </select>
+                      </div>
+
+                      {loan && (
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">Interest Rate</label>
+                            <input
+                              type="text"
+                              className="form-control text-success"
+                              name="interestRate"
+                              placeholder="Interest rate"
+                              value={interestRate}
+                              onChange={(e) => setInterestRate(e.target.value)}
+                            />
                           </div>
                         </div>
-                      </form>
+                      )}
+                      {loan && (
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">Application Rate</label>
+                            <input
+                              type="text"
+                              className="form-control text-success"
+                              name="interestRate"
+                              placeholder="Interest rate"
+                              value={application_rate}
+                              onChange={(e) =>
+                                setApplication_rate(e.target.value)
+                              }
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {loan && (
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">Processing Fees</label>
+                            <input
+                              type="text"
+                              className="form-control text-success"
+                              name="processingFees"
+                              placeholder="Processing fees"
+                              value={processingFees}
+                              onChange={(e) =>
+                                setProcessingFees(e.target.value)
+                              }
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {loan && (
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">Penalty Rate</label>
+                            <input
+                              type="text"
+                              className="form-control text-success"
+                              name="interestRate"
+                              placeholder="fine rate 2"
+                              value={fine}
+                              readOnly
+                              onChange={(e) => setFine(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {loan && (
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">insurance Rate</label>
+                            <input
+                              type="text"
+                              className="form-control text-success"
+                              name="insurance rate"
+                              placeholder="insurance rate"
+                              readOnly
+                              value={insurance}
+                              onChange={(e) => setInsurance(e.target.value)}
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {/* </>
+                      // ) : null} */}
+
+                      <div className="col-md-12 ">
+                        <div className="form-group mb-0">
+                          <button
+                            type="submit"
+                            className="btn col-lg -12 col-md-12 btn-primary">
+                            Save user
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>

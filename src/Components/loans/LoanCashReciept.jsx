@@ -1,5 +1,6 @@
 import React from "react";
 import SystemModal from "../Common/SystemModal";
+import numberToWords from "number-to-words";
 
 function LoanCashReceipt(props) {
   const Print = () => {
@@ -11,8 +12,13 @@ function LoanCashReceipt(props) {
     window.location.reload();
     document.body.innerHTML = originalContents;
   };
+
   const data = props.id;
-  //console.log(data);
+
+  const amountToWords = (amount) => {
+    const words = numberToWords.toWords(amount);
+    return words.charAt(0).toUpperCase() + words.slice(1);
+  };
 
   const RenderFooter = (controls) => (
     <>
@@ -94,12 +100,13 @@ function LoanCashReceipt(props) {
                         <div className="col-lg-6"></div>
                         <div className="col-lg-6">
                           <p className="float-start main-content-label  p-3 mb-0 mt-2">
-                            Reciept NO.{" "}
+                            Receipt NO.{" "}
                             <span className="text-danger">seren0{data.id}</span>
                           </p>
                           <p className="float-start main-content-label mb-0 mt-2">
-                            Payment Date : <span>12/01/2023</span>
+                            Payment Date : <span>{data.date}</span>
                           </p>
+                          {/* <p>cliffed</p> */}
                         </div>
                       </div>
                     </div>
@@ -114,7 +121,7 @@ function LoanCashReceipt(props) {
                       <div className="d-flex p-3">
                         <div className="col-lg-6">
                           <p className="float-start main-content-label mb-0 mt-2">
-                            payment's details
+                            Payment's details
                           </p>
                           <br />
                           <br />
@@ -123,22 +130,23 @@ function LoanCashReceipt(props) {
                             Paid By : <span>{data.customer}</span>{" "}
                           </p>
                           <p>
-                            Recieved By : <span>{data.added_by}</span>
+                            Received By : <span>{data.added_by}</span>
                           </p>
                         </div>
                         <div className="col-lg-6">
                           <p>
-                            Amount Piad &nbsp;&nbsp;&nbsp;
+                            Amount Paid &nbsp;&nbsp;&nbsp;
                             <u>
-                              <span>{data.amount}</span>
+                              <span>{data.amount_formated}</span>
                             </u>
                           </p>
-                          <p>
-                            Amount In words:: &nbsp; &nbsp; &nbsp;
+                          <h6>
+                            Amount In words:&nbsp;&nbsp;&nbsp;
                             <u>
-                              <span>{data.Amount_words}</span> shillings
+                              <span>{amountToWords(data.amount)} </span>
+                              shillings
                             </u>
-                          </p>
+                          </h6>
                           <p>
                             Payment Reason &nbsp; &nbsp; &nbsp;
                             <u>
@@ -150,6 +158,11 @@ function LoanCashReceipt(props) {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="row">
+                <p>
+                  Printed At :: <span>{new Date().toString()}</span>
+                </p>
               </div>
             </div>
           </div>

@@ -84,7 +84,7 @@ function GetLoanReciept() {
                           <td>{key + 1}</td>
 
                           <td>{loan.customer}</td>
-                          <td>{loan.amount}</td>
+                          <td>{loan.amount_formated}</td>
                           <td>{loan.reason}</td>
 
                           <td>{loan.date}</td>

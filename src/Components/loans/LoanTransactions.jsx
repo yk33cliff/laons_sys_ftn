@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import ajaxLaons from "../../util/remote/ajaxLaons";
-
+import ReactPaginate from "react-paginate";
 function LoanTransactions(props) {
   const [items, setItems] = useState("");
+  console.log(items);
 
   useEffect(() => {
     getTransactions();
@@ -20,12 +21,17 @@ function LoanTransactions(props) {
     // toast.error(server_response.message);
     // }
   };
-  //console.log(items);
-  // {
-  //       "amount": "9400",
-  //       "issue": "principal payment",
-  //       "date_of_pay": "2024-Jan-Wed"
-  //   },
+  // pagination workings
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 15; // Change this value based on your preference
+
+  const offset = currentPage * itemsPerPage;
+  const paginatedItems = Array.isArray(items)
+    ? items.slice(offset, offset + itemsPerPage)
+    : [];
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected);
+  };
 
   return (
     <div>
@@ -44,23 +50,42 @@ function LoanTransactions(props) {
                   <thead>
                     <tr>
                       <th>No.</th>
-                      <th>Amount</th>
-                      <th>Payment Issue</th>
-                      <th>payment date</th>
+                      <th>date</th>
+                      <th>invoice_type </th>
+                      <th>debit</th>
+                      <th>creadit</th>
+                      <th>description</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {Array.isArray(items) &&
-                      items.map((item, key) => (
-                        <tr key={key}>
-                          <td>{key + 1}</td>
-                          <td className="text-dark">{item.amount}</td>
-                          <td className="text-dark">{item.issue}</td>
-                          <td className="text-dark">{item.date_of_pay}</td>
-                        </tr>
-                      ))}
+                    {paginatedItems.map((item, key) => (
+                      <tr key={key}>
+                        <td>{key + 1}</td>
+                        <td className="text-dark">{item.created_at}</td>
+                        <td className="text-dark">{item.invoice_type}</td>
+                        <td className="text-dark">{item.invoice}</td>
+                        <td className="text-dark">{item.payment}</td>
+                        <td className="text-dark">{item.description}</td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
+                <ReactPaginate
+                  pageCount={Math.ceil(items.length / itemsPerPage)}
+                  pageRangeDisplayed={3}
+                  marginPagesDisplayed={1}
+                  onPageChange={handlePageClick}
+                  containerClassName={"pagination"}
+                  activeClassName={"active"}
+                  nextLabel={"Next"}
+                  previousLabel={"Previous"}
+                  breakLabel={"..."}
+                  pageLinkClassName={"page-link"}
+                  nextClassName={"page-item"}
+                  nextLinkClassName={"page-link"}
+                  previousClassName={"page-item"}
+                  previousLinkClassName={"page-link"}
+                />
                 <br />
                 <br />
               </div>

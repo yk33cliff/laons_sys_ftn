@@ -16,24 +16,14 @@ function ActiveLoans() {
   const [modal, setModal] = useStateCallback(false);
 
   const handleSlip = (id, contact, name1, name2) => {
-    setModal(false, () =>
-      setModal(
-        <LoanSlip
-          isOpen={true}
-          id={id}
-          name1={name1}
-          name2={name2}
-          contact={contact}
-        />
-      )
-    );
+    setModal(false, () => setModal(<LoanSlip isOpen={true} id={id} />));
   };
   // loanstatement handlers
   const [statment, setStatement] = useStateCallback(false);
 
-  const handleStatement = (id) => {
+  const handleStatement = (id, customer) => {
     setStatement(false, () =>
-      setStatement(<LoanStatement isOpen={true} id={id} />)
+      setStatement(<LoanStatement isOpen={true} id={id} customer={customer} />)
     );
   };
 
@@ -115,12 +105,14 @@ function ActiveLoans() {
                           more <br />
                           Details{" "}
                         </th>
-                        <th>loan slip</th>
-                        {/* <RenderSecure code="LOANS-STMNT">
+                        <th>
+                          loan <br /> documentation
+                        </th>
+                        <RenderSecure code="LOANS-STMNT">
                           <th>
-                            loan <br /> statment
+                            Manage <br /> Loan
                           </th>
-                        </RenderSecure> */}
+                        </RenderSecure>
 
                         <RenderSecure code="ADD-PAYMNT">
                           <th>
@@ -135,10 +127,10 @@ function ActiveLoans() {
                           <td>{key + 1}</td>
 
                           <td>
-                            {loan.customer.name} &nbsp;
-                            {loan.customer.last_name}
+                            {loan.customer_id.names.first_name} &nbsp;
+                            {loan.customer_id.names.last_name}
                           </td>
-                          <td>{loan.customer.contact}</td>
+                          <td>+{loan.customer_id.names.contact}</td>
                           <td>{loan.loan_type}</td>
                           <td>{loan.amount}</td>
                           <td>{loan.date_activated}</td>
@@ -167,34 +159,39 @@ function ActiveLoans() {
                             <button
                               className="badge  text-white bg-secondary bg-pill"
                               style={{fontSize: "14px"}}
-                              onClick={() =>
-                                handleSlip(
-                                  loan.id,
-                                  loan.customer.contact,
-                                  loan.customer.first_name,
-                                  loan.customer.last_name
-                                )
-                              }>
+                              onClick={() => handleSlip(loan.id)}>
                               Loan_slip
                             </button>
-                          </td>
-                          {/* <RenderSecure code="LOANS-STMNT">
-                            <td>
+                            <br />
+                            <RenderSecure code="LOANS-STMNT">
                               <button
-                                className="badge  text-white bg-primary bg-pill"
+                                className="badge  text-white bg-primary bg-pill mt-2"
                                 style={{fontSize: "14px"}}
-                                onClick={() => handleStatement(loan.id)}>
+                                onClick={() =>
+                                  handleStatement(loan.id, loan.customer_id.id)
+                                }>
                                 statment
                               </button>
+                            </RenderSecure>
+                          </td>
+                          <RenderSecure code="LOANS-STMNT">
+                            <td>
+                              <button className="badge  bg-primary-light bg-pill">
+                                <a
+                                  href={`/LoanManagement/${loan.id}`}
+                                  classname="btn badge bg-warning-light bg-pill">
+                                  Loan profile
+                                </a>
+                              </button>
                             </td>
-                          </RenderSecure> */}
+                          </RenderSecure>
                           <RenderSecure code="ADD-PAYMNT">
                             <td>
                               <button
                                 className="badge  text-white bg-secondary bg-pill"
                                 style={{fontSize: "14px"}}
                                 onClick={() =>
-                                  paymentHandler(loan.id, loan.customer.id)
+                                  paymentHandler(loan.id, loan.customer_id.id)
                                 }>
                                 +payment
                               </button>

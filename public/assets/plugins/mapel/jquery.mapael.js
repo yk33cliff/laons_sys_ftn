@@ -163,8 +163,8 @@
             } else if ($.fn[pluginName] && $.fn[pluginName].maps && $.fn[pluginName].maps[self.options.map.name]) {
                 // Mapael version <= 1.x - DEPRECATED
                 self.mapConf = $.fn[pluginName].maps[self.options.map.name];
-                if (window.//console && window.//console.warn) {
-                    window.//console.warn("Extending $.fn.mapael is deprecated (map '" + self.options.map.name + "')");
+                if (window.console && window.console.warn) {
+                    window.console.warn("Extending $.fn.mapael is deprecated (map '" + self.options.map.name + "')");
                 }
             } else {
                 throw new Error("Unknown map '" + self.options.map.name + "'");

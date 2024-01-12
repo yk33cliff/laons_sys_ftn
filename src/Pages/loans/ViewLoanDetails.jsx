@@ -48,7 +48,7 @@ function ViewLoanDetails(props) {
           <p>
             Loan duration::{" "}
             <u>
-              <span>{details.duration}/=</span>
+              <span>{details.duration}(days)</span>
             </u>
           </p>
           <p>

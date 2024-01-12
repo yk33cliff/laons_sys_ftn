@@ -15,14 +15,16 @@ import ClientContext from "../../Context/ClientContext";
 function ClientProfile(props) {
   const {id} = useParams();
   const {getClientList} = useContext(ClientContext);
+
   //+++++++++code  for updating user profile++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  const [user, setUser] = useState();
+  const [user, setUser] = useState("");
+  console.log(user);
+
+  //
   const getUserInfo = async () => {
     const data = {user_id: id};
-    // //console.log(id);
-
     const server_response = await ajaxUser.fetchSingleUser(data);
-    // //console.log(server_response)
+
     if (server_response.status === "OK") {
       setUser(server_response.details);
     } else {
@@ -32,42 +34,69 @@ function ClientProfile(props) {
   useEffect(() => {
     getUserInfo();
   }, []);
+  useEffect(() => {
+    // Additional useEffect to update state variables when 'user' changes
+    setFname(user.first_name);
+    setLname(user.last_name);
+    setEmail(user.email);
+    setPhone(user.contact);
+    setNin(user.nin);
+    setLocation(user.location);
+    setPhone2(user.contact2);
+    setGender(user.gender);
+    setRole(5);
+    setOthers(user.othernames);
+    SetIde(user.otherId);
+    setJob(user.occupation);
+    setDob(user.dob);
+    setMarital(user.marital_status);
+    setPhoto(user.photo);
+    setWalletBalance(user.wallet_balance);
+    setTotalDeposits(user.total_deposits);
+    setTotalWithdraws(user.total_withdraws);
 
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
-  const [uname, setUname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+    // ... (other state updates)
+  }, [user]);
 
-  const [nin, setNin] = useState("");
-  const [location, setLocation] = useState("");
+  const [fname, setFname] = useState(user.first_name);
+  const [lname, setLname] = useState(user.last_name);
+  const [email, setEmail] = useState(user.email);
+  const [phone, setPhone] = useState(user.contact);
+  const [nin, setNin] = useState(user.nin);
+  const [location, setLocation] = useState(user.location);
+  const [phone2, setPhone2] = useState(user.contact2);
+  const [gender, setGender] = useState(user.gender);
+  const [role, setRole] = useState(5);
+  const [others, setOthers] = useState(user.othernames);
+  const [ide, SetIde] = useState(user.otherId);
+  const [job, setJob] = useState(user.occupation);
+  const [dob, setDob] = useState(user.dob);
+  const [marital, setMarital] = useState(user.marital_status);
+
+  const changePicture = (e) => {
+    e.preventDefault();
+
+    let files = e.target.files;
+    let reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+
+    reader.onload = (e) => {
+      const newItem = {file: e.target.result};
+
+      setPhoto(e.target.result);
+    };
+  };
+
   const [wallet_balance, setWalletBalance] = useState("...");
   const [total_deposits, setTotalDeposits] = useState("...");
   const [total_withdraws, setTotalWithdraws] = useState("...");
   const [photo, setPhoto] = useState("avatar.png");
-
-  const updateState = () => {
-    user && setFname(user?.first_name);
-    user && setLname(user?.last_name);
-    user && setUname(user?.username);
-    user && setEmail(user?.email);
-    user && setPhone(user?.contact);
-    user && setLocation(user?.location);
-    user && setNin(user?.nin);
-    user && setWalletBalance(user?.wallet_balance);
-    user && setPhoto(user?.photo);
-  };
-
-  useEffect(() => {
-    updateState(user);
-  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       fname.length > 0 &&
       lname.length > 0 &&
-      uname.length > 0 &&
       phone.length > 0 &&
       nin.length > 0
     ) {
@@ -75,12 +104,21 @@ function ClientProfile(props) {
         id: id,
         first_name: fname,
         last_name: lname,
-        username: uname,
+        othernames: others,
         nin: nin,
+        gender: gender,
         contact: phone,
+        contact2: phone2,
         email: email,
         location: location,
+        role_id: role,
+        photo: photo,
+        otherId: ide,
+        job: job,
+        dob: dob,
+        marital: marital,
       };
+      // console.log(data);
 
       const server_response = await ajaxUser.updateUserProfile(data);
 
@@ -198,6 +236,11 @@ function ClientProfile(props) {
   };
   return (
     <div>
+      {/* contact : "256703433453" contact2 : null created_at : "2024-01-09
+      16:47:31" email : "n/a" first_name : "mumbere" id : "7" is_active : "1"
+      is_admin : "0" last_name : "andrew" location : "kampala" nin : "nxnnn"
+      otherId : null photo : "avatar.png" role_id : short_name : "M" username :
+      "n/a" wallet_balance : "28,893" */}
       <AppContainer title="user profile">
         <Toaster />
         {statment}
@@ -294,112 +337,284 @@ function ClientProfile(props) {
                           Customer Information
                         </div>
                         <div className="row row-sm">
-                          <form action="" onSubmit={handleSubmit}>
-                            <div className="row">
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <p className="mg-b-10">First Name</p>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    name="example-text-input"
-                                    placeholder="users first name"
-                                    value={fname}
-                                    onChange={(e) => setFname(e.target.value)}
-                                  />
-                                </div>
-                              </div>
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <p className="mg-b-10">Last Name</p>
-                                  <input
-                                    type="text"
-                                    value={lname}
-                                    onChange={(e) => setLname(e.target.value)}
-                                    className="form-control"
-                                    placeholder="user last name"
-                                  />
-                                </div>
-                              </div>
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <p className="mg-b-10">UserName</p>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="choice user name"
-                                    value={uname}
-                                    onChange={(e) => setUname(e.target.value)}
-                                  />
-                                </div>
-                              </div>
+                          <div className="col-lg-12 col-md-12">
+                            <div className="card custom-card">
+                              <div className="card-body">
+                                <div>
+                                  <h5 className="main-content-label mb-1">
+                                    Register clients/ customers
+                                  </h5>
 
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <label className="mg-b-10">email</label>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    name="example-text-input"
-                                    placeholder="user email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                  />
+                                  <Toaster />
                                 </div>
-                              </div>
+                                <div className="row row-sm">
+                                  <form
+                                    action=""
+                                    onSubmit={handleSubmit}
+                                    enctype="multipart/form-data">
+                                    <div className="row">
+                                      <div className="col-lg-12 col-md-12">
+                                        <div className="row">
+                                          <div className="col-md-6 col-lg-6">
+                                            {/* left hand side  */}
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                <p className="mg-b-10">
+                                                  First Name
+                                                </p>
+                                                <input
+                                                  type="text"
+                                                  className="form-control"
+                                                  name="example-text-input"
+                                                  placeholder="users first name"
+                                                  value={fname}
+                                                  onChange={(e) =>
+                                                    setFname(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                            </div>
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                <p className="mg-b-10">
+                                                  Last Name
+                                                </p>
+                                                <input
+                                                  type="text"
+                                                  value={lname}
+                                                  onChange={(e) =>
+                                                    setLname(e.target.value)
+                                                  }
+                                                  className="form-control"
+                                                  placeholder="user last name"
+                                                />
+                                              </div>
+                                            </div>
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                <p className="mg-b-10">
+                                                  Other Names
+                                                </p>
+                                                <input
+                                                  type="text"
+                                                  className="form-control"
+                                                  placeholder="other user names"
+                                                  value={others}
+                                                  onChange={(e) =>
+                                                    setOthers(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                            </div>
 
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <label className="mg-b-10">
-                                    telephone number
-                                  </label>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="user telephone number"
-                                    value={phone}
-                                    onChange={(e) => setPhone(e.target.value)}
-                                  />
-                                </div>
-                              </div>
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <label className="mg-b-10">NIN number</label>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="user NIN number"
-                                    value={nin}
-                                    onChange={(e) => setNin(e.target.value)}
-                                  />
-                                </div>
-                              </div>
-                              <div className="col-md-6">
-                                <div className="form-group">
-                                  <label className="mg-b-10">Location</label>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="user location"
-                                    value={location}
-                                    onChange={(e) =>
-                                      setLocation(e.target.value)
-                                    }
-                                  />
-                                </div>
-                              </div>
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                <label className="mg-b-10">
+                                                  Gender
+                                                </label>
+                                                <select
+                                                  name=""
+                                                  className="form-control"
+                                                  id=""
+                                                  value={gender}
+                                                  onChange={(e) =>
+                                                    setGender(e.target.value)
+                                                  }>
+                                                  <option value="" disabled>
+                                                    ------select gender-------
+                                                  </option>
+                                                  <option value="male">
+                                                    male
+                                                  </option>
+                                                  <option value="female">
+                                                    female
+                                                  </option>
+                                                </select>
+                                              </div>
+                                            </div>
 
-                              <div className="col-md-12 ">
-                                <div className="form-group mb-0">
-                                  <button
-                                    type="submit"
-                                    className="btn col-lg -12 col-md-12 btn-primary">
-                                    Save user
-                                  </button>
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                <label className="mg-b-10">
+                                                  Date of birth
+                                                </label>
+                                                <input
+                                                  type="date"
+                                                  className="form-control"
+                                                  placeholder="date"
+                                                  value={dob}
+                                                  onChange={(e) =>
+                                                    setDob(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                            </div>
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                <label className="mg-b-10">
+                                                  Location
+                                                </label>
+                                                <input
+                                                  type="text"
+                                                  className="form-control"
+                                                  placeholder="user location"
+                                                  value={location}
+                                                  onChange={(e) =>
+                                                    setLocation(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                            </div>
+
+                                            <div className="col-12"></div>
+                                          </div>
+                                          <div className="col-md-6 col-lg-6">
+                                            {/* right hand side  */}
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                Primary contact
+                                                <input
+                                                  type="text"
+                                                  className="form-control"
+                                                  placeholder="user telephone number"
+                                                  value={phone}
+                                                  onChange={(e) =>
+                                                    setPhone(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                            </div>
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                <label className="mg-b-10">
+                                                  Alternative contact
+                                                </label>
+                                                <input
+                                                  type="text"
+                                                  className="form-control"
+                                                  placeholder="client second telephone number"
+                                                  value={phone2}
+                                                  onChange={(e) =>
+                                                    setPhone2(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                            </div>
+                                            <div className="col-12">
+                                              {" "}
+                                              <div className="form-group">
+                                                <label className="mg-b-10">
+                                                  email{" "}
+                                                </label>
+                                                <input
+                                                  type="text"
+                                                  className="form-control"
+                                                  placeholder="user email"
+                                                  value={email}
+                                                  onChange={(e) =>
+                                                    setEmail(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                            </div>
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                <label className="mg-b-10">
+                                                  NIN number
+                                                </label>
+                                                <input
+                                                  type="text"
+                                                  className="form-control"
+                                                  placeholder="user nin number"
+                                                  value={nin}
+                                                  onChange={(e) =>
+                                                    setNin(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                            </div>
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                <label className="mg-b-10">
+                                                  other Identification Means
+                                                </label>
+                                                <input
+                                                  type="text"
+                                                  className="form-control"
+                                                  placeholder="other Identification e.g passport"
+                                                  value={ide}
+                                                  onChange={(e) =>
+                                                    SetIde(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                            </div>
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                <label className="mg-b-10">
+                                                  occupation / business activity
+                                                </label>
+                                                <input
+                                                  type="text"
+                                                  className="form-control"
+                                                  placeholder="users jobs"
+                                                  value={job}
+                                                  onChange={(e) =>
+                                                    setJob(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                            </div>
+
+                                            <div className="col-12">
+                                              <div className="form-group">
+                                                <label className="mg-b-10">
+                                                  Marital status
+                                                </label>
+                                                <input
+                                                  type="text"
+                                                  className="form-control"
+                                                  placeholder="marital status"
+                                                  value={marital}
+                                                  onChange={(e) =>
+                                                    setMarital(e.target.value)
+                                                  }
+                                                />
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      {/* <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">
+                              NINNtional ID photo
+                            </label>
+                            <input
+                              type="file"
+                              className="form-control"
+                              placeholder="user telephone number"
+                              onChange={(e) => setImage(e.target.files[0])}
+                            />
+                          </div>
+                        </div> */}
+
+                                      <div className="col-md-12 ">
+                                        <div className="form-group mb-0">
+                                          <button
+                                            type="submit"
+                                            className="btn col-lg -12 col-md-12 btn-primary">
+                                            Save user
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </form>
                                 </div>
                               </div>
                             </div>
-                          </form>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -503,7 +718,7 @@ function ClientProfile(props) {
                                           <th>View Loan </th>
                                         </RenderSecure>
                                         <RenderSecure code="LOANS-STMNT">
-                                          <th>manage Loan </th>
+                                          <th>Loan Profile </th>
                                         </RenderSecure>
                                       </tr>
                                     </thead>
@@ -546,13 +761,12 @@ function ClientProfile(props) {
                                             </RenderSecure>
                                             <RenderSecure code="LOANS-STMNT">
                                               <td>
-                                                <button
-                                                  className="badge  text-white bg-primary bg-pill"
-                                                  style={{fontSize: "14px"}}
-                                                  onClick={() =>
-                                                    handleStatement(loan.id)
-                                                  }>
-                                                  Loan statment
+                                                <button className="badge  bg-primary-light bg-pill">
+                                                  <a
+                                                    href={`/LoanManagement/${loan.id}`}
+                                                    classname="btn badge bg-warning-light bg-pill">
+                                                    Loan profile
+                                                  </a>
                                                 </button>
                                               </td>
                                             </RenderSecure>

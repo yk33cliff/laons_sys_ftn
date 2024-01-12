@@ -22,8 +22,8 @@ function Dashboard() {
   const [loaned, setLoaned] = useState("");
   const [quick, SetQuick] = useState("");
   const [application, setApplication] = useState("");
-
   const [active, SetACtive] = useState("");
+  const is_approver = functions.check_is_approver();
 
   useEffect(() => {
     getTotal_user();
@@ -326,7 +326,7 @@ function Dashboard() {
                           {" "}
                           {pending ? pending : 0}
                         </h4>
-                        <RenderSecure code="APPROV-LOAN">
+                        {is_approver == 1 ? (
                           <h3 className="d-block tx-12 mb-0 text-muted">
                             <a
                               className="badge bg-success-light bg-pill p-1"
@@ -334,7 +334,9 @@ function Dashboard() {
                               approve loans
                             </a>
                           </h3>
-                        </RenderSecure>
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </div>
                   </div>

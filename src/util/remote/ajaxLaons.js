@@ -120,4 +120,16 @@ export default {
     let response = await apiCall("loans/reactivateLoan", data);
     return response;
   },
+  async deleteLoanFines(data) {
+    let response = await apiCall("loans/delete/fynes", data);
+    return response;
+  },
+  async getLoanFines(data) {
+    let response = await apiCall("loans/get/fynes", data);
+    return response;
+  },
+  async LoanCalculator(data) {
+    let response = await apiCall("loans/LoanCalculator", data);
+    return response;
+  },
 };

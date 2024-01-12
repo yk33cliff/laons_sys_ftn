@@ -21,9 +21,13 @@ function LoanSlip(props) {
   //    contact={contact}
   //  />;
   const id = props.id;
+  //  loan.customer_id.contact,
+  //    loan.customer_id.first_name,
+  //    loan.customer_id.last_name;
   const customer_id = props.customer;
   const Cus_name = props.name1;
   const Cus_name2 = props.name2;
+  console.log(props.name2);
   var contact = props.contact;
 
   const [Loaned, setLoanded] = useState("");
@@ -32,7 +36,7 @@ function LoanSlip(props) {
   const [security, setSecurity] = useState("");
   //console.log(Loaned);
 
-  const getLoanDetails = async (e) => {
+  const getLoanDetails = async () => {
     var data = {id: id};
     const server_response = await ajaxLaons.getLoanDetails(data);
 
@@ -206,13 +210,13 @@ function LoanSlip(props) {
               <p>
                 Name:: &nbsp;&nbsp;
                 <span>
-                  {Cus_name} &nbsp;
-                  {Cus_name2}
+                  {Loaned && Loaned.customer_id.names.first_name}&nbsp;
+                  {Loaned && Loaned.customer_id.names.last_name}
                 </span>
               </p>
               <p>
                 contact :: &nbsp;&nbsp;+
-                <span>{contact}</span>
+                <span>{Loaned && Loaned.customer_id.names.contact}</span>
               </p>
 
               {/* <p>

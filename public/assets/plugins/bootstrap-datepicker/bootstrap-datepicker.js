@@ -2006,9 +2006,9 @@
 	$.fn.bootstrapdatepicker.version = '1.8.0';
 
 	$.fn.bootstrapdatepicker.deprecated = function(msg){
-		var //console = window.//console;
-		if (//console && //console.warn) {
-			//console.warn('DEPRECATED: ' + msg);
+		var console = window.console;
+		if (console && console.warn) {
+			console.warn('DEPRECATED: ' + msg);
 		}
 	};
 

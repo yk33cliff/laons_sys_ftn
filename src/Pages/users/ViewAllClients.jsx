@@ -141,11 +141,9 @@ function ViewAllClients() {
                               </button>
                             </td>
                             <td>
-                              <a
-                                href={`/profile/${client.id}`}
-                                classname="btn badge bg-warning-light bg-pill">
-                                profile
-                              </a>
+                              <button className="badge  bg-primary-light bg-pill">
+                                <a href={`/profile/${client.id}`}>profile</a>
+                              </button>
                             </td>
                             <td>
                               {client.is_active === "1" ? (

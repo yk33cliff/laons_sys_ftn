@@ -10,7 +10,7 @@ import Dashboard from "./Pages/Dashboard";
 import LoginPage from "./Pages/LoginPage";
 import LoanTYpes from "./Components/loans/LoanTYpes";
 import CreateUser from "./Pages/users/CreateUser";
-// import ViewLoanApplications from "./Pages/loans/ViewLoanApplications";
+import ViewLoanApplications from "./Pages/loans/ViewLoanApplications";
 import ActiveLoans from "./Components/loans/ActiveLoans";
 import PendingInstallments from "./Components/loans/PendingInstallments";
 import LoanApplication from "./Pages/loans/LoanApplication";
@@ -24,6 +24,7 @@ import ImageModal from "./Components/loans/ImageModal";
 import LoanManagement from "./Components/loans/LoanManagement";
 import functions from "./util/functions";
 import ActivateAccount from "./Pages/ActivateAccount";
+import UserPermissions from "./Components/Users/UserPermissions";
 
 function App(props) {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -36,6 +37,7 @@ function App(props) {
       setLoggedIn(true);
     }
   }
+  console.log(functions.check_is_approver());
 
   const secure = functions.checkSecureAccount();
   // function checkSecure() {
@@ -100,21 +102,23 @@ function App(props) {
               <Route path="/users/register" element={<CreateUser />} />
 
               <Route path="/applications/add" element={<LoanApplication />} />
-              {/* <Route
+              <Route
                 path="/Applications/View"
                 element={<ViewLoanApplications />}
-              /> */}
+              />
 
               <Route path="/loans/active" element={<ActiveLoans />} />
               <Route path="/clients/view" element={<ViewAllClients />} />
               <Route path="/clients/Add" element={<CreateClients />} />
               <Route path="/profile/:id" element={<ClientProfile />} />
-              <Route path="/Loan_management/:id" element={<LoanManagement />} />
+              <Route path="/LoanManagement/:id" element={<LoanManagement />} />
 
               <Route
                 path="/Loans/pending_installments"
                 element={<PendingInstallments />}
               />
+
+              <Route path="users/permissions" element={<UserPermissions />} />
               {/* <Route path="/slip" element={<ImageModal />} /> */}
             </>
           )}
