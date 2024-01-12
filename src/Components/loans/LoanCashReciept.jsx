@@ -104,8 +104,9 @@ function LoanCashReceipt(props) {
                             <span className="text-danger">seren0{data.id}</span>
                           </p>
                           <p className="float-start main-content-label mb-0 mt-2">
-                            Payment Date : <span>12/01/2023</span>
+                            Payment Date : <span>{data.date}</span>
                           </p>
+                          {/* <p>cliffed</p> */}
                         </div>
                       </div>
                     </div>
@@ -157,6 +158,11 @@ function LoanCashReceipt(props) {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="row">
+                <p>
+                  Printed At :: <span>{new Date().toString()}</span>
+                </p>
               </div>
             </div>
           </div>

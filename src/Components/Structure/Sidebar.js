@@ -1,6 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import {RenderSecure} from "../../util/script/RenderSecure";
+import LoanCalculator from "../loans/LoanCalculator";
+import useStateCallback from "../../util/customHooks/useStateCallback";
 
 const Sidebar = (props) => {
   const hrefggleDropdown = (e) => {
@@ -20,10 +22,18 @@ const Sidebar = (props) => {
     }
     // submenu.classList.contains("show");
   };
+
+  const [calculator, setCalculator] = useStateCallback(false);
+
+  const handle_Calculator = (id, customer) => {
+    setCalculator(false, () => setCalculator(<LoanCalculator />));
+  };
+
   return (
     <div>
       {/* SIDEBAR */}
       <div className="sticky">
+        {calculator}
         <div className="main-menu main-sidebar main-sidebar-sticky side-menu">
           <div className="main-sidebar-header main-container-1 active">
             <div
@@ -71,6 +81,14 @@ const Sidebar = (props) => {
                     <span className="shape2" />
                     <i className="ti-home sidemenu-icon menu-icon" />
                     <span className="sidemenu-label"> Dashboard</span>
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#" onClick={handle_Calculator}>
+                    <span className="shape1" />
+                    <span className="shape2" />
+                    <i className="ti-home sidemenu-icon menu-icon" />
+                    <span className="sidemenu-label"> Loan Calculator</span>
                   </a>
                 </li>
                 <li className="nav-item">

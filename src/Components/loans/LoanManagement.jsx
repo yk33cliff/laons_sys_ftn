@@ -3,6 +3,7 @@ import AppContainer from "../Structure/AppContainer";
 import LoanTransactions from "./LoanTransactions";
 import {useParams} from "react-router-dom";
 import ajaxLaons from "../../util/remote/ajaxLaons";
+import GetLoanFine from "./GetLoanFine";
 
 function LoanManagement(props) {
   var {id} = useParams();
@@ -11,7 +12,7 @@ function LoanManagement(props) {
     getLoanDetail();
   }, []);
   const [loan, setLoan] = useState("");
-  // console.log(loan);
+  console.log(loan);
   const getLoanDetail = async () => {
     var data = {id: id};
     const server_response = await ajaxLaons.getLoanDetails(data);
@@ -114,7 +115,10 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>{loan && loan.customer_id.names}</u>
+                            <u>
+                              {loan && loan.customer_id.names.first_name} &nbsp;{" "}
+                              {loan && loan.customer_id.names.last_name}
+                            </u>
                           </span>
                         </p>
 
@@ -161,37 +165,45 @@ function LoanManagement(props) {
                           <tr>
                             <td>Loan principle</td>
                             <td>
-                              <u>1000000</u>
+                              <u>{loan && loan.amount}</u>
                             </td>
                           </tr>
                           <tr>
                             <td>Loan interest</td>
                             <td>
-                              <i className="cc BTC-alt text-warning" /> 200000
+                              <i className="cc BTC-alt text-warning" />
+                              <u>{loan && loan.interest}</u>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Loan monitoring_fees</td>
+                            <td>
+                              <i className="cc BTC-alt text-warning" />
+                              <u>{loan && loan.monitorin_fee}</u>
                             </td>
                           </tr>
                           <tr>
                             <td>Total Loan Fines</td>
                             <td>
-                              <i className="cc BTC-alt text-warning" /> 200000
+                              <u>{loan && loan.total_fines}</u>
                             </td>
                           </tr>
                           <tr>
-                            <td>Total Loan </td>
+                            <td>Total repay Amount </td>
                             <td>
-                              <i className="cc BTC-alt text-warning" /> 200000
+                              <u>{loan && loan.repay_amount}</u>
                             </td>
                           </tr>
                           <tr>
                             <td>Total Loan paid back </td>
                             <td>
-                              <i className="cc BTC-alt text-warning" /> 200000
+                              <u>{loan && loan.loan_paid}</u>
                             </td>
                           </tr>
                           <tr>
                             <td> Loan balance </td>
                             <td>
-                              <i className="cc BTC-alt text-warning" /> 200000
+                              <u>{loan && loan.loanBalance}</u>
                             </td>
                           </tr>
                         </tbody>
@@ -210,96 +222,7 @@ function LoanManagement(props) {
               <LoanTransactions id={id} />
             </div>
             <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-              <div className="card custom-card">
-                <div className="card-header border-bottom-0">
-                  <label className="main-content-label my-auto pt-2">
-                    Loan Fine charges
-                  </label>
-                </div>
-                <div className="card-body">
-                  <div className="table-responsive">
-                    <table className="table card-table text-nowrap table-bordered border-top">
-                      <thead>
-                        <tr>
-                          <th>NO.</th>
-                          <th>date registered</th>
-                          <th>Amount</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td className="text-success">12/12/2023</td>
-                          <td>
-                            <i className="cc BTC-alt text-warning" /> 50000
-                          </td>
-
-                          <td>
-                            <span className="badge bg-danger-light bg-pill">
-                              delete
-                            </span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>1</td>
-                          <td className="text-success">12/12/2023</td>
-                          <td>
-                            <i className="cc BTC-alt text-warning" /> 50000
-                          </td>
-
-                          <td>
-                            <span className="badge bg-danger-light bg-pill">
-                              delete
-                            </span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>1</td>
-                          <td className="text-success">12/12/2023</td>
-                          <td>
-                            <i className="cc BTC-alt text-warning" /> 50000
-                          </td>
-
-                          <td>
-                            <span className="badge bg-danger-light bg-pill">
-                              delete
-                            </span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>1</td>
-                          <td className="text-success">12/12/2023</td>
-                          <td>
-                            <i className="cc BTC-alt text-warning" /> 50000
-                          </td>
-
-                          <td>
-                            <span className="badge bg-danger-light bg-pill">
-                              delete
-                            </span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>1</td>
-                          <td className="text-success">12/12/2023</td>
-                          <td>
-                            <i className="cc BTC-alt text-warning" /> 50000
-                          </td>
-
-                          <td>
-                            <span className="badge bg-danger-light bg-pill">
-                              delete
-                            </span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <br />
-                    <br />
-                  </div>
-                </div>
-              </div>
+              <GetLoanFine id={id} />
             </div>
           </div>
           {/* Row End */}

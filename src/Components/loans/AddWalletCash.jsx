@@ -13,7 +13,7 @@ function AddWalletCash(props) {
   var user = functions.sessionGuard();
 
   const [reciept, setReciept] = useStateCallback(false);
-  const handleGuarantors = (id) => {
+  const Handle_reciept = (id) => {
     setReciept(false, () =>
       setReciept(<LoanCashReceipt isOpen={true} id={id} />)
     );
@@ -35,7 +35,7 @@ function AddWalletCash(props) {
         props.function();
         setAmount("");
         setDate("");
-        handleGuarantors(server_response.details);
+        Handle_reciept(server_response.details);
       } else {
         toast.error(server_response.message);
       }

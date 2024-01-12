@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 
 import AddLoanpayment from "../../Components/loans/AddLoanpayment";
 import useStateCallback from "../../util/customHooks/useStateCallback";
+import LoanTransactionsPageNO from "./LoanTransactionsPageNO";
+import ajaxLaons from "../../util/remote/ajaxLaons";
 
 function LoanStatement(props) {
   const id = props.id;
@@ -16,11 +18,29 @@ function LoanStatement(props) {
     window.location.reload();
     document.body.innerHTML = originalContents;
   };
+  useEffect(() => {
+    getLoanDetails();
+  }, []);
+  const [Loaned, setLoanded] = useState("");
+  const getLoanDetails = async () => {
+    var data = {id: id};
+    const server_response = await ajaxLaons.getLoanDetails(data);
+
+    if (server_response.status === "OK") {
+      setLoanded(server_response.details);
+    } else {
+      toast.error(server_response.message);
+    }
+  };
 
   const [modal, setModal] = useStateCallback(false);
 
-  const handleModal2 = (e, item) => {
-    setModal(false, () => setModal(<AddLoanpayment isOpen={true} id={id} />));
+  const handleModal2 = (e) => {
+    setModal(false, () =>
+      setModal(
+        <AddLoanpayment isOpen={true} id={id} customer={props.customer} />
+      )
+    );
   };
 
   const RenderFooter = (controls) => {
@@ -41,6 +61,22 @@ function LoanStatement(props) {
       </>
     );
   };
+
+  //
+  //       "status": "3",
+  //       "Approved_by1": "1",
+  //       "Approved_name1": "Super Admin",
+  //       "approver_comment1": null,
+  //       "loanBalance": 0,
+  //       "loan_paid": "24000",
+  //       "installment_type": "monthly",
+  //       "interest": 1600,
+  //       "monitorin_fee": 2400,
+  //       "total_fines": 0,
+  //       "repay_amount": 24000,
+  //       "date_activated": "2024-01-11",
+  //       "deadline": "2034-01-11"
+
   // //console.log(Loaned);
   return (
     <div>
@@ -125,45 +161,24 @@ function LoanStatement(props) {
                             <tbody>
                               <tr>
                                 <th scope="row">Name</th>
-                                <td>wise cliff</td>
+                                <td>
+                                  {Loaned &&
+                                    Loaned.customer_id.names.first_name}{" "}
+                                  &nbsp;
+                                  {Loaned && Loaned.customer_id.names.last_name}
+                                </td>
                               </tr>
                               <tr>
                                 <th scope="row">Contact</th>
-                                <td>+256708488984</td>
+                                <td>
+                                  +{Loaned && Loaned.customer_id.names.contact}
+                                </td>
                               </tr>
                               <tr>
                                 <th scope="row">Email</th>
-                                <td>Wisecliff@gmail.com</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Location</th>
-                                <td>mbuya central</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                        <div className="col-lg-6">
-                          <h6 className="float-start main-content-label mb-0 mt-2">
-                            Customer's guarantor (s)
-                          </h6>
-                          <table className="table mb-0 border-top table-bordered text-nowrap">
-                            <thead>
-                              <tr>
-                                <th>name</th>
-                                <th>contact</th>
-                                <th>Relationship</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th scope="row">wiseone</th>
-                                <td>+25670</td>
-                                <td>bro</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">wiseone</th>
-                                <td>+25670</td>
-                                <td>bro</td>
+                                <td>
+                                  {Loaned && Loaned.customer_id.names.email}
+                                </td>
                               </tr>
                             </tbody>
                           </table>
@@ -178,73 +193,37 @@ function LoanStatement(props) {
                 {/* Row*/}
                 <div className="row row-sm">
                   <div className="col-xl-12">
-                    <div className="card custom-card">
-                      <div className="card-header border-bottom-0">
-                        <label className="main-content-label my-auto pt-2">
-                          recent loan transctions
-                        </label>
-                      </div>
-                      <div className="card-body">
-                        <div className="table-responsive">
-                          <table className="table card-table text-nowrap table-bordered border-top">
-                            <thead>
-                              <tr>
-                                <th>No.</th>
-                                <th>type</th>
-                                <th>cash_in</th>
-                                <th>Cash_out</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>#1</td>
-                                <td>
-                                  <i className="cc BTC-alt text-warning" />
-                                  loan repayment
-                                </td>
-
-                                <td>52681.13</td>
-                                <td>0</td>
-                              </tr>
-                              <tr>
-                                <td>#2</td>
-                                <td>
-                                  <i className="cc BTC-alt text-warning" />
-                                  intrest payment
-                                </td>
-
-                                <td>0</td>
-                                <td>52681.13</td>
-                              </tr>
-                              <tr>
-                                <td>#3</td>
-                                <td>
-                                  <i className="cc BTC-alt text-warning" />
-                                  loan repayment
-                                </td>
-
-                                <td>52681.13</td>
-                                <td>0</td>
-                              </tr>
-                              <tr>
-                                <td>#4</td>
-                                <td>
-                                  <i className="cc BTC-alt text-warning" />
-                                  intrest payment
-                                </td>
-
-                                <td>0</td>
-                                <td>52681.13</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
+                    <LoanTransactionsPageNO id={id} />
                   </div>
                 </div>
                 {/* Row End */}
               </>
+              {/* {"Loan_id": "1",
+        "loan_type": "school fees",
+        "amount": "20000",
+        "duration": "120",
+        "interest_rate": "2",
+        "processing_fee_rate": "1.5",
+        "insurance_rate": "1.8",
+        "monitoring_fees": "3",
+        "cashing_method": "mm",
+        "fine_rate": "10",
+        "date_requested": "2024-01-10",
+        
+        "status": "3",
+        "Approved_by1": "1",
+        "Approved_name1": "Super Admin",
+        "approver_comment1": null,
+        "loanBalance": 0,
+        "loan_paid": "24000",
+        "installment_type": "monthly",
+        "interest": 1600,
+        "monitorin_fee": 2400,
+        "total_fines": 0,
+        "repay_amount": 24000,
+        "date_activated": "2024-01-11",
+        "deadline": "2034-01-11"} */}
+
               <div className="row row-sm ">
                 <div className="col-lg-12 col-md-12 col-xl-12">
                   <div className="row">
@@ -255,23 +234,27 @@ function LoanStatement(props) {
                         <tbody>
                           <tr>
                             <th scope="row">interest rate</th>
-                            <td>6%</td>
+                            <td>{Loaned && Loaned.interest_rate}%</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">monitoring_fees rate</th>
+                            <td>{Loaned && Loaned.monitoring_fees}%</td>
                           </tr>
                           <tr>
                             <th scope="row">fines rate</th>
-                            <td>10%</td>
+                            <td>{Loaned && Loaned.fine_rate}%</td>
                           </tr>
-                          <tr>
+                          {/* <tr>
                             <th scope="row">Installments Number</th>
-                            <td>5</td>
+                            <td>{Loaned && Loaned.fine_rate}%</td>
                           </tr>
                           <tr>
                             <th scope="row">Installments paid</th>
                             <td>3</td>
-                          </tr>
+                          </tr> */}
                           <tr>
                             <th scope="row">period of payment</th>
-                            <td>2 (months)</td>
+                            <td>{Loaned && Loaned.duration}(days)</td>
                           </tr>
                         </tbody>
                       </table>
@@ -282,15 +265,15 @@ function LoanStatement(props) {
                         <tbody>
                           <tr>
                             <th scope="row">Loan payments made</th>
-                            <td>500000</td>
+                            <td>{Loaned && Loaned.loan_paid}</td>
                           </tr>
                           <tr>
                             <th scope="row">Loan fines</th>
-                            <td>10000</td>
+                            <td>{Loaned && Loaned.total_fines}</td>
                           </tr>
                           <tr>
                             <th scope="row">Loan balance</th>
-                            <td>210000</td>
+                            <td>{Loaned && Loaned.loanBalance}</td>
                           </tr>
                         </tbody>
                       </table>

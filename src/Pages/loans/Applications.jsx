@@ -1,16 +1,16 @@
 import React, {useContext, useState} from "react";
-import AppContainer from "../../Components/Structure/AppContainer";
+
 import LoansContext from "../../Context/LoansContext";
 import toast, {Toaster} from "react-hot-toast";
 import useStateCallback from "../../util/customHooks/useStateCallback";
 import AddSecurities from "../../Components/loans/AddSecurities";
 import AddGuarantors from "../../Components/loans/AddGuarantors";
 import ApproveLoan from "../../Components/loans/ApproveLoan";
-import LoanSlip from "../../Components/loans/LoanSlip";
+
 import ViewSecurities from "../../Components/loans/ViewSecurities";
 import ViewGuarantors from "../../Components/loans/ViewGuarantors";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEdit, faEye, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faEye} from "@fortawesome/free-solid-svg-icons";
 import LoanUpdating from "../../Components/loans/LoanUpdating";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import {RenderSecure} from "../../util/script/RenderSecure";
@@ -18,7 +18,6 @@ import ReactPaginate from "react-paginate";
 import functions from "../../util/functions";
 import DeclineLoan from "../../Components/loans/DeclineLoan";
 import ViewLoanDetails from "./ViewLoanDetails";
-import DeclinedLoans from "../../Components/loans/DeclinedLoans";
 
 function Applications() {
   const {LoansToApprove, getLoansToApprove} = useContext(LoansContext);
@@ -147,6 +146,8 @@ function Applications() {
     ? LoansToApprove.slice(offset, offset + itemsPerPage)
     : [];
 
+  const is_approver = functions.check_is_approver();
+
   return (
     <div>
       {/* <AppContainer title="View Loan Application"> */}
@@ -198,7 +199,6 @@ function Applications() {
                           <th>
                             Loan <br /> duration
                           </th>
-
                           <th>
                             date <br />
                             Requested
@@ -210,24 +210,25 @@ function Applications() {
                           <th>
                             Approval <br /> status
                           </th>
-
                           <RenderSecure code="ADD-SECURITY">
                             <th> securities</th>
                           </RenderSecure>
                           <RenderSecure code="ADD-GUAR">
                             <th> guarantors</th>
                           </RenderSecure>
-                          <RenderSecure code="APPROV-LOAN">
-                            <th>
-                              Approved_by <br />
-                            </th>
-                            <th>
-                              Approval <br /> action
-                            </th>
-                            <th>
-                              decline <br />
-                            </th>
-                          </RenderSecure>
+                          {is_approver == 1 && (
+                            <>
+                              <th>
+                                Approved_by <br />
+                              </th>
+                              <th>
+                                Approval <br /> action
+                              </th>
+                              <th>
+                                decline <br />
+                              </th>
+                            </>
+                          )}
                         </tr>
                       </thead>
                       <tbody>
@@ -242,7 +243,10 @@ function Applications() {
 
                         {paginatedItems.map((loan, key) => (
                           <tr key={key}>
-                            <td>{loan.customer_id.names}</td>
+                            <td>
+                              {loan && loan.customer_id.names.first_name} &nbsp;{" "}
+                              {loan && loan.customer_id.names.last_name}
+                            </td>
                             <td>{loan.amount}</td>
                             <td>{loan.duration}</td>
                             {/* <td>{loan.interest_rate}</td> */}
@@ -313,7 +317,7 @@ function Applications() {
                               </button>
                             </td>
                             <td> {loan.Approved_name1}</td>
-                            <RenderSecure code="APPROV-LOAN">
+                            {is_approver == 1 && (
                               <td>
                                 {loan.Approved_by1 !== user_id ? (
                                   <button
@@ -334,8 +338,8 @@ function Applications() {
                                   </button>
                                 )}
                               </td>
-                            </RenderSecure>
-                            <RenderSecure code="APPROV-LOAN">
+                            )}
+                            {is_approver == 1 && (
                               <td>
                                 {loan.Approved_by1 !== user_id ? (
                                   <button
@@ -356,7 +360,7 @@ function Applications() {
                                   </button>
                                 )}
                               </td>
-                            </RenderSecure>
+                            )}
                           </tr>
                         ))}
                       </tbody>

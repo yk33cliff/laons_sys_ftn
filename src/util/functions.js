@@ -63,6 +63,16 @@ export default {
       return 0;
     }
   },
+  check_is_approver() {
+    if (localStorage.getItem("logs@user")) {
+      const access_token = localStorage.getItem("logs@user");
+      const decorded_token = this.parseJwt(access_token);
+      const approver = decorded_token["data"]["is_approver"] * 1;
+      return approver;
+    } else {
+      return 0;
+    }
+  },
 
   db_date(objDate) {
     const month = (objDate.getMonth() + 1).toString();

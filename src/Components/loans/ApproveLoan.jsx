@@ -1,11 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import SystemModal from "../Common/SystemModal";
 import toast, {Toaster} from "react-hot-toast";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import functions from "../../util/functions";
 import useStateCallback from "../../util/customHooks/useStateCallback";
 import ImageModal from "./ImageModal";
+import LoansContext from "../../Context/LoansContext";
 function ApproveLoan(props) {
+  const {getLoansToApprove} = useContext(LoansContext);
+
   const [guarantors, setGuarantors] = useState("");
   const [security, setSecurity] = useState("");
   const [comment, setComment] = useState("");
@@ -83,8 +86,9 @@ function ApproveLoan(props) {
     };
     const server_response = await ajaxLaons.approveLoans(data);
     if (server_response.status === "OK") {
-      // props.fun();
-      window.location.reload();
+      // // props.fun();
+      // window.location.reload();
+      getLoansToApprove();
       toast.success(server_response.message);
     } else if (server_response.status === "Fail") {
       toast.error(server_response.message);

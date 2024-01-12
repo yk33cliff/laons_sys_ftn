@@ -30,6 +30,7 @@ export default function Header() {
     e.preventDefault();
     if (client) {
       navigate(`/profile/${client}`);
+      window.location.reload();
     }
   };
   return (

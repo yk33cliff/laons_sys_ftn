@@ -104,10 +104,6 @@ function LoanTypesList() {
                         amaximum <br />
                         Amount
                       </th>
-                      <th>
-                        Allowed <br />
-                        installment
-                      </th>
                       <th>status</th>
                       <RenderSecure code="EDIT-TYPE">
                         <th>Update</th>
@@ -134,7 +130,6 @@ function LoanTypesList() {
                         <td>{loan.fine_rate}</td>
                         <td>{loan.min_amount}</td>
                         <td>{loan.maximum_amount}</td>
-                        <td>{loan.installment_type}</td>
 
                         <td>
                           {loan.status === "1" ? (

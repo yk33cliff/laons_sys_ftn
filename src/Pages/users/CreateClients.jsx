@@ -31,19 +31,21 @@ function CreateClients() {
       const data = {
         first_name: fname,
         last_name: lname,
-        othernames: others,
         nin: nin,
-        gender: gender,
         contact: phone,
-        contact2: phone2,
-        email: email,
         location: location,
         role_id: role,
+
+        contact2: phone2,
+        email: email,
+
         photo: photo,
         otherId: ide,
         job: job,
         dob: dob,
         marital: marital,
+        othernames: others,
+        gender: gender,
       };
 
       const server_response = await ajaxUser.createUser(data);

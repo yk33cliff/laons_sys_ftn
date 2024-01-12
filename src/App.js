@@ -24,6 +24,7 @@ import ImageModal from "./Components/loans/ImageModal";
 import LoanManagement from "./Components/loans/LoanManagement";
 import functions from "./util/functions";
 import ActivateAccount from "./Pages/ActivateAccount";
+import UserPermissions from "./Components/Users/UserPermissions";
 
 function App(props) {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -36,6 +37,7 @@ function App(props) {
       setLoggedIn(true);
     }
   }
+  console.log(functions.check_is_approver());
 
   const secure = functions.checkSecureAccount();
   // function checkSecure() {
@@ -115,6 +117,8 @@ function App(props) {
                 path="/Loans/pending_installments"
                 element={<PendingInstallments />}
               />
+
+              <Route path="users/permissions" element={<UserPermissions />} />
               {/* <Route path="/slip" element={<ImageModal />} /> */}
             </>
           )}

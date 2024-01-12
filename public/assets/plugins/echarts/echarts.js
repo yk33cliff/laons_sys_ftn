@@ -4082,7 +4082,7 @@ if (debugMode === 1) {
 else if (debugMode > 1) {
     log = function () {
         for (var k in arguments) {
-            //console.log(arguments[k]);
+            console.log(arguments[k]);
         }
     };
 }
@@ -11617,7 +11617,7 @@ function enableClassExtend(RootClass, mandatoryMethods) {
         if (__DEV__) {
             each$1(mandatoryMethods, function (method) {
                 if (!proto[method]) {
-                    //console.warn(
+                    console.warn(
                         'Method `' + method + '` should be implemented'
                         + (proto.type ? ' in ' + proto.type : '') + '.'
                     );
@@ -11689,7 +11689,7 @@ function enableClassManagement(entity, options) {
             if (!componentType.sub) {
                 if (__DEV__) {
                     if (storage[componentType.main]) {
-                        //console.warn(componentType.main + ' exists.');
+                        console.warn(componentType.main + ' exists.');
                     }
                 }
                 storage[componentType.main] = Clazz;
@@ -12180,7 +12180,7 @@ function cubicProjectPoint(
         out[0] = cubicAt(x0, x1, x2, x3, t);
         out[1] = cubicAt(y0, y1, y2, y3, t);
     }
-    // //console.log(interval, i);
+    // console.log(interval, i);
     return mathSqrt$2(d);
 }
 
@@ -12374,7 +12374,7 @@ function quadraticProjectPoint(
         out[0] = quadraticAt(x0, x1, x2, t);
         out[1] = quadraticAt(y0, y1, y2, t);
     }
-    // //console.log(interval, i);
+    // console.log(interval, i);
     return mathSqrt$2(d);
 }
 
@@ -16580,11 +16580,11 @@ function animateOrSetProps(isUpdate, el, props, animatableModel, dataIndex, cb) 
  * @example
  *     graphic.updateProps(el, {
  *         position: [100, 100]
- *     }, seriesModel, dataIndex, function () { //console.log('Animation done!'); });
+ *     }, seriesModel, dataIndex, function () { console.log('Animation done!'); });
  *     // Or
  *     graphic.updateProps(el, {
  *         position: [100, 100]
- *     }, seriesModel, function () { //console.log('Animation done!'); });
+ *     }, seriesModel, function () { console.log('Animation done!'); });
  */
 function updateProps(el, props, animatableModel, dataIndex, cb) {
     animateOrSetProps(true, el, props, animatableModel, dataIndex, cb);
@@ -21226,7 +21226,7 @@ echartsProto.setOption = function (option, notMerge, lazyUpdate) {
  * @DEPRECATED
  */
 echartsProto.setTheme = function () {
-    //console.log('ECharts#setTheme() is DEPRECATED in ECharts 3.0');
+    console.log('ECharts#setTheme() is DEPRECATED in ECharts 3.0');
 };
 
 /**
@@ -21475,7 +21475,7 @@ function doConvertPixel(methodName, finder, value) {
     }
 
     if (__DEV__) {
-        //console.warn(
+        console.warn(
             'No coordinate system that supports ' + methodName + ' found by the given finder.'
         );
     }
@@ -21517,7 +21517,7 @@ echartsProto.containPixel = function (finder, value) {
                 }
                 else {
                     if (__DEV__) {
-                        //console.warn(key + ': ' + (view
+                        console.warn(key + ': ' + (view
                             ? 'The found component do not support containPoint.'
                             : 'No view mapping to the found component.'
                         ));
@@ -21526,7 +21526,7 @@ echartsProto.containPixel = function (finder, value) {
             }
             else {
                 if (__DEV__) {
-                    //console.warn(key + ': containPoint is not supported');
+                    console.warn(key + ': containPoint is not supported');
                 }
             }
         }, this);
@@ -21559,7 +21559,7 @@ echartsProto.getVisual = function (finder, visualType) {
 
     if (__DEV__) {
         if (!seriesModel) {
-            //console.warn('There is no specified seires model');
+            console.warn('There is no specified seires model');
         }
     }
 
@@ -21602,7 +21602,7 @@ var updateMethods = {
      * @private
      */
     update: function (payload) {
-        // //console.profile && //console.profile('update');
+        // console.profile && console.profile('update');
 
         var ecModel = this._model;
         var api = this._api;
@@ -21679,7 +21679,7 @@ var updateMethods = {
             func(ecModel, api);
         });
 
-        // //console.profile && //console.profileEnd('update');
+        // console.profile && console.profileEnd('update');
     },
 
     /**
@@ -21838,7 +21838,7 @@ echartsProto.showLoading = function (name, cfg) {
     this.hideLoading();
     if (!loadingEffects[name]) {
         if (__DEV__) {
-            //console.warn('Loading effects ' + name + ' not exists.');
+            console.warn('Loading effects ' + name + ' not exists.');
         }
         return;
     }
@@ -22290,7 +22290,7 @@ echartsProto.clear = function () {
 echartsProto.dispose = function () {
     if (this._disposed) {
         if (__DEV__) {
-            //console.warn('Instance ' + this.id + ' has been disposed');
+            console.warn('Instance ' + this.id + ' has been disposed');
         }
         return;
     }
@@ -22363,7 +22363,7 @@ function updateProgressiveAndBlend(seriesModel, chartView) {
     var blendMode = seriesModel.get('blendMode') || null;
     if (__DEV__) {
         if (!env$1.canvasSupported && blendMode && blendMode !== 'source-over') {
-            //console.warn('Only canvas support blendMode');
+            console.warn('Only canvas support blendMode');
         }
     }
     chartView.group.traverse(function (el) {
@@ -22537,7 +22537,7 @@ function init(dom, theme, opts) {
     var existInstance = getInstanceByDom(dom);
     if (existInstance) {
         if (__DEV__) {
-            //console.warn('There is a chart instance already initialized on the dom.');
+            console.warn('There is a chart instance already initialized on the dom.');
         }
         return existInstance;
     }
@@ -22550,7 +22550,7 @@ function init(dom, theme, opts) {
                 || (!dom.clientHeight && (!opts || opts.height == null))
             )
         ) {
-            //console.warn('Can\'t get dom width or height');
+            console.warn('Can\'t get dom width or height');
         }
     }
 
@@ -25713,7 +25713,7 @@ function getScaleExtent(scale, model) {
         }
         if (typeof boundaryGap[0] === 'boolean') {
             if (__DEV__) {
-                //console.warn('Boolean type for boundaryGap is only '
+                console.warn('Boolean type for boundaryGap is only '
                     + 'allowed for ordinal axis. Please use string in '
                     + 'percentage instead, e.g., "20%". Currently, '
                     + 'boundaryGap is set to be 0.');
@@ -28289,7 +28289,7 @@ function getVisualGradient(data, coordSys) {
     }
     if (!visualMeta || coordSys.type !== 'cartesian2d') {
         if (__DEV__) {
-            //console.warn('Visual map on line style only support x or y dimension.');
+            console.warn('Visual map on line style only support x or y dimension.');
         }
         return;
     }
@@ -32131,7 +32131,7 @@ extendChartView({
             this._render(seriesModel, ecModel, api);
         }
         else if (__DEV__) {
-            //console.warn('Only cartesian2d and polar supported for bar.');
+            console.warn('Only cartesian2d and polar supported for bar.');
         }
 
         return this.group;
@@ -34245,7 +34245,7 @@ extendComponentView({
                 }
                 else {
                     if (__DEV__) {
-                        //console.error('Can\'t draw value axis ' + i);
+                        console.error('Can\'t draw value axis ' + i);
                     }
                 }
 
@@ -35280,7 +35280,7 @@ function resizeGeo(geoModel, api) {
         var rightBottom = boundingCoords[1];
         if (isNaN(leftTop[0]) || isNaN(leftTop[1]) || isNaN(rightBottom[0]) || isNaN(rightBottom[1])) {
             if (__DEV__) {
-                //console.error('Invalid boundingCoords');
+                console.error('Invalid boundingCoords');
             }
         }
         else {
@@ -35315,7 +35315,7 @@ function resizeGeo(geoModel, api) {
         }
         else {
             if (__DEV__) {
-                //console.warn('Given layoutCenter or layoutSize data are invalid. Use left/top/width/height instead.');
+                console.warn('Given layoutCenter or layoutSize data are invalid. Use left/top/width/height instead.');
             }
         }
     }
@@ -35367,7 +35367,7 @@ function setGeoCoords(geo, model) {
 
 if (__DEV__) {
     var mapNotExistsError = function (name) {
-        //console.error('Map ' + name + ' not exists. You can download map file on http://echarts.baidu.com/download-map.html');
+        console.error('Map ' + name + ' not exists. You can download map file on http://echarts.baidu.com/download-map.html');
     };
 }
 
@@ -41408,7 +41408,7 @@ graphProto.addNode = function (id, dataIndex) {
 
     if (nodesMap[generateNodeKey(id)]) {
         if (__DEV__) {
-            //console.error('Graph nodes have duplicate name or id');
+            console.error('Graph nodes have duplicate name or id');
         }
         return;
     }
@@ -49707,7 +49707,7 @@ function preprocessOption(seriesOpt) {
     var data = seriesOpt.data;
     if (data && data[0] && data[0][0] && data[0][0].coord) {
         if (__DEV__) {
-            //console.warn('Lines data configuration has been changed to'
+            console.warn('Lines data configuration has been changed to'
                 + ' { coords:[[1,2],[2,3]] }');
         }
         seriesOpt.data = map(data, function (itemOpt) {
@@ -50359,7 +50359,7 @@ extendChartView({
 
         if (__DEV__) {
             if (hasEffect && isLarge) {
-                //console.warn('Large lines not support effect');
+                console.warn('Large lines not support effect');
             }
         }
         if (hasEffect !== this._hasEffet || isPolyline !== this._isPolyline || isLarge !== this._isLarge) {
@@ -50403,7 +50403,7 @@ extendChartView({
                         notInIndividual = true;
                     }
                 });
-                notInIndividual && //console.warn('Lines with trail effect should have an individual zlevel');
+                notInIndividual && console.warn('Lines with trail effect should have an individual zlevel');
             }
 
             if (!isSvg) {
@@ -56485,7 +56485,7 @@ var LegendView = extendComponentView({
 
             if (__DEV__) {
                 if (!legendDrawnMap.get(name)) {
-                    //console.warn(name + ' series not exists. Legend data should be same with series name or data name.');
+                    console.warn(name + ' series not exists. Legend data should be same with series name or data name.');
                 }
             }
         }, this);
@@ -65285,7 +65285,7 @@ function prepareVisualMeta(ecModel) {
             }
         });
 
-        // //console.log(JSON.stringify(visualMetaList.map(a => a.stops)));
+        // console.log(JSON.stringify(visualMetaList.map(a => a.stops)));
         seriesModel.getData().setVisual('visualMeta', visualMetaList);
     });
 }
@@ -67659,7 +67659,7 @@ var resetMethods = {
 
                 if (__DEV__) {
                     if (interval[0] > interval[1]) {
-                        //console.warn(
+                        console.warn(
                             'Piece ' + index + 'is illegal: ' + interval
                             + ' lower bound should not greater then uppper bound.'
                         );

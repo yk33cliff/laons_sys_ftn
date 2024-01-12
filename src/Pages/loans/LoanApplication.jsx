@@ -29,7 +29,7 @@ function LoanApplication() {
   const [fees, setFees] = useState("");
   const [insurance, setInsurance] = useState("");
   const [fine, setFine] = useState("");
-  // const [plan, setPlan] = useState("");
+  const [monitoring, setMonitoring] = useState("");
   const [application_rate, setApplication_rate] = useState("");
   const [method, setMethod] = useState("");
 
@@ -83,6 +83,7 @@ function LoanApplication() {
         fees: fees,
         method: method,
         installment_type: installment,
+        monitoring: monitoring,
       };
       const server_response = await ajaxLaons.CreateLoanApplication(formData);
       if (server_response.status === "OK") {
@@ -115,7 +116,7 @@ function LoanApplication() {
           if (value.id === loan) {
             setInterestRate(value.interest_rate);
             setProcessingFees(value.processing_fee_rate);
-            setProcessingFees(value.processing_fee_rate);
+            setMonitoring(value.monitoring);
             setInsurance(value.insurance);
             setFine(value.fine_rate);
             // setPlan(value.installment_type);
@@ -320,6 +321,24 @@ function LoanApplication() {
                                 onChange={(e) =>
                                   setInterestRate(e.target.value)
                                 }
+                              />
+                            </div>
+                          </div>
+                        )}
+
+                        {loan && (
+                          <div className="col-md-6">
+                            <div className="form-group">
+                              <label className="mg-b-10">
+                                Monitoring Fees Rate
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control text-success"
+                                name="interestRate"
+                                placeholder="monitoring fees rate"
+                                value={monitoring}
+                                onChange={(e) => setMonitoring(e.target.value)}
                               />
                             </div>
                           </div>
