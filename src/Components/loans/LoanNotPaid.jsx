@@ -2,40 +2,19 @@ import React, {useEffect, useState} from "react";
 import AppContainer from "../Structure/AppContainer";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import toast from "react-hot-toast";
+import {RenderSecure} from "../../util/script/RenderSecure";
 
-function PendingInstallments() {
+function LoanNotPaid() {
   useEffect(() => {
-    gettodayInstallmentsLoans();
-    getTomorrowsInstallments();
-    getThreeDayInstallmentss();
+    getInstoNotPaid();
   }, []);
 
   const [today, setToday] = useState("");
-  const gettodayInstallmentsLoans = async () => {
-    const server_response = await ajaxLaons.gettodayInstallmentsLoans();
+  const getInstoNotPaid = async () => {
+    const server_response = await ajaxLaons.getInstallmentsNotPaid();
 
     if (server_response.status === "OK") {
       setToday(server_response.details);
-    } else if (server_response.status === "Fail") {
-      toast.error(server_response.message);
-    }
-  };
-  const [monthly, seTmonthly] = useState("");
-  const getThreeDayInstallmentss = async () => {
-    const server_response = await ajaxLaons.getThreeDayInstallments();
-
-    if (server_response.status === "OK") {
-      seTmonthly(server_response.details);
-    } else if (server_response.status === "Fail") {
-      toast.error(server_response.message);
-    }
-  };
-  const [tomox, setTomox] = useState("");
-  const getTomorrowsInstallments = async () => {
-    const server_response = await ajaxLaons.getTomoxInstallments();
-
-    if (server_response.status === "OK") {
-      setTomox(server_response.details);
     } else if (server_response.status === "Fail") {
       toast.error(server_response.message);
     }
@@ -55,20 +34,17 @@ function PendingInstallments() {
                         className="nav-link  active"
                         data-bs-toggle="tab"
                         href="#today">
-                        today's Installments
+                        Installments Not paid
                       </a>
-                      <a
+                      {/* <a
                         className="nav-link"
                         data-bs-toggle="tab"
-                        href="#tomox">
-                        Tomorrow's Installments
+                        href="#three">
+                        Installments for Tomorrow
                       </a>
-                      <a
-                        className="nav-link"
-                        data-bs-toggle="tab"
-                        href="#monthly">
-                        Installments for 2 days from today
-                      </a>
+                      <a className="nav-link" data-bs-toggle="tab" href="#week">
+                        This week's Installments
+                      </a> */}
                     </nav>
                   </div>
                 </div>
@@ -87,18 +63,27 @@ function PendingInstallments() {
                     <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
                       <div className="card custom-card card-dashboard-calendar pb-0">
                         <label className="main-content-label mb-2 pt-1">
-                          expected today Installments
+                          Today's expected Installments Transactions
                         </label>
                         <div className="card-body">
                           <div className="table-responsive">
                             <table className="table card-table text-nowrap table-bordered border-top">
                               <thead>
+                                {/*
+            "days_past": "1",
+            "date_expected": "2024-01-14 00:00:00",
+            "remaining_installments": "4"
+        },*/}
                                 <tr>
                                   <th>No.</th>
                                   <th>Customer </th>
                                   <th>contact</th>
+                                  <th>laon_balance</th>
                                   <th>Amount Expected</th>
-                                  <th>date </th>
+                                  <th>date Expected</th>
+                                  <th>days Past</th>
+                                  <th>remaining_installments</th>
+                                  <th> Loan profile</th>
                                 </tr>
                               </thead>
 
@@ -116,8 +101,21 @@ function PendingInstallments() {
                                         {item.loan_details.contact}
                                       </td>
                                       <td>{item.amount_expected}</td>
+                                      <td>{item.laon_balance}</td>
                                       <td>{item.date_expected}</td>
+                                      <td>{item.days_past}</td>
                                       <td>{item.remaining_installments}</td>
+                                      <RenderSecure code="LOANS-STMNT">
+                                        <td>
+                                          <button className="badge  bg-primary-light bg-pill">
+                                            <a
+                                              href={`/LoanManagement/${item.loan_id}`}
+                                              classname="btn badge bg-warning-light bg-pill">
+                                              Loan profile
+                                            </a>
+                                          </button>
+                                        </td>
+                                      </RenderSecure>
                                     </tr>
                                   ))}
                               </tbody>
@@ -127,16 +125,16 @@ function PendingInstallments() {
                       </div>
                     </div>
                   </div>
-                  <div
+                  {/* <div
                     className="main-content-body tab-pane p-4 border-top-0"
-                    id="tomox">
+                    id="three">
                     <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
                       <div className="card custom-card card-dashboard-calendar pb-0">
                         {/* <label className="main-content-label mb-2 pt-1">
                           Installments Transactions expected three days
-                        </label> */}
+                        </label> * 
                         <label className="main-content-label mb-2 pt-1">
-                          expected Installments Tomorrow
+                          Installments Transactions expected Tomorrow
                         </label>
                         <div className="card-body">
                           <div className="table-responsive">
@@ -148,11 +146,6 @@ function PendingInstallments() {
                                   <th>contact</th>
                                   <th>Amount Expected</th>
                                   <th>date </th>
-                                  <th>
-                                    days <br />
-                                    to payment{" "}
-                                  </th>
-                                  <th>remaining_installments </th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -169,8 +162,8 @@ function PendingInstallments() {
                                         {item.loan_details.contact}
                                       </td>
                                       <td>{item.amount_expected}</td>
+
                                       <td>{item.date_expected}</td>
-                                      <td>{item.days}</td>
                                       <td>{item.remaining_installments}</td>
                                     </tr>
                                   ))}
@@ -180,58 +173,7 @@ function PendingInstallments() {
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className="main-content-body tab-pane p-4 border-top-0"
-                    id="monthly">
-                    <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
-                      <div className="card custom-card card-dashboard-calendar pb-0">
-                        <label className="main-content-label mb-2 pt-1">
-                          expected Installments 2 day from today
-                        </label>
-                        <div className="card-body">
-                          <div className="table-responsive">
-                            <table className="table card-table text-nowrap table-bordered border-top">
-                              <thead>
-                                <tr>
-                                  <th>ID</th>
-                                  <th>Customer </th>
-                                  <th>contact</th>
-                                  <th>Amount Expected</th>
-                                  <th>date </th>
-                                  <th>
-                                    days <br />
-                                    to payment{" "}
-                                  </th>
-                                  <th>remaining_installments </th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {monthly &&
-                                  Array.isArray(monthly) &&
-                                  monthly.map((item, key) => (
-                                    <tr key={key}>
-                                      <td>{key + 1}</td>
-                                      <td>
-                                        {item.loan_details.first_name} &nbsp;
-                                        {item.loan_details.last_name}
-                                      </td>
-                                      <td className="text-success">
-                                        {item.loan_details.contact}
-                                      </td>
-                                      <td>{item.amount_expected}</td>
-                                      <td>{item.date_expected}</td>
-                                      <td>{item.days}</td>
-                                      <td>{item.remaining_installments}</td>
-                                    </tr>
-                                  ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -242,4 +184,4 @@ function PendingInstallments() {
   );
 }
 
-export default PendingInstallments;
+export default LoanNotPaid;

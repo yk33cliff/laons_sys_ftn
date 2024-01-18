@@ -20,15 +20,19 @@ import CreateClients from "./Pages/users/CreateClients";
 import ClientProfile from "./Pages/users/ClientProfile";
 import GetLoanReciept from "./Components/loans/GetLoanReciept";
 import ApprovedLoanNotcashed from "./Components/loans/ApprovedLoanNotcashed";
-import ImageModal from "./Components/loans/ImageModal";
+import LoansPopularity from "./graphs/LoansPopularity";
 import LoanManagement from "./Components/loans/LoanManagement";
 import functions from "./util/functions";
 import ActivateAccount from "./Pages/ActivateAccount";
 import UserPermissions from "./Components/Users/UserPermissions";
+import LoanNotPaid from "./Components/loans/LoanNotPaid";
+import CompletedLoans from "./Pages/loans/CompletedLoans";
+import DefaultedLoans from "./Pages/loans/DefaultedLoans";
+import PaymentReports from "./Pages/loans/PaymentReports";
+import LoansReports from "./Pages/loans/LoansReports";
 
 function App(props) {
   const [loggedIn, setLoggedIn] = useState(true);
-  // const [secure, setSecure] = useState(false);
 
   function checkLogin() {
     if (!window.localStorage.getItem("logs@user")) {
@@ -37,26 +41,12 @@ function App(props) {
       setLoggedIn(true);
     }
   }
-  console.log(functions.check_is_approver());
-
-  const secure = functions.checkSecureAccount();
-  // function checkSecure() {
-  //   const secure = functions.checkSecureAccount();
-
-  //   if (secure === 1) {
-  //     setSecure(true);
-  //   } else {
-  //     setSecure(false);
-  //   }
-  // }
-  // //console.log(secure);
 
   useEffect(() => {
     checkLogin();
-    // checkSecure();
   }, []);
 
-  // //console.log(loggedIn);
+  const secure = functions.checkSecureAccount();
 
   return (
     <SuperProvider>
@@ -97,29 +87,29 @@ function App(props) {
               <Route path="*" element={<Dashboard />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/Dashboard/home" element={<Dashboard />} />
-
               <Route path="/Loans/types" element={<LoanTYpes />} />
               <Route path="/users/register" element={<CreateUser />} />
-
               <Route path="/applications/add" element={<LoanApplication />} />
               <Route
                 path="/Applications/View"
                 element={<ViewLoanApplications />}
               />
-
               <Route path="/loans/active" element={<ActiveLoans />} />
               <Route path="/clients/view" element={<ViewAllClients />} />
               <Route path="/clients/Add" element={<CreateClients />} />
               <Route path="/profile/:id" element={<ClientProfile />} />
               <Route path="/LoanManagement/:id" element={<LoanManagement />} />
-
+              <Route path="/Loans/paid_off" element={<CompletedLoans />} />
+              <Route path="/Loans/defaulted" element={<DefaultedLoans />} />
+              <Route path="/reports/payments" element={<PaymentReports />} />
+              <Route path="/reports/loan_reports" element={<LoansReports />} />
               <Route
                 path="/Loans/pending_installments"
                 element={<PendingInstallments />}
               />
-
+              <Route path="/Installment/not_paid" element={<LoanNotPaid />} />
               <Route path="users/permissions" element={<UserPermissions />} />
-              {/* <Route path="/slip" element={<ImageModal />} /> */}
+              <Route path="/slip" element={<LoansPopularity />} />
             </>
           )}
         </Switch>

@@ -143,12 +143,12 @@ const Sidebar = (props) => {
                     <span className="shape1" />
                     <span className="shape2" />
                     <i className="ti-shopping-cart-full sidemenu-icon menu-icon" />
-                    <span className="sidemenu-label">Loans</span>
+                    <span className="sidemenu-label">Loans Issued </span>
                     <i className="angle fe fe-chevron-right" />
                   </a>
                   <ul className="nav-sub">
                     <li className="side-menu-label1">
-                      <a href="javascript:void(0)">Loans</a>
+                      {/* <a href="javascript:void(0)">Loans</a> */}
                     </li>
                     {/* <RenderSecure code="LOANS-VIEW"> */}
                     <li className="nav-sub-item">
@@ -159,10 +159,36 @@ const Sidebar = (props) => {
                     {/* </RenderSecure> */}
 
                     <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/Loans/paid_off">
+                        completed Loans
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/Loans/defaulted">
+                        Defaulted Loans
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li className="nav-item" onClick={hrefggleDropdown}>
+                  <a className="nav-link with-sub" href="javascript:void(0)">
+                    <span className="shape1" />
+                    <span className="shape2" />
+                    <i className="ti-shopping-cart-full sidemenu-icon menu-icon" />
+                    <span className="sidemenu-label">Loans Monitor </span>
+                    <i className="angle fe fe-chevron-right" />
+                  </a>
+                  <ul className="nav-sub">
+                    <li className="nav-sub-item">
                       <a
                         className="nav-sub-link"
                         href="/Loans/pending_installments">
                         pending installments
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/Installment/not_paid">
+                        Installments Not paid
                       </a>
                     </li>
                   </ul>
@@ -180,13 +206,13 @@ const Sidebar = (props) => {
                   </a>
                   <ul className="nav-sub">
                     <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/loans/performance">
-                        Loans Performance
+                      <a className="nav-sub-link" href="/reports/payments">
+                        payment reports
                       </a>
                     </li>
                     <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/loans/performance">
-                        Loans Performance
+                      <a className="nav-sub-link" href="/reports/loan_reports">
+                        Loan reports
                       </a>
                     </li>
                   </ul>
@@ -201,18 +227,18 @@ const Sidebar = (props) => {
                     </a>
                   </li>
                 </RenderSecure>
-                <RenderSecure code="USER-PRINT">
-                  <li className="nav-item">
-                    <a
-                      className="nav-link"
-                      href="/Approved_and_not_yet_paid/view">
-                      <span className="shape1" />
-                      <span className="shape2" />
-                      <i className="ti-book sidemenu-icon menu-icon" />
-                      <span className="sidemenu-label"> Loan cashout</span>
-                    </a>
-                  </li>
-                </RenderSecure>
+                {/* <RenderSecure code="USER-PRINT"> */}
+                <li className="nav-item">
+                  <a
+                    className="nav-link"
+                    href="/Approved_and_not_yet_paid/view">
+                    <span className="shape1" />
+                    <span className="shape2" />
+                    <i className="ti-book sidemenu-icon menu-icon" />
+                    <span className="sidemenu-label"> Loan cashout</span>
+                  </a>
+                </li>
+                {/* </RenderSecure> */}
                 <RenderSecure code="VIEW-USER">
                   <li className="nav-item" onClick={hrefggleDropdown}>
                     <a className="nav-link with-sub" href="javascript:void(0)">

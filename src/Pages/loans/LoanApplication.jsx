@@ -32,7 +32,15 @@ function LoanApplication() {
   const [monitoring, setMonitoring] = useState("");
   const [application_rate, setApplication_rate] = useState("");
   const [method, setMethod] = useState("");
+  const [Start, setStart] = useState("");
+  const [endDate, setEnddate] = useState("");
+  const [isChecked, setChecked] = useState(false);
 
+  // Event handler for checkbox change
+  const handleCheckboxChange = () => {
+    setChecked(!isChecked); // Toggle the checkbox state
+  };
+  console.log(isChecked);
   const isDaysDivisible = (daysInPeriod, interval) => {
     switch (interval) {
       case "daily":
@@ -68,6 +76,10 @@ function LoanApplication() {
         );
         return false;
       }
+      if ((isChecked && endDate.length < 0) || Start.length < 0) {
+        alert("for old loans,start date and end date is required");
+        return false;
+      }
 
       const formData = {
         create_by: user_id,
@@ -84,6 +96,9 @@ function LoanApplication() {
         method: method,
         installment_type: installment,
         monitoring: monitoring,
+        record: isChecked,
+        endDate: endDate,
+        Start: Start,
       };
       const server_response = await ajaxLaons.CreateLoanApplication(formData);
       if (server_response.status === "OK") {
@@ -411,14 +426,65 @@ function LoanApplication() {
                             </div>
                           </div>
                         )}
+
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">Start date </label>
+                            <input
+                              type="date"
+                              className="form-control text-success"
+                              name="insurance rate"
+                              placeholder="insurance rate"
+                              value={Start}
+                              onChange={(e) => setStart(e.target.value)}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="col-md-6">
+                          <div className="form-group">
+                            <label className="mg-b-10">End Date </label>
+                            <input
+                              type="date"
+                              className="form-control text-success"
+                              value={endDate}
+                              onChange={(e) => setEnddate(e.target.value)}
+                            />
+                          </div>
+                        </div>
+
                         {/* </>
                       // ) : null} */}
 
                         <div className="col-md-12 ">
                           <div className="form-group mb-0">
+                            <input
+                              type="checkbox"
+                              value={isChecked}
+                              className="text-success"
+                              style={{
+                                width: "20px",
+                                height: "20px",
+                                Color: "green",
+                                // Add other styles as needed
+                              }}
+                              onChange={(e) => {
+                                {
+                                  handleCheckboxChange(e);
+                                }
+                              }}
+                            />
+                            <label>
+                              Check there if the loan is old record loan
+                            </label>
+                            {/* The 'checked' attribute is controlled by the 'isChecked' state */}
+                          </div>
+                        </div>
+                        <div className="col-md-12 ">
+                          <div className="form-group mb-0">
                             <button
                               type="submit"
-                              className="btn col-lg -12 col-md-12 btn-primary">
+                              className="btn col-lg-12 col-md-12 btn-primary">
                               Save user
                             </button>
                           </div>

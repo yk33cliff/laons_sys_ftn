@@ -41,23 +41,23 @@ function Applications() {
     );
   };
   // delete loan
-  const delete_loan = async (id) => {
-    let confirm = window.confirm(
-      "Are you sure you want to delete this loan from these system"
-    );
-    if (confirm) {
-      var data = {
-        id: id,
-      };
-    }
-    const server_response = await ajaxLaons.deleteLoan(data);
+  // const delete_loan = async (id) => {
+  //   let confirm = window.confirm(
+  //     "Are you sure you want to delete this loan from these system"
+  //   );
+  //   if (confirm) {
+  //     var data = {
+  //       id: id,
+  //     };
+  //   }
+  //   const server_response = await ajaxLaons.deleteLoan(data);
 
-    if (server_response.status === "OK") {
-      toast.success(server_response.message);
-    } else {
-      toast.error(server_response.message);
-    }
-  };
+  //   if (server_response.status === "OK") {
+  //     toast.success(server_response.message);
+  //   } else {
+  //     toast.error(server_response.message);
+  //   }
+  // };
 
   // for securities
   const [AddSecurity, setAddSecurity] = useStateCallback(false);
@@ -216,11 +216,11 @@ function Applications() {
                           <RenderSecure code="ADD-GUAR">
                             <th> guarantors</th>
                           </RenderSecure>
+                          <th>
+                            Approved_by <br />
+                          </th>
                           {is_approver == 1 && (
                             <>
-                              <th>
-                                Approved_by <br />
-                              </th>
                               <th>
                                 Approval <br /> action
                               </th>
