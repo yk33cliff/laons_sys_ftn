@@ -13,28 +13,18 @@ function LoanSlip(props) {
     get_shedule();
   }, []);
 
-  //  <LoanSlip
-  //    isOpen={true}
-  //    id={id}
-  //    name1={name1}
-  //    name2={name2}
-  //    contact={contact}
-  //  />;
   const id = props.id;
-  //  loan.customer_id.contact,
-  //    loan.customer_id.first_name,
-  //    loan.customer_id.last_name;
+
   const customer_id = props.customer;
   const Cus_name = props.name1;
   const Cus_name2 = props.name2;
-  console.log(props.name2);
+
   var contact = props.contact;
 
   const [Loaned, setLoanded] = useState("");
   const [customer, setCustomer] = useState("");
   const [guarantors, setGuarantors] = useState("");
   const [security, setSecurity] = useState("");
-  //console.log(Loaned);
 
   const getLoanDetails = async () => {
     var data = {id: id};
@@ -95,24 +85,8 @@ function LoanSlip(props) {
 
     if (server_response.status === "OK") {
       setShedule(server_response.details.shedule);
-      // setShedule(server_response.details);
     }
-    // else if (server_response.status === "Fail") {
-    //   toast.error(server_response.message);
-    // }
   };
-  //console.log(shedule);
-  //  var  detail = {
-  //       "shedule": [
-  //           {
-  //               "installment": 35333.333333333336,
-  //               "date_expected": "2024-02-02"
-  //           },
-
-  //       ],
-  //       "paid": 0,
-  //       "balance": 212000
-  //   }
 
   const Print = () => {
     let printContents = document.getElementById("printablediv").innerHTML;
@@ -142,7 +116,7 @@ function LoanSlip(props) {
       </>
     );
   };
-  // //console.log(Loaned);
+
   return (
     <div>
       <SystemModal

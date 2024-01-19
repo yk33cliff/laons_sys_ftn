@@ -1,12 +1,5 @@
 import apiCall from "./apiCall";
-/**if (AppData::__update($this->TableName, $data, $id)) :
-            $this->Success = "operation was successfully!!";
-            return true;
-        endif;
-        $this->Error = "operation failed ";
-        return false;
- * deals with loan application,  processing
- */
+
 export default {
   async createLoanType(data) {
     let response = await apiCall("Loan_create_type", data);
@@ -130,6 +123,61 @@ export default {
   },
   async LoanCalculator(data) {
     let response = await apiCall("loans/LoanCalculator", data);
+    return response;
+  },
+  async getInstallmentsNotPaid() {
+    let response = await apiCall("loans/get/installmentsNotPaid");
+    return response;
+  },
+  async getWeeklyLoans() {
+    let response = await apiCall("loans/get/weeklyActiveLoans");
+    return response;
+  },
+  async getmonthlyLoansActive() {
+    let response = await apiCall("loans/get/monthlyActiveLoans");
+    return response;
+  },
+  async getDailylyLoans() {
+    let response = await apiCall("loans/get/dailyActiveLoans");
+    return response;
+  },
+  async getLoansPaidOffCompletely() {
+    let response = await apiCall("loans/get/LoansCompletelyPaidOff");
+    return response;
+  },
+  async getDefualtedLoans() {
+    let response = await apiCall("loans/get/DefualtedLoans");
+    return response;
+  },
+
+  async gettodayInstallmentsLoans() {
+    let response = await apiCall("loans/get/getTodayInstallments");
+    return response;
+  },
+
+  async getTomoxInstallments() {
+    let response = await apiCall("loans/get/TomoxInstallmentLoans");
+    return response;
+  },
+
+  async getThreeDayInstallments() {
+    let response = await apiCall("loans/get/threeDaysInstallments");
+    return response;
+  },
+  async getApplicationFeesPayment() {
+    let response = await apiCall("loans/ApplicationFees/Payments");
+    return response;
+  },
+  async getIsurancesFeesPayment() {
+    let response = await apiCall("loans/insurance/PaymentsInsu");
+    return response;
+  },
+  async getprocessingFeesPayment() {
+    let response = await apiCall("loans/processingFees");
+    return response;
+  },
+  async getLoanReports() {
+    let response = await apiCall("loans/loanReports");
     return response;
   },
 };

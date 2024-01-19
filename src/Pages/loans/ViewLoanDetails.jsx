@@ -30,7 +30,8 @@ function ViewLoanDetails(props) {
           <p>
             customer::{" "}
             <u>
-              <span>{details.customer_id.names}</span>
+              <span>{details.customer_id.names.first_name}</span>
+              <span>{details.customer_id.names.last_name}</span>
             </u>
           </p>
           <p>

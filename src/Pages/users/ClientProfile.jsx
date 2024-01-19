@@ -18,7 +18,6 @@ function ClientProfile(props) {
 
   //+++++++++code  for updating user profile++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [user, setUser] = useState("");
-  console.log(user);
 
   //
   const getUserInfo = async () => {
@@ -139,7 +138,7 @@ function ClientProfile(props) {
    * fetching user's loans//
    */
   var dat = {id: id};
-  const [userLoan, setUserloan] = useState();
+  const [userLoan, setUserloan] = useState("");
   const userLoans = async () => {
     const server_response = await ajaxLaons.ViewUsersLoans(dat);
 

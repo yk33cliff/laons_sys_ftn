@@ -165,7 +165,7 @@ function ClientProfile(props) {
   };
   // handles user transactions
 
-  const [trans, setTrans] = useState();
+  const [trans, setTrans] = useState("");
   const getUserTrans = async () => {
     const data = {user_id: id};
     // //console.log(id);

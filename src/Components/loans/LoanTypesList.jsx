@@ -81,6 +81,9 @@ function LoanTypesList() {
                         interest <br /> rate
                       </th>
                       <th>
+                        monitoring fees <br /> rate
+                      </th>
+                      <th>
                         application <br />
                         fee rate
                       </th>
@@ -124,6 +127,7 @@ function LoanTypesList() {
                           </p>
                         </td>
                         <td>{loan.interest_rate}</td>
+                        <td>{loan.monitoring}</td>
                         <td>{loan.application_rate}</td>
                         <td>{loan.processing_fee_rate}</td>
                         <td>{loan.insurance}</td>
