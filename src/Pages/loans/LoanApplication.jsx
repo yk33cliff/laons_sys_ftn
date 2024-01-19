@@ -40,7 +40,7 @@ function LoanApplication() {
   const handleCheckboxChange = () => {
     setChecked(!isChecked); // Toggle the checkbox state
   };
-  console.log(isChecked);
+
   const isDaysDivisible = (daysInPeriod, interval) => {
     switch (interval) {
       case "daily":

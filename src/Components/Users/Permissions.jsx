@@ -3,7 +3,6 @@ import ajaxLaons from "../../util/remote/ajaxLaons";
 import ReactPaginate from "react-paginate";
 function Permissions(props) {
   const [items, setItems] = useState("");
-  console.log(items);
 
   useEffect(() => {
     getTransactions();

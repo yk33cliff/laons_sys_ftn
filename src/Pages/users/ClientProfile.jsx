@@ -18,7 +18,6 @@ function ClientProfile(props) {
 
   //+++++++++code  for updating user profile++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [user, setUser] = useState("");
-  console.log(user);
 
   //
   const getUserInfo = async () => {

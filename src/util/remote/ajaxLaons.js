@@ -176,4 +176,8 @@ export default {
     let response = await apiCall("loans/processingFees");
     return response;
   },
+  async getLoanReports() {
+    let response = await apiCall("loans/loanReports");
+    return response;
+  },
 };

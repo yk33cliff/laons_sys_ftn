@@ -37,7 +37,8 @@ function PaymentReports() {
       toast.error(server_response.message);
     }
   };
-  console.log(applictaions);
+  // --------------------------------
+
   const [currentPageTable1, setCurrentPageTable1] = useState(0);
   const itemsPerPageTable1 = 10;
 
@@ -49,6 +50,8 @@ function PaymentReports() {
   const paginatedItemsTable1 = Array.isArray(applictaions)
     ? applictaions.slice(offsetTable1, offsetTable1 + itemsPerPageTable1)
     : [];
+
+  // -----------------------
 
   const [currentPageTable2, setCurrentPageTable2] = useState(0);
   const itemsPerPageTable2 = 10;
@@ -62,11 +65,13 @@ function PaymentReports() {
     ? insurance.slice(offsetTable2, offsetTable2 + itemsPerPageTable2)
     : [];
 
+  // ---------------------
+
   const [currentPageTable3, setCurrentPageTable3] = useState(0);
   const itemsPerPageTable3 = 10;
 
   const handlePageClickTable3 = ({selected}) => {
-    setCurrentPageTable2(selected);
+    setCurrentPageTable3(selected);
   };
 
   const offsetTable3 = currentPageTable3 * itemsPerPageTable3;

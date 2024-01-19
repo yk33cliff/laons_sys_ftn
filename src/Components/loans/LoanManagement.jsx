@@ -12,7 +12,7 @@ function LoanManagement(props) {
     getLoanDetail();
   }, []);
   const [loan, setLoan] = useState("");
-  console.log(loan);
+
   const getLoanDetail = async () => {
     var data = {id: id};
     const server_response = await ajaxLaons.getLoanDetails(data);
