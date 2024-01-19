@@ -513,6 +513,76 @@ function Dashboard() {
                 </div>
               </div>
             </div>
+            {/* total interest earning fees earnings */}
+            {/* <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
+              <div className="card m-1">
+                <div className="card-body">
+                  <div className="card-item">
+                    <div className="card-item-icon card-icon">
+                      <FontAwesomeIcon
+                        icon={faDollarSign}
+                        bounce
+                        style={{color: "orange"}}
+                      />
+                    </div>
+                    <div className="card-item-title mb-2">
+                      <label className="main-content-label tx-13 font-weight-bold mb-1">
+                        total loantied up principal
+                      </label>
+                      <span className="d-block tx-12 mb-0 text-muted">
+                        loaned principal
+                      </span>
+                    </div>
+                    <div className="card-item-body">
+                      <div className="card-item-stat">
+                        <h4 className="font-weight-bold">
+                          XXXXXXXX
+                          
+                        </h4>
+                        <small>
+                          <br />
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> */}
+            {/* total monitoring  fees earnings */}
+            {/* <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
+              <div className="card m-1">
+                <div className="card-body">
+                  <div className="card-item">
+                    <div className="card-item-icon card-icon">
+                      <FontAwesomeIcon
+                        icon={faDollarSign}
+                        bounce
+                        style={{color: "orange"}}
+                      />
+                    </div>
+                    <div className="card-item-title mb-2">
+                      <label className="main-content-label tx-13 font-weight-bold mb-1">
+                        total monitoring fees earnings
+                      </label>
+                      <span className="d-block tx-12 mb-0 text-muted">
+                        monitoring fees
+                      </span>
+                    </div>
+                    <div className="card-item-body">
+                      <div className="card-item-stat">
+                        <h4 className="font-weight-bold">
+                          XXXXXXXX
+                       
+                        </h4>
+                        <small>
+                          <br />
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> */}
           </div>
           {/*End top tiles row 1 row*/}
         </div>

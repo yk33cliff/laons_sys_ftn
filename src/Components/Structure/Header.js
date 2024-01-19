@@ -12,10 +12,10 @@ export default function Header() {
   const {clientList} = useContext(ClientContext);
   const [client, setClient] = useState("");
   const [modal, setModal] = useStateCallback(false);
-  const nav = useNavigate();
+
   const onLogout = () => {
     localStorage.removeItem("logs@user");
-    nav("/");
+    navigate("/");
     window.location.reload();
   };
   const user = functions.sessionGuard();
@@ -25,14 +25,17 @@ export default function Header() {
       setModal(<ChangePassword isOpen={false} id={user} set />)
     );
   };
-
-  const handle_search = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    // Navigate to the client's profile page when the client changes
     if (client) {
       navigate(`/profile/${client}`);
       window.location.reload();
     }
-  };
+  }, [client, navigate]);
+  // useEffect(() => {
+  //   navigate(`/profile/${client}`);
+  // }, [client]);
+
   return (
     <div className="main-header side-header sticky">
       <div className="main-container container-fluid">
@@ -96,12 +99,12 @@ export default function Header() {
               className="form-control rounded-0"
               placeholder="Search client..."
             /> */}
-            <button
+            {/* <button
               className="btn search-btn"
               type="button"
               onClick={(e) => handle_search(e)}>
               <i className="fe fe-search" />
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="main-header-right">
@@ -149,12 +152,12 @@ export default function Header() {
               className="form-control rounded-0"
               placeholder="Search client..."
             /> */}
-                      <button
+                      {/* <button
                         className="btn search-btn"
                         type="button"
                         onClick={(e) => handle_search(e)}>
                         <i className="fe fe-search" />
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>

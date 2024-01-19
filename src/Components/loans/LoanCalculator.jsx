@@ -39,21 +39,21 @@ function LoanCalculator(props) {
     }
   };
 
-  const isDaysDivisible = (daysInPeriod, interval) => {
-    switch (interval) {
-      case "daily":
-        return true; // Any number of days is divisible by daily
-      case "weekly":
-        return daysInPeriod % 7 === 0;
-      case "fortnight":
-        return daysInPeriod % 14 === 0;
-      case "monthly":
-        // Note: This is a basic check and may not cover all cases due to varying month lengths
-        return daysInPeriod % 30 === 0;
-      default:
-        return false;
-    }
-  };
+  // const isDaysDivisible = (daysInPeriod, interval) => {
+  //   switch (interval) {
+  //     case "daily":
+  //       return true; // Any number of days is divisible by daily
+  //     case "weekly":
+  //       return daysInPeriod % 7 === 0;
+  //     case "fortnight":
+  //       return daysInPeriod % 14 === 0;
+  //     case "monthly":
+  //       // Note: This is a basic check and may not cover all cases due to varying month lengths
+  //       return daysInPeriod % 30 === 0;
+  //     default:
+  //       return false;
+  //   }
+  // };
 
   const [sheet, Setsheet] = useStateCallback(false);
   const Handle_reciept = (rates, data) => {
@@ -65,12 +65,12 @@ function LoanCalculator(props) {
   const handler = async (e) => {
     e.preventDefault();
 
-    if (!isDaysDivisible(duration, installment)) {
-      alert(
-        "number of days selected is not divisible with the selected payment plan"
-      );
-      return false;
-    }
+    // if (!isDaysDivisible(duration, installment)) {
+    //   alert(
+    //     "number of days selected is not divisible with the selected payment plan"
+    //   );
+    //   return false;
+    // }
 
     if (
       loan.length > 0 &&
@@ -249,7 +249,7 @@ function LoanCalculator(props) {
                 className="form-control text-success"
                 name="insurance rate"
                 placeholder="insurance rate"
-                readOnly
+                // readOnly
                 value={insurance}
                 onChange={(e) => setInsurance(e.target.value)}
               />

@@ -41,21 +41,21 @@ function LoanApplication() {
     setChecked(!isChecked); // Toggle the checkbox state
   };
 
-  const isDaysDivisible = (daysInPeriod, interval) => {
-    switch (interval) {
-      case "daily":
-        return true; // Any number of days is divisible by daily
-      case "weekly":
-        return daysInPeriod % 7 === 0;
-      case "fortnight":
-        return daysInPeriod % 14 === 0;
-      case "monthly":
-        // Note: This is a basic check and may not cover all cases due to varying month lengths
-        return daysInPeriod % 30 === 0;
-      default:
-        return false;
-    }
-  };
+  // const isDaysDivisible = (daysInPeriod, interval) => {
+  //   switch (interval) {
+  //     case "daily":
+  //       return true; // Any number of days is divisible by daily
+  //     case "weekly":
+  //       return daysInPeriod % 7 === 0;
+  //     case "fortnight":
+  //       return daysInPeriod % 14 === 0;
+  //     case "monthly":
+  //       // Note: This is a basic check and may not cover all cases due to varying month lengths
+  //       return daysInPeriod % 30 === 0;
+  //     default:
+  //       return false;
+  //   }
+  // };
   const handler = async (e) => {
     e.preventDefault();
 
@@ -70,12 +70,12 @@ function LoanApplication() {
       installment.length > 0 &&
       fees.length > 0
     ) {
-      if (!isDaysDivisible(paymentPeriod, installment)) {
-        alert(
-          "number of days selected is not divisible with the selected payment plan"
-        );
-        return false;
-      }
+      // if (!isDaysDivisible(paymentPeriod, installment)) {
+      //   alert(
+      //     "number of days selected is not divisible with the selected payment plan"
+      //   );
+      //   return false;
+      // }
       if ((isChecked && endDate.length < 0) || Start.length < 0) {
         alert("for old loans,start date and end date is required");
         return false;
