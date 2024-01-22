@@ -37,6 +37,7 @@ function Dashboard() {
     get_total_loaned();
     active_loans_number();
     get_recent_Transactions();
+    get_monitoring_fees_earned();
   }, []);
   const id = functions.sessionGuard();
 
@@ -105,6 +106,16 @@ function Dashboard() {
       setFines(server_response.details);
     } else {
       setFines("");
+    }
+  };
+  const [monitoring, setMonitorin] = useState("");
+  const get_monitoring_fees_earned = async () => {
+    const server_response = await ajaxDashboard.fetch_monitoring_fees_earned();
+
+    if (server_response.status === "OK") {
+      setMonitorin(server_response.details);
+    } else {
+      setMonitorin("");
     }
   };
   const get_earned_interest = async () => {
@@ -513,6 +524,41 @@ function Dashboard() {
                 </div>
               </div>
             </div>
+            {/* total monitoring  fees earnings */}
+            <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
+              <div className="card m-1">
+                <div className="card-body">
+                  <div className="card-item">
+                    <div className="card-item-icon card-icon">
+                      <FontAwesomeIcon
+                        icon={faDollarSign}
+                        bounce
+                        style={{color: "orange"}}
+                      />
+                    </div>
+                    <div className="card-item-title mb-2">
+                      <label className="main-content-label tx-13 font-weight-bold mb-1">
+                        total monitoring fees earnings
+                      </label>
+                      <span className="d-block tx-12 mb-0 text-muted">
+                        monitoring fees
+                      </span>
+                    </div>
+                    <div className="card-item-body">
+                      <div className="card-item-stat">
+                        <h4 className="font-weight-bold">
+                          {" "}
+                          {monitoring ? monitoring : 0}
+                        </h4>
+                        <small>
+                          <br />
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             {/* total interest earning fees earnings */}
             {/* <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
               <div className="card m-1">
@@ -548,41 +594,6 @@ function Dashboard() {
                 </div>
               </div>
             </div> */}
-            {/* total monitoring  fees earnings */}
-            {/* <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
-              <div className="card m-1">
-                <div className="card-body">
-                  <div className="card-item">
-                    <div className="card-item-icon card-icon">
-                      <FontAwesomeIcon
-                        icon={faDollarSign}
-                        bounce
-                        style={{color: "orange"}}
-                      />
-                    </div>
-                    <div className="card-item-title mb-2">
-                      <label className="main-content-label tx-13 font-weight-bold mb-1">
-                        total monitoring fees earnings
-                      </label>
-                      <span className="d-block tx-12 mb-0 text-muted">
-                        monitoring fees
-                      </span>
-                    </div>
-                    <div className="card-item-body">
-                      <div className="card-item-stat">
-                        <h4 className="font-weight-bold">
-                          XXXXXXXX
-                       
-                        </h4>
-                        <small>
-                          <br />
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
           </div>
           {/*End top tiles row 1 row*/}
         </div>
@@ -602,6 +613,7 @@ function Dashboard() {
                         <thead>
                           <tr>
                             <th>NO.</th>
+                            <th>customer </th>
                             <th>account </th>
                             <th>cash_in</th>
                             <th>cash_out </th>
@@ -615,12 +627,14 @@ function Dashboard() {
                           {paginatedItems.map((loan, key) => (
                             <tr key={key}>
                               <td>{key + 1}</td>
+                              <td>xxxx</td>
                               <td>{loan.account}</td>
                               <td>{loan.cash_in}</td>
                               <td>{loan.cash_out}</td>
                               <td>{loan.description}</td>
                               <td>{loan.payment_method}</td>
                               <td>{loan.phone_number}</td>
+                              <td>{loan.created_at}</td>
                             </tr>
                           ))}
                         </tbody>

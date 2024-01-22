@@ -200,6 +200,10 @@ function Applications() {
                             Loan <br /> duration
                           </th>
                           <th>
+                            Installment <br />
+                            type
+                          </th>
+                          <th>
                             date <br />
                             Requested
                           </th>
@@ -249,7 +253,7 @@ function Applications() {
                             </td>
                             <td>{loan.amount}</td>
                             <td>{loan.duration}</td>
-                            {/* <td>{loan.interest_rate}</td> */}
+                            <td>{loan.installment_type}</td>
 
                             <td>{loan.date_requested}</td>
                             <td>

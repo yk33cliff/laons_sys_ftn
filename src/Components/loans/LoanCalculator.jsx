@@ -192,9 +192,9 @@ function LoanCalculator(props) {
             <input
               type="text"
               className="form-control"
-              placeholder="relationship"
+              placeholder="interest rate"
               value={interestRate}
-              onChange={(e) => interestRate(e.target.value)}
+              onChange={(e) => setInterestRate(e.target.value)}
             />
           </div>
         )}
@@ -217,8 +217,7 @@ function LoanCalculator(props) {
               <input
                 type="text"
                 className="form-control text-success"
-                name="interestRate"
-                placeholder="Interest rate"
+                placeholder="Application fees rate"
                 value={application_rate}
                 onChange={(e) => setApplication_rate(e.target.value)}
               />

@@ -46,6 +46,10 @@ export default {
     let response = await apiCall("RecentTransactions/get");
     return response;
   },
+  async fetch_monitoring_fees_earned() {
+    let response = await apiCall("dashboard/get/monitoring/fees");
+    return response;
+  },
   //   async enableUser(user_id) {
   //     let data = {
   //       user_id: user_id,
