@@ -85,8 +85,8 @@ export default {
     let response = await apiCall("loans/transactions", data);
     return response;
   },
-  async getReciepts() {
-    let response = await apiCall("loans/cashReciepts");
+  async getReciepts(data) {
+    let response = await apiCall("loans/cashReciepts", data);
     return response;
   },
   async getApprovedLoanNotcashed() {
@@ -164,20 +164,20 @@ export default {
     let response = await apiCall("loans/get/threeDaysInstallments");
     return response;
   },
-  async getApplicationFeesPayment() {
-    let response = await apiCall("loans/ApplicationFees/Payments");
+  async getApplicationFeesPayment(data) {
+    let response = await apiCall("loans/ApplicationFees/Payments", data);
     return response;
   },
-  async getIsurancesFeesPayment() {
-    let response = await apiCall("loans/insurance/PaymentsInsu");
+  async getIsurancesFeesPayment(data) {
+    let response = await apiCall("loans/insurance/PaymentsInsu", data);
     return response;
   },
-  async getprocessingFeesPayment() {
-    let response = await apiCall("loans/processingFees");
+  async getprocessingFeesPayment(data) {
+    let response = await apiCall("loans/processingFees", data);
     return response;
   },
-  async getLoanReports() {
-    let response = await apiCall("loans/loanReports");
+  async getLoanReports(data) {
+    let response = await apiCall("loans/loanReports", data);
     return response;
   },
 };

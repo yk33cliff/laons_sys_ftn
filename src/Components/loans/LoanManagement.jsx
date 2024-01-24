@@ -4,6 +4,8 @@ import LoanTransactions from "./LoanTransactions";
 import {useParams} from "react-router-dom";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import GetLoanFine from "./GetLoanFine";
+import AddLoanpayment from "./AddLoanpayment";
+import useStateCallback from "../../util/customHooks/useStateCallback";
 
 function LoanManagement(props) {
   var {id} = useParams();
@@ -12,7 +14,16 @@ function LoanManagement(props) {
     getLoanDetail();
   }, []);
   const [loan, setLoan] = useState("");
+  const [modal, setModal] = useStateCallback(false);
+  console.log(loan);
 
+  const handleModal2 = (e) => {
+    setModal(false, () =>
+      setModal(
+        <AddLoanpayment isOpen={true} id={id} customer={loan.customer_id.id} />
+      )
+    );
+  };
   const getLoanDetail = async () => {
     var data = {id: id};
     const server_response = await ajaxLaons.getLoanDetails(data);
@@ -28,7 +39,28 @@ function LoanManagement(props) {
     <div>
       <AppContainer title="loan management">
         <>
+          {modal}
           {/* Row*/}
+          <div className="row row-sm">
+            <div className="col-lg-12 col-md-12 mx-10">
+              <div
+                style={{
+                  float: "right",
+                  marginBottom: "20px",
+                }}
+                className="col-lg-2 col-md-2">
+                <div className="form-group mb-0">
+                  <button
+                    type="button"
+                    onClick={() => handleModal2()}
+                    className="btn col-lg -12 rounded-50 col-md-12 btn-warning">
+                    + add payment
+                  </button>
+                </div>
+              </div>
+            </div>
+            <br />
+          </div>
           <div className="row row-sm">
             <div className="col-xl-8 col-lg-8 col-md-8">
               <div className="card custom-card overflow-hidden crypto-buysell-card">
