@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import AppContainer from "../Components/Structure/AppContainer";
 import ReactPaginate from "react-paginate";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import {
   faUsers,
@@ -12,6 +14,7 @@ import {
 import ajaxDashboard from "../util/remote/ajaxDashboard";
 import functions from "../util/functions";
 import {RenderSecure} from "../util/script/RenderSecure";
+import toast, {Toaster} from "react-hot-toast";
 function Dashboard() {
   const [user, setUser] = useState("");
   const [bPool, setBpool] = useState("");
@@ -24,6 +27,10 @@ function Dashboard() {
   const [application, setApplication] = useState("");
   const [active, SetACtive] = useState("");
   const is_approver = functions.check_is_approver();
+
+  const [sdate, setSdate] = useState("");
+  const [edate, setEdate] = useState("");
+  const [trans, setTrans] = useState("");
 
   useEffect(() => {
     getTotal_user();
@@ -40,10 +47,12 @@ function Dashboard() {
     get_monitoring_fees_earned();
   }, []);
   const id = functions.sessionGuard();
-
-  const [trans, setTrans] = useState("");
   const get_recent_Transactions = async () => {
-    const server_response = await ajaxDashboard.get_recent_transaction();
+    var data = {
+      start_date: sdate,
+      end_date: edate,
+    };
+    const server_response = await ajaxDashboard.get_recent_transaction(data);
 
     if (server_response.status === "OK") {
       setTrans(server_response.details);
@@ -51,7 +60,6 @@ function Dashboard() {
       setTrans("");
     }
   };
-
   const get_application_fees_earnings = async () => {
     const server_response = await ajaxDashboard.get_application_fees_earnings();
 
@@ -156,6 +164,7 @@ function Dashboard() {
       SetACtive("");
     }
   };
+
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 20; // Change this value based on your preference
 
@@ -167,6 +176,16 @@ function Dashboard() {
   const paginatedItems = Array.isArray(trans)
     ? trans.slice(offset, offset + itemsPerPage)
     : [];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (sdate && edate) {
+      get_recent_Transactions();
+    } else {
+      toast.error("Error: Both start and end dates are required");
+    }
+  };
 
   return (
     <div>
@@ -605,6 +624,71 @@ function Dashboard() {
               <label className="main-content-label mb-2 pt-1">
                 Recent Transactions
               </label>
+              <Toaster />
+              <div
+                className="col-sm-12  col-md-12 col-lg-12 col-xl-8 mt-xl-4"
+                style={{
+                  // background: "grey",
+
+                  borderRadius: "20px",
+                }}>
+                <div className="card custom-card card-dashboard-calendar pb-0">
+                  <div className="card-body">
+                    <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12">
+                      <form action="" onSubmit={(e) => handleSubmit(e)}>
+                        <div className="row">
+                          <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 mt-2">
+                            <div className="col-12">
+                              <div className="row">
+                                <label className="col-4">FROM:</label>
+
+                                <span className="col-8">
+                                  <DatePicker
+                                    selected={sdate}
+                                    onChange={(e) => setSdate(e)}
+                                    dateFormat="dd/MM/yyyy"
+                                    placeholderText="dd/MM/yyyy"
+                                    className="form-control text-success"
+                                  />
+                                </span>
+                              </div>{" "}
+                            </div>
+                          </div>
+                          <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 mt-2">
+                            <div className="col-12">
+                              <div className="row">
+                                <label className="col-4">TO:</label>
+
+                                <span className="col-8">
+                                  <DatePicker
+                                    selected={edate}
+                                    onChange={(e) => setEdate(e)}
+                                    dateFormat="dd/MM/yyyy"
+                                    placeholderText="dd/MM/yyyy"
+                                    className="form-control text-success"
+                                  />
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">
+                            <div className="col-md-12 ">
+                              <div className="form-group mb-0">
+                                <button
+                                  type="submit"
+                                  className="btn col-lg-12 col-md-12 btn-primary">
+                                  submit
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
                 <div className="card custom-card card-dashboard-calendar pb-0">
                   <div className="card-body">
@@ -627,7 +711,8 @@ function Dashboard() {
                           {paginatedItems.map((loan, key) => (
                             <tr key={key}>
                               <td>{key + 1}</td>
-                              <td>xxxx</td>
+
+                              <td>{loan.customer}</td>
                               <td>{loan.account}</td>
                               <td>{loan.cash_in}</td>
                               <td>{loan.cash_out}</td>

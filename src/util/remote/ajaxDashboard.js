@@ -42,8 +42,8 @@ export default {
     let response = await apiCall("dashboard/get/applicationfees/");
     return response;
   },
-  async get_recent_transaction() {
-    let response = await apiCall("RecentTransactions/get");
+  async get_recent_transaction(data) {
+    let response = await apiCall("RecentTransactions/get", data);
     return response;
   },
   async fetch_monitoring_fees_earned() {

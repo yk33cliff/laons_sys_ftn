@@ -1,14 +1,15 @@
 import React, {useContext, useEffect, useState} from "react";
 import AppContainer from "../Structure/AppContainer";
-import LoansContext from "../../Context/LoansContext";
-import useStateCallback from "../../util/customHooks/useStateCallback";
 
-import {RenderSecure} from "../../util/script/RenderSecure";
-import ViewSecurities from "./ViewSecurities";
+import useStateCallback from "../../util/customHooks/useStateCallback";
 
 import ReactPaginate from "react-paginate";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import LoanCashReceipt from "./LoanCashReciept";
+import toast, {Toaster} from "react-hot-toast";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function GetLoanReciept() {
   const [reciept, setReciept] = useStateCallback(false);
@@ -17,13 +18,20 @@ function GetLoanReciept() {
       setReciept(<LoanCashReceipt isOpen={true} id={id} />)
     );
   };
+
+  const [sdate, setSdate] = useState("");
+  const [edate, setEdate] = useState("");
   useEffect(() => {
     payment_reciepts();
   }, []);
   const [Payments, setPayments] = useState("");
 
   const payment_reciepts = async () => {
-    const server_response = await ajaxLaons.getReciepts();
+    var data = {
+      start_date: sdate,
+      end_date: edate,
+    };
+    const server_response = await ajaxLaons.getReciepts(data);
 
     if (server_response.status === "OK") {
       setPayments(server_response.details);
@@ -31,6 +39,16 @@ function GetLoanReciept() {
     // else if (server_response.status === "Fail") {
     // toast.error(server_response.message);
     // }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (edate && sdate) {
+      payment_reciepts();
+    } else {
+      toast.error("Error: Both start and end dates are required");
+    }
   };
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -54,7 +72,69 @@ function GetLoanReciept() {
                 Loan reciepts
               </label>
               {reciept}
+              <div
+                className="col-sm-12  col-md-12 col-lg-12 col-xl-8 mt-xl-4 mb-4"
+                style={{
+                  borderRadius: "20px",
+                  padding: "0",
+                  margin: "0",
+                }}>
+                <div className="card custom-card card-dashboard-calendar ">
+                  <div className="card-body">
+                    <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12">
+                      <form action="" onSubmit={(e) => handleSubmit(e)}>
+                        <div className="row">
+                          <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">
+                            <div className="col-12">
+                              <div className="row">
+                                <label className="col-4">FROM:</label>
 
+                                <span className="col-8">
+                                  <DatePicker
+                                    selected={sdate}
+                                    onChange={(e) => setSdate(e)}
+                                    dateFormat="dd/MM/yyyy"
+                                    placeholderText="dd/MM/yyyy"
+                                    className="form-control text-success"
+                                  />
+                                </span>
+                              </div>{" "}
+                            </div>
+                          </div>
+                          <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">
+                            <div className="col-12">
+                              <div className="row">
+                                <label className="col-4">TO:</label>
+
+                                <span className="col-8">
+                                  <DatePicker
+                                    selected={edate}
+                                    onChange={(e) => setEdate(e)}
+                                    dateFormat="dd/MM/yyyy"
+                                    placeholderText="dd/MM/yyyy"
+                                    className="form-control text-success"
+                                  />
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">
+                            <div className="col-md-12 ">
+                              <div className="form-group mb-0">
+                                <button
+                                  type="submit"
+                                  className="btn col-lg-12 col-md-12 btn-primary">
+                                  submit
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="card-body">
                 <div className="table-responsive">
                   <table className="table card-table text-nowrap table-bordered border-top">

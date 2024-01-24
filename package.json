@@ -44,6 +44,7 @@
     "react-circular-progressbar": "^2.1.0",
     "react-countup": "^6.4.2",
     "react-date-picker": "^10.6.0",
+    "react-datepicker": "^4.25.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",

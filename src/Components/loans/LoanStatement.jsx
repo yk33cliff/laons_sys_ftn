@@ -2,8 +2,6 @@ import React, {useEffect, useState} from "react";
 import SystemModal from "../Common/SystemModal";
 import toast from "react-hot-toast";
 
-import AddLoanpayment from "../../Components/loans/AddLoanpayment";
-import useStateCallback from "../../util/customHooks/useStateCallback";
 import LoanTransactionsPageNO from "./LoanTransactionsPageNO";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 
@@ -31,16 +29,6 @@ function LoanStatement(props) {
     } else {
       toast.error(server_response.message);
     }
-  };
-
-  const [modal, setModal] = useStateCallback(false);
-
-  const handleModal2 = (e) => {
-    setModal(false, () =>
-      setModal(
-        <AddLoanpayment isOpen={true} id={id} customer={props.customer} />
-      )
-    );
   };
 
   const RenderFooter = (controls) => {
@@ -85,26 +73,6 @@ function LoanStatement(props) {
         id="model-new-pass"
         size="xl"
         footer={RenderFooter}>
-        <div className="row row-sm">
-          <div className="col-lg-12 col-md-12 mx-10">
-            <div
-              style={{
-                float: "right",
-                marginBottom: "20px",
-              }}
-              className="col-lg-2 col-md-2">
-              <div className="form-group mb-0">
-                <button
-                  type="button"
-                  onClick={() => handleModal2()}
-                  className="btn col-lg -12 rounded-50 col-md-12 btn-warning">
-                  + add payment
-                </button>
-              </div>
-            </div>
-          </div>
-          <br />
-        </div>
         <div
           id="printablediv"
           className="mb-4 "
@@ -124,7 +92,6 @@ function LoanStatement(props) {
           {/* Row */}
           <div className="row row-sm">
             <div className="card custom-card  col-lg-12 col-md-12 col-xl-12 pt-4">
-              {modal}
               <div className="">
                 <h3 className="text-center">SERENITY MICROFINANCE LIMITED</h3>
 
@@ -253,8 +220,13 @@ function LoanStatement(props) {
                             <td>3</td>
                           </tr> */}
                           <tr>
+                            <th scope="row">payment plan</th>
+
+                            <td>{Loaned && Loaned.installment_type}</td>
+                          </tr>
+                          <tr>
                             <th scope="row">period of payment</th>
-                            <td>{Loaned && Loaned.duration}(days)</td>
+                            <td>{Loaned && Loaned.duration}</td>
                           </tr>
                         </tbody>
                       </table>
