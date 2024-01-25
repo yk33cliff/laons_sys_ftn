@@ -158,10 +158,10 @@ function LoansReports() {
                                     <th>Customer </th>
                                     <th>Loan Type</th>
                                     <th>Loan principal</th>
-                                    <th>
+                                    {/* <th>
                                       principal paid <br />
                                       back
-                                    </th>
+                                    </th> */}
                                   </tr>
                                 </thead>
 
@@ -174,7 +174,7 @@ function LoansReports() {
                                           <td>{repo.id.customer_id}</td>
                                           <td>{repo.id.loan_type}</td>
                                           <td>{repo.principal_invo}</td>
-                                          <td>{repo.returned_principal}</td>
+                                          {/* <td>{repo.returned_principal}</td> */}
                                         </tr>
                                       </>
                                     ))}
