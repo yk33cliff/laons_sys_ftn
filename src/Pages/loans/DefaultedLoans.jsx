@@ -25,7 +25,7 @@ function DefaultedLoans() {
   };
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 10; // Change this value based on your preference
+  const itemsPerPage = 20; // Change this value based on your preference
 
   const handlePageClick = (data) => {
     setCurrentPage(data.selected);

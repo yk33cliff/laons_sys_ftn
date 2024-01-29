@@ -52,7 +52,7 @@ function GetLoanReciept() {
   };
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 15;
+  const itemsPerPage = 20;
 
   const handlePageClick = (data) => {
     setCurrentPage(data.selected);
@@ -98,7 +98,7 @@ function GetLoanReciept() {
                                     className="form-control text-success"
                                   />
                                 </span>
-                              </div>{" "}
+                              </div>
                             </div>
                           </div>
                           <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">

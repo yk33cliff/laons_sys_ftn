@@ -22,7 +22,7 @@ function LoanTransactions(props) {
   };
   // pagination workings
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 15; // Change this value based on your preference
+  const itemsPerPage = 20; // Change this value based on your preference
 
   const offset = currentPage * itemsPerPage;
   const paginatedItems = Array.isArray(items)

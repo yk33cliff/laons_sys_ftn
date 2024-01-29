@@ -337,7 +337,6 @@ function LoanSlip(props) {
                                 <tr>
                                   <td>loan balance </td>
                                   <td className="text-primary">
-                                    {" "}
                                     {Loaned && Loaned.loanBalance}
                                   </td>
                                 </tr>

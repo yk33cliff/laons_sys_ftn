@@ -15,7 +15,7 @@ function LoanManagement(props) {
   }, []);
   const [loan, setLoan] = useState("");
   const [modal, setModal] = useStateCallback(false);
-  console.log(loan);
+  // console.log(loan);
 
   const handleModal2 = (e) => {
     setModal(false, () =>
@@ -105,7 +105,7 @@ function LoanManagement(props) {
                             style={{
                               color: "grey",
                             }}>
-                            <u>{loan && loan.duration} (days)</u>
+                            <u>{loan && loan.duration} </u>
                           </span>
                         </p>
                         <p>
@@ -136,8 +136,7 @@ function LoanManagement(props) {
                             <u>{loan && loan.monitoring_fees}</u>
                           </span>
                         </p>
-                      </div>
-                      <div className="col-6">
+
                         <label className="main-content-label my-auto pt-2">
                           customer
                         </label>
@@ -148,12 +147,15 @@ function LoanManagement(props) {
                               color: "grey",
                             }}>
                             <u>
-                              {loan && loan.customer_id.names.first_name} &nbsp;{" "}
+                              {loan && loan.customer_id.names.first_name} &nbsp;
                               {loan && loan.customer_id.names.last_name}
                             </u>
                           </span>
                         </p>
-
+                        <br />
+                        <br />
+                      </div>
+                      <div className="col-6">
                         <label className="main-content-label my-auto pt-2">
                           Served by
                         </label>
@@ -165,7 +167,7 @@ function LoanManagement(props) {
                             }}>
                             <u>
                               {loan && loan.created_by.first_name} &nbsp;
-                              {loan && loan.created_by.last_name}{" "}
+                              {loan && loan.created_by.last_name}
                             </u>
                           </span>
                         </p>
@@ -201,14 +203,14 @@ function LoanManagement(props) {
                             </td>
                           </tr>
                           <tr>
-                            <td>Loan interest</td>
+                            <td> Interest on Principal</td>
                             <td>
                               <i className="cc BTC-alt text-warning" />
                               <u>{loan && loan.interest}</u>
                             </td>
                           </tr>
                           <tr>
-                            <td>Loan monitoring_fees</td>
+                            <td>monitoring_fees on Principal</td>
                             <td>
                               <i className="cc BTC-alt text-warning" />
                               <u>{loan && loan.monitorin_fee}</u>
@@ -236,6 +238,18 @@ function LoanManagement(props) {
                             <td> Loan balance </td>
                             <td>
                               <u>{loan && loan.loanBalance}</u>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td> Loan start date </td>
+                            <td>
+                              <u>{loan && loan.date_requested}</u>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td> dead Line </td>
+                            <td>
+                              <u>{loan && loan.deadline}</u>
                             </td>
                           </tr>
                         </tbody>

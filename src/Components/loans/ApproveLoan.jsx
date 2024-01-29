@@ -203,7 +203,6 @@ function ApproveLoan(props) {
                                 </button>
                               </td>
                               <td>
-                                {" "}
                                 <p>{security.added_by}</p>
                               </td>
                             </tr>
@@ -224,7 +223,7 @@ function ApproveLoan(props) {
           {/* <div className="col-sm-12  col-md- col-lg-12 col-xl-12 mt-xl-4">
             <div className="form-group">
               <label className="mg-b-10">
-                <u>Already existing comment</u>{" "}
+                <u>Already existing comment</u>
               </label>
             </div>
           </div> */}

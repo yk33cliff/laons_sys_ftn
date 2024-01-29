@@ -20,7 +20,6 @@ function UserProfile(props) {
   };
   return (
     <div>
-      {" "}
       <SystemModal
         title="user profile"
         id="model-new-pass"
@@ -73,11 +72,11 @@ function UserProfile(props) {
                       <div className="media">
                         <div className="media-body">
                           <div>
-                            <label>Name</label>{" "}
+                            <label>Name</label>
                             <span className="tx-medium">{props.id.name}</span>
                           </div>
                           <div>
-                            <label>contact</label>{" "}
+                            <label>contact</label>
                             <span className="tx-medium">
                               {props.id.contact}
                             </span>
@@ -87,13 +86,13 @@ function UserProfile(props) {
                       <div className="media">
                         <div className="media-body">
                           <div>
-                            <label>Location</label>{" "}
+                            <label>Location</label>
                             <span className="tx-medium">
                               {props.id.location}
                             </span>
                           </div>
                           <div>
-                            <label>Email</label>{" "}
+                            <label>Email</label>
                             <span className="tx-medium">{props.id.email}</span>
                           </div>
                         </div>
@@ -101,11 +100,11 @@ function UserProfile(props) {
                       <div className="media">
                         <div className="media-body">
                           <div>
-                            <label>nin</label>{" "}
+                            <label>nin</label>
                             <span className="tx-medium">Cm191911010ghf</span>
                           </div>
                           <div>
-                            <label>UserName</label>{" "}
+                            <label>UserName</label>
                             <span className="tx-medium">
                               {props.id.username}
                             </span>

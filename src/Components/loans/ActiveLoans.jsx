@@ -142,7 +142,7 @@ function ActiveLoans() {
                     <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
                       <div className="card custom-card card-dashboard-calendar pb-0">
                         <label className="main-content-label mb-2 pt-1">
-                          Today's expected Installments Transactions
+                          Daily installments Loans
                         </label>
                         <div className="card-body">
                           <div className="table-responsive">
@@ -159,17 +159,17 @@ function ActiveLoans() {
                                   <th>start date </th>
                                   <th>
                                     Loan <br />
-                                    duration{" "}
+                                    duration
                                   </th>
                                   <th>
                                     Loan <br /> Balance
                                   </th>
                                   <th>
-                                    Deadline <br /> date{" "}
+                                    Deadline <br /> date
                                   </th>
                                   <th>
                                     more <br />
-                                    Details{" "}
+                                    Details
                                   </th>
                                   <th>
                                     loan <br /> documentation
@@ -195,7 +195,7 @@ function ActiveLoans() {
                                       <td>{key + 1}</td>
 
                                       <td>
-                                        {loan.customer_id.names.first_name}{" "}
+                                        {loan.customer_id.names.first_name}
                                         &nbsp;
                                         {loan.customer_id.names.last_name}
                                       </td>
@@ -321,17 +321,17 @@ function ActiveLoans() {
                                   <th>start date </th>
                                   <th>
                                     Loan <br />
-                                    duration{" "}
+                                    duration
                                   </th>
                                   <th>
                                     Loan <br /> Balance
                                   </th>
                                   <th>
-                                    Deadline <br /> date{" "}
+                                    Deadline <br /> date
                                   </th>
                                   <th>
                                     more <br />
-                                    Details{" "}
+                                    Details
                                   </th>
                                   <th>
                                     loan <br /> documentation
@@ -357,7 +357,7 @@ function ActiveLoans() {
                                       <td>{key + 1}</td>
 
                                       <td>
-                                        {loan.customer_id.names.first_name}{" "}
+                                        {loan.customer_id.names.first_name}
                                         &nbsp;
                                         {loan.customer_id.names.last_name}
                                       </td>
@@ -480,17 +480,17 @@ function ActiveLoans() {
                                   <th>start date </th>
                                   <th>
                                     Loan <br />
-                                    duration{" "}
+                                    duration
                                   </th>
                                   <th>
                                     Loan <br /> Balance
                                   </th>
                                   <th>
-                                    Deadline <br /> date{" "}
+                                    Deadline <br /> date
                                   </th>
                                   <th>
                                     more <br />
-                                    Details{" "}
+                                    Details
                                   </th>
                                   <th>
                                     loan <br /> documentation
@@ -517,7 +517,7 @@ function ActiveLoans() {
                                       <td>{key + 1}</td>
 
                                       <td>
-                                        {loan.customer_id.names.first_name}{" "}
+                                        {loan.customer_id.names.first_name}
                                         &nbsp;
                                         {loan.customer_id.names.last_name}
                                       </td>

@@ -25,7 +25,7 @@ function CompletedLoans() {
   };
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 10; // Change this value based on your preference
+  const itemsPerPage = 20; // Change this value based on your preference
 
   const handlePageClick = (data) => {
     setCurrentPage(data.selected);
@@ -47,7 +47,7 @@ function CompletedLoans() {
                 <div className="card custom-card">
                   <div className="card-header border-bottom-0">
                     <label className="main-content-label my-auto pt-2">
-                      Loan totaly paid off
+                      Completed loans
                     </label>
                   </div>
                   <Toaster />

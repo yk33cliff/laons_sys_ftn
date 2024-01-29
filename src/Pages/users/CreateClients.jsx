@@ -262,7 +262,6 @@ function CreateClients() {
                                 </div>
                               </div>
                               <div className="col-12">
-                                {" "}
                                 <div className="form-group">
                                   <label className="mg-b-10">email </label>
                                   <input

@@ -79,20 +79,20 @@ function LoanSheet(props) {
                         * */}
                           <p>Amount:: &nbsp;&nbsp;&nbsp; {raw.amount}</p>
                           <p>
-                            interest rate:: &nbsp;&nbsp;&nbsp;{" "}
+                            interest rate:: &nbsp;&nbsp;&nbsp;
                             {raw.interestRate}%
                           </p>
                           <p>
-                            Monitoring fee rate:: &nbsp;&nbsp;&nbsp;{" "}
+                            Monitoring fee rate:: &nbsp;&nbsp;&nbsp;
                             {raw.monitoring}%
                           </p>
                           <p>dururation:: &nbsp;&nbsp;&nbsp; {raw.duration}</p>
                           <p>
-                            Application Fees_rate:: &nbsp;&nbsp;&nbsp;{" "}
+                            Application Fees_rate:: &nbsp;&nbsp;&nbsp;
                             {raw.application_rate}%
                           </p>
                           <p>
-                            Processing Fees rate:: &nbsp;&nbsp;&nbsp;{" "}
+                            Processing Fees rate:: &nbsp;&nbsp;&nbsp;
                             {raw.processingFees}%
                           </p>
                           <p>
@@ -100,7 +100,7 @@ function LoanSheet(props) {
                             %
                           </p>
                           <p>
-                            installment type:: &nbsp;&nbsp;&nbsp;{" "}
+                            installment type:: &nbsp;&nbsp;&nbsp;
                             {raw.installment}
                           </p>
                         </div>

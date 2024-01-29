@@ -118,7 +118,6 @@ function ViewSecurities(props) {
                                 </button>
                               </td>
                               <td>
-                                {" "}
                                 <p>{security.added_by}</p>
                               </td>
                             </tr>

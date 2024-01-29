@@ -45,6 +45,9 @@ function Dashboard() {
     active_loans_number();
     get_recent_Transactions();
     get_monitoring_fees_earned();
+    get_processing_fee_earnings();
+    get_insurance_earnings();
+    get_TiedUpPrincipal();
   }, []);
   const id = functions.sessionGuard();
   const get_recent_Transactions = async () => {
@@ -58,6 +61,39 @@ function Dashboard() {
       setTrans(server_response.details);
     } else {
       setTrans("");
+    }
+  };
+
+  const [process, setProcess] = useState("");
+  const get_processing_fee_earnings = async () => {
+    const server_response = await ajaxDashboard.get_Processing_fees_earnings();
+
+    if (server_response.status === "OK") {
+      setProcess(server_response.details);
+    } else {
+      setProcess("");
+    }
+  };
+
+  const [insuranceE, setInsuranceE] = useState("");
+  const get_insurance_earnings = async () => {
+    const server_response = await ajaxDashboard.get_loan_insurance_earnings();
+
+    if (server_response.status === "OK") {
+      setInsuranceE(server_response.details);
+    } else {
+      setInsuranceE("");
+    }
+  };
+  const [tiedUpPrincipal, setTiedUpPrincipal] = useState("");
+  const get_TiedUpPrincipal = async () => {
+    const server_response =
+      await ajaxDashboard.get_amount_tied_up_in_principal();
+
+    if (server_response.status === "OK") {
+      setTiedUpPrincipal(server_response.details);
+    } else {
+      setTiedUpPrincipal("");
     }
   };
   const get_application_fees_earnings = async () => {
@@ -108,7 +144,7 @@ function Dashboard() {
     }
   };
   const get_total_fine = async () => {
-    const server_response = await ajaxDashboard.fetchFinesTotal();
+    const server_response = await ajaxDashboard.fetch_total_fine_earnings();
 
     if (server_response.status === "OK") {
       setFines(server_response.details);
@@ -353,7 +389,6 @@ function Dashboard() {
                     <div className="card-item-body">
                       <div className="card-item-stat">
                         <h4 className="font-weight-bold">
-                          {" "}
                           {pending ? pending : 0}
                         </h4>
                         {is_approver == 1 ? (
@@ -396,7 +431,6 @@ function Dashboard() {
                     <div className="card-item-body">
                       <div className="card-item-stat">
                         <h4 className="font-weight-bold">
-                          {" "}
                           {active === 0 ? 0 : active}
                           {/* (Loan) */}
                         </h4>
@@ -497,8 +531,7 @@ function Dashboard() {
                     <div className="card-item-body">
                       <div className="card-item-stat">
                         <h4 className="font-weight-bold">
-                          {" "}
-                          {fines > 0 ? fines : 0}
+                          {fines ? fines : 0}
                         </h4>
                         <small>
                           <br />
@@ -566,7 +599,6 @@ function Dashboard() {
                     <div className="card-item-body">
                       <div className="card-item-stat">
                         <h4 className="font-weight-bold">
-                          {" "}
                           {monitoring ? monitoring : 0}
                         </h4>
                         <small>
@@ -578,7 +610,106 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-            {/* total interest earning fees earnings */}
+            {/*  total loan tied up principal*/}
+            <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
+              <div className="card m-1">
+                <div className="card-body">
+                  <div className="card-item">
+                    <div className="card-item-icon card-icon">
+                      <FontAwesomeIcon
+                        icon={faDollarSign}
+                        bounce
+                        style={{color: "orange"}}
+                      />
+                    </div>
+                    <div className="card-item-title mb-2">
+                      <label className="main-content-label tx-13 font-weight-bold mb-1">
+                        total Amount tied up principal
+                      </label>
+                      <span className="d-block tx-12 mb-0 text-muted">
+                        loaned principal not paid yet
+                      </span>
+                    </div>
+                    <div className="card-item-body">
+                      <div className="card-item-stat">
+                        <h4 className="font-weight-bold">
+                          {tiedUpPrincipal ? tiedUpPrincipal : 0}
+                        </h4>
+                        <small>
+                          <br />
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
+              <div className="card m-1">
+                <div className="card-body">
+                  <div className="card-item">
+                    <div className="card-item-icon card-icon">
+                      <FontAwesomeIcon
+                        icon={faDollarSign}
+                        bounce
+                        style={{color: "orange"}}
+                      />
+                    </div>
+                    <div className="card-item-title mb-2">
+                      <label className="main-content-label tx-13 font-weight-bold mb-1">
+                        total Processing Fees earned
+                      </label>
+                      <span className="d-block tx-12 mb-0 text-muted">
+                        Processing fees
+                      </span>
+                    </div>
+                    <div className="card-item-body">
+                      <div className="card-item-stat">
+                        <h4 className="font-weight-bold">
+                          {process ? process : 0}
+                        </h4>
+                        <small>
+                          <br />
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
+              <div className="card m-1">
+                <div className="card-body">
+                  <div className="card-item">
+                    <div className="card-item-icon card-icon">
+                      <FontAwesomeIcon
+                        icon={faDollarSign}
+                        bounce
+                        style={{color: "orange"}}
+                      />
+                    </div>
+                    <div className="card-item-title mb-2">
+                      <label className="main-content-label tx-13 font-weight-bold mb-1">
+                        TOTAL INSURANCE FEES EARNINGS
+                      </label>
+                      <span className="d-block tx-12 mb-0 text-muted">
+                        insurance fees
+                      </span>
+                    </div>
+                    <div className="card-item-body">
+                      <div className="card-item-stat">
+                        <h4 className="font-weight-bold">
+                          {insuranceE ? insuranceE : 0}
+                        </h4>
+                        <small>
+                          <br />
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             {/* <div className="col-lg-3 col-xl-3 col-xxl-3 col-md-3 col-12">
               <div className="card m-1">
                 <div className="card-body">
@@ -592,17 +723,16 @@ function Dashboard() {
                     </div>
                     <div className="card-item-title mb-2">
                       <label className="main-content-label tx-13 font-weight-bold mb-1">
-                        total loantied up principal
+                        TOTAL INSURANCE FEES EARNINGS
                       </label>
                       <span className="d-block tx-12 mb-0 text-muted">
-                        loaned principal
+                        insurance fees
                       </span>
                     </div>
                     <div className="card-item-body">
                       <div className="card-item-stat">
                         <h4 className="font-weight-bold">
-                          XXXXXXXX
-                          
+                          {insuranceE ? insuranceE : 0}
                         </h4>
                         <small>
                           <br />
@@ -651,7 +781,7 @@ function Dashboard() {
                                     className="form-control text-success"
                                   />
                                 </span>
-                              </div>{" "}
+                              </div>
                             </div>
                           </div>
                           <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 mt-2">

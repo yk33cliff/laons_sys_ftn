@@ -100,7 +100,7 @@ function LoanCashReceipt(props) {
                         <div className="col-lg-6"></div>
                         <div className="col-lg-6">
                           <p className="float-start main-content-label  p-3 mb-0 mt-2">
-                            Receipt NO.{" "}
+                            Receipt NO.
                             <span className="text-danger">seren0{data.id}</span>
                           </p>
                           <p className="float-start main-content-label mb-0 mt-2">
@@ -127,7 +127,7 @@ function LoanCashReceipt(props) {
                           <br />
 
                           <p>
-                            Paid By : <span>{data.customer}</span>{" "}
+                            Paid By : <span>{data.customer}</span>
                           </p>
                           <p>
                             Received By : <span>{data.added_by}</span>
