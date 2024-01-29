@@ -38,7 +38,7 @@ function LoanSheet(props) {
       <SystemModal
         title="Loan projection"
         id="model-update-cross"
-        size="lg "
+        size="xl "
         footer={RenderFooter}>
         {/* <Toaster /> */}
         <div className="" id="printablediv">
@@ -79,14 +79,14 @@ function LoanSheet(props) {
                         * */}
                           <p>Amount:: &nbsp;&nbsp;&nbsp; {raw.amount}</p>
                           <p>
-                            interest rate:: &nbsp;&nbsp;&nbsp;
+                            Interest Rate:: &nbsp;&nbsp;&nbsp;
                             {raw.interestRate}%
                           </p>
                           <p>
-                            Monitoring fee rate:: &nbsp;&nbsp;&nbsp;
+                            Monitoring Fee rate:: &nbsp;&nbsp;&nbsp;
                             {raw.monitoring}%
                           </p>
-                          <p>dururation:: &nbsp;&nbsp;&nbsp; {raw.duration}</p>
+                          <p>Duration:: &nbsp;&nbsp;&nbsp; {raw.duration}</p>
                           <p>
                             Application Fees_rate:: &nbsp;&nbsp;&nbsp;
                             {raw.application_rate}%
@@ -100,34 +100,38 @@ function LoanSheet(props) {
                             %
                           </p>
                           <p>
-                            installment type:: &nbsp;&nbsp;&nbsp;
+                            Installment Type:: &nbsp;&nbsp;&nbsp;
                             {raw.installment}
+                          </p>
+                          <p>
+                            Possible Deadline :: &nbsp;&nbsp;&nbsp;
+                            {projection.deadLine}
                           </p>
                         </div>
                         <div className="col-lg-6">
-                          <label htmlFor="">Loan projection</label>
+                          <label htmlFor="">Loan Projection</label>
                           <p>
-                            interest :: &nbsp;&nbsp;&nbsp; {projection.interest}
+                            Interest :: &nbsp;&nbsp;&nbsp; {projection.interest}
                           </p>
                           <p>
-                            Monitoring fee :: &nbsp;&nbsp;&nbsp;
-                            {projection.monitoring_fees}
+                            Monitoring Fees:: &nbsp;&nbsp;&nbsp;
+                            {projection.monitoring_Fees}
                           </p>
                           <p>
-                            Application fees :: &nbsp;&nbsp;&nbsp;
+                            Application Fees :: &nbsp;&nbsp;&nbsp;
                             {projection.application_rate}
                           </p>
                           <p>
-                            processing fees :: &nbsp;&nbsp;&nbsp;
-                            {projection.processing_fees}
+                            Processing Fees :: &nbsp;&nbsp;&nbsp;
+                            {projection.processing_Fees}
                           </p>
                           <p>
-                            Insurance fees :: &nbsp;&nbsp;&nbsp;
-                            {projection.insurance_fees}
+                            Insurance Fees :: &nbsp;&nbsp;&nbsp;
+                            {projection.insurance_Fees}
                           </p>
 
                           <p>
-                            payment Instllments:: &nbsp;&nbsp;&nbsp;
+                            Payment Instllments:: &nbsp;&nbsp;&nbsp;
                             {projection.installment}
                           </p>
                           <p>

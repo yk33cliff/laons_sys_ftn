@@ -206,37 +206,36 @@ const Sidebar = (props) => {
                   </a>
                   <ul className="nav-sub">
                     <li className="nav-sub-item">
-                      <a className="nav-sub-link" href="/reports/payments">
-                        payment reports
-                      </a>
-                    </li>
-                    <li className="nav-sub-item">
                       <a
                         className="nav-sub-link"
                         href="/reports/Principal_disbursed">
-                        Pricipal disbursed report
+                        Pricipal Disbursed Report
                       </a>
                     </li>
                     <li className="nav-sub-item">
                       <a
                         className="nav-sub-link"
                         href="/reports/Pricipal_repayment">
-                        Pricipal repayment report
+                        Pricipal Repayment Report
                       </a>
                     </li>
                     <li className="nav-sub-item">
                       <a
                         className="nav-sub-link"
                         href="/reports/Interests_reports">
-                        Interests payments report
+                        Interests Payments Report
                       </a>
                     </li>
                     <li className="nav-sub-item">
                       <a className="nav-sub-link" href="/reports/Fines_report">
-                        Fines report
+                        Fines Report
                       </a>
                     </li>
-
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/reports/payments">
+                        Other Reports
+                      </a>
+                    </li>
                     {/* <li className="nav-sub-item">
                       <a className="nav-sub-link" href="/reports/loan_reports">
                         Loan reports
