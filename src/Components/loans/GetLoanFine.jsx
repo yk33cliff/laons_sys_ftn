@@ -12,8 +12,9 @@ function GetLoanFine(props) {
   }, []);
 
   const delete_fyn = async (id) => {
+    // console.log(id);
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this penalty charge system"
+      "Are you sure you want to delete this penalty charge from the system "
     );
 
     if (confirmDelete) {
@@ -91,16 +92,14 @@ function GetLoanFine(props) {
                                       <td className="text-success">
                                         {item.date_added}
                                       </td>
-                                      <td> {item.date_added}</td>
+
                                       <td> {item.base_amount}</td>
                                       <td> {item.amount}</td>
 
                                       <td>
                                         <button
                                           type="button"
-                                          onClick={() =>
-                                            delete_fyn(item.loan_id)
-                                          }
+                                          onClick={() => delete_fyn(item.id)}
                                           className="badge bg-danger-light bg-pill">
                                           delete
                                         </button>

@@ -60,7 +60,6 @@ export default function AppContainer(props) {
                     Copyright © {new Date().getFullYear()}
                     &nbsp;
                     <a href="https://www.wisecliffed.com/" target="blank">
-                      {" "}
                       ARAKNERD COMPANY LIMITED
                     </a>
                     &nbsp; All rights reserved.

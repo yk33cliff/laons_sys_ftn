@@ -5,12 +5,48 @@ import toast, {Toaster} from "react-hot-toast";
 import ReactPaginate from "react-paginate";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import ajaxDashboard from "../../util/remote/ajaxDashboard";
 function LoansReports() {
   useEffect(() => {
     getApplicationFeesPayments();
     getInsurancePayments();
     getProcessingFeesPayment();
+    get_insurance_earnings();
+    get_application_fees_earnings();
+    get_processing_fee_earnings();
   }, []);
+  const [insuranceE, setInsuranceE] = useState("");
+  const get_insurance_earnings = async () => {
+    const server_response = await ajaxDashboard.get_loan_insurance_earnings();
+
+    if (server_response.status === "OK") {
+      setInsuranceE(server_response.details);
+    } else {
+      setInsuranceE("");
+    }
+  };
+  const [applications, setApplications] = useState("");
+
+  const get_application_fees_earnings = async () => {
+    const server_response = await ajaxDashboard.get_application_fees_earnings();
+
+    if (server_response.status === "OK") {
+      setApplications(server_response.details);
+    } else {
+      setApplications("");
+    }
+  };
+  const [process, setProcess] = useState("");
+
+  const get_processing_fee_earnings = async () => {
+    const server_response = await ajaxDashboard.get_Processing_fees_earnings();
+
+    if (server_response.status === "OK") {
+      setProcess(server_response.details);
+    } else {
+      setProcess("");
+    }
+  };
 
   /**
    *  processing fees works=======================================
@@ -42,7 +78,7 @@ function LoansReports() {
   };
   //pagination
   const [currentPageTable3, setCurrentPageTable3] = useState(0);
-  const itemsPerPageTable3 = 10;
+  const itemsPerPageTable3 = 20;
 
   const handlePageClickTable3 = ({selected}) => {
     setCurrentPageTable3(selected);
@@ -84,7 +120,7 @@ function LoansReports() {
   };
   //pagination
   const [currentPageTable2, setCurrentPageTable2] = useState(0);
-  const itemsPerPageTable2 = 10;
+  const itemsPerPageTable2 = 20;
 
   const handlePageClickTable2 = ({selected}) => {
     setCurrentPageTable2(selected);
@@ -128,7 +164,7 @@ function LoansReports() {
 
   // pagination works
   const [currentPageTable1, setCurrentPageTable1] = useState(0);
-  const itemsPerPageTable1 = 10;
+  const itemsPerPageTable1 = 20;
 
   const handlePageClickTable1 = ({selected}) => {
     setCurrentPageTable1(selected);
@@ -139,15 +175,89 @@ function LoansReports() {
     ? applictaions.slice(offsetTable1, offsetTable1 + itemsPerPageTable1)
     : [];
 
-  // -----------------------
-
-  // ---------------------
-
   return (
     <div>
       <AppContainer title="payments reports">
         <>
           <Toaster />
+          <>
+            {/* Row */}
+            <div className="row row-sm">
+              {/* COL  */}
+              <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div className="card custom-card">
+                  <div className="card-body">
+                    <div className="card-order">
+                      <label className="main-content-label mb-3 pt-1">
+                        Total Insurance fees earnings
+                      </label>
+                      <p className="text-end">
+                        <i className="icon-size mdi mdi-poll-box   float-start text-primary" />
+                        <span className="font-weight-bold">
+                          {" "}
+                          UGX: {insuranceE ? insuranceE : 0}
+                        </span>
+                      </p>
+                      {/* <p className="mb-0 mt-4 text-muted">
+                        Month's earning
+                        <span className="float-end">UGX: 789,300,000</span>
+                      </p> */}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* COL END */}
+              {/* COL  */}
+              <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div className="card custom-card">
+                  <div className="card-body">
+                    <div className="card-order">
+                      <label className="main-content-label mb-3 pt-1">
+                        Total Application fees earnings
+                      </label>
+                      <p className="text-end">
+                        <i className="icon-size mdi mdi-poll-box   float-start text-primary" />
+                        <span className="font-weight-bold">
+                          {" "}
+                          UGX: {applications ? applications : 0}
+                        </span>
+                      </p>
+                      {/* <p className="mb-0 mt-4 text-muted">
+                        Month's earning
+                        <span className="float-end">UGX: 789,300,000</span>
+                      </p> */}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* COL END */}
+              {/* COL  */}
+              <div className="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                <div className="card custom-card">
+                  <div className="card-body">
+                    <div className="card-order">
+                      <label className="main-content-label mb-3 pt-1">
+                        Total Processing fees earnings
+                      </label>
+                      <p className="text-end">
+                        <i className="icon-size mdi mdi-poll-box   float-start text-primary" />
+                        <span className="font-weight-bold">
+                          {" "}
+                          UGX: {process ? process : 0}
+                        </span>
+                      </p>
+                      {/* <p className="mb-0 mt-4 text-muted">
+                        Month's earning
+                        <span className="float-end">UGX: 789,300,000</span>
+                      </p> */}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* COL END */}
+            </div>
+            {/* End Row */}
+          </>
           <div className="row square">
             <div className="col-lg-12 col-md-12">
               <div className="card custom-card">
@@ -221,7 +331,7 @@ function LoansReports() {
                                               className="form-control text-success"
                                             />
                                           </span>
-                                        </div>{" "}
+                                        </div>
                                       </div>
                                     </div>
                                     <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">
@@ -352,7 +462,7 @@ function LoansReports() {
                                               className="form-control text-success"
                                             />
                                           </span>
-                                        </div>{" "}
+                                        </div>
                                       </div>
                                     </div>
                                     <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 mt-2">
@@ -486,7 +596,7 @@ function LoansReports() {
                                               className="form-control text-success"
                                             />
                                           </span>
-                                        </div>{" "}
+                                        </div>
                                       </div>
                                     </div>
                                     <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">

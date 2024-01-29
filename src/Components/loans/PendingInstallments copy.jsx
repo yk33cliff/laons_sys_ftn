@@ -150,7 +150,7 @@ function PendingInstallments() {
                                   <th>date </th>
                                   <th>
                                     days <br />
-                                    to payment{" "}
+                                    to payment
                                   </th>
                                   <th>remaining_installments </th>
                                 </tr>
@@ -201,7 +201,7 @@ function PendingInstallments() {
                                   <th>date </th>
                                   <th>
                                     days <br />
-                                    to payment{" "}
+                                    to payment
                                   </th>
                                   <th>remaining_installments </th>
                                 </tr>

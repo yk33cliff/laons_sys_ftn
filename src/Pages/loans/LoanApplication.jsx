@@ -33,7 +33,7 @@ function LoanApplication() {
   const [application_rate, setApplication_rate] = useState("");
   const [method, setMethod] = useState("");
   const [Start, setStart] = useState("");
-  const [endDate, setEnddate] = useState("");
+  // const [endDate, setEnddate] = useState("");
   const [isChecked, setChecked] = useState(false);
 
   // Event handler for checkbox change
@@ -76,7 +76,7 @@ function LoanApplication() {
       //   );
       //   return false;
       // }
-      if ((isChecked && endDate.length < 0) || Start.length < 0) {
+      if (isChecked && Start.length < 0) {
         alert("for old loans,start date and end date is required");
         return false;
       }
@@ -97,7 +97,7 @@ function LoanApplication() {
         installment_type: installment,
         monitoring: monitoring,
         record: isChecked,
-        endDate: endDate,
+        // endDate: endDate,
         Start: Start,
       };
       const server_response = await ajaxLaons.CreateLoanApplication(formData);
@@ -225,7 +225,7 @@ function LoanApplication() {
                         <div className="col-md-6">
                           <div className="form-group">
                             <label className="mg-b-10">
-                              Payment Period(In days)
+                              Payment Period matching selected payment type
                             </label>
                             <input
                               type="text"
@@ -441,7 +441,7 @@ function LoanApplication() {
                           </div>
                         </div>
 
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                           <div className="form-group">
                             <label className="mg-b-10">End Date </label>
                             <input
@@ -451,7 +451,7 @@ function LoanApplication() {
                               onChange={(e) => setEnddate(e.target.value)}
                             />
                           </div>
-                        </div>
+                        </div> */}
 
                         {/* </>
                       // ) : null} */}
@@ -474,9 +474,7 @@ function LoanApplication() {
                                 }
                               }}
                             />
-                            <label>
-                              Check there if the loan is old record loan
-                            </label>
+                            <label>the loan is a old record</label>
                             {/* The 'checked' attribute is controlled by the 'isChecked' state */}
                           </div>
                         </div>

@@ -14,7 +14,7 @@ export default {
     let response = await apiCall("dashboard/get_clients_number");
     return response;
   },
-  async fetchFinesTotal() {
+  async fetch_total_fine_earnings() {
     let response = await apiCall("dashboard/total/fines");
     return response;
   },
@@ -48,6 +48,18 @@ export default {
   },
   async fetch_monitoring_fees_earned() {
     let response = await apiCall("dashboard/get/monitoring/fees");
+    return response;
+  },
+  async get_loan_insurance_earnings() {
+    let response = await apiCall("dashboard/get/Insurance_earnings");
+    return response;
+  },
+  async get_Processing_fees_earnings() {
+    let response = await apiCall("dashboard/get/processing_earnings");
+    return response;
+  },
+  async get_amount_tied_up_in_principal() {
+    let response = await apiCall("dashboard/get/tiedUpLoans");
     return response;
   },
   //   async enableUser(user_id) {

@@ -130,7 +130,7 @@ function LoanStatement(props) {
                                 <th scope="row">Name</th>
                                 <td>
                                   {Loaned &&
-                                    Loaned.customer_id.names.first_name}{" "}
+                                    Loaned.customer_id.names.first_name}
                                   &nbsp;
                                   {Loaned && Loaned.customer_id.names.last_name}
                                 </td>
@@ -196,7 +196,6 @@ function LoanStatement(props) {
                   <div className="row">
                     <div className="col-lg-4 col-md-4 col-xl-4 col-sm-4"></div>
                     <div className="col-lg-4 col-md-4 col-xl-4 col-sm-4">
-                      {" "}
                       <table className="table mb-0 border-top table-bordered text-nowrap">
                         <tbody>
                           <tr>
@@ -232,7 +231,6 @@ function LoanStatement(props) {
                       </table>
                     </div>
                     <div className="col-lg-4 col-md-4 col-xl-2 col-sm-2">
-                      {" "}
                       <table className="table  border-top table-bordered text-nowrap">
                         <tbody>
                           <tr>
@@ -251,7 +249,7 @@ function LoanStatement(props) {
                       </table>
                     </div>
                   </div>
-                </div>{" "}
+                </div>
               </div>
             </div>
           </div>

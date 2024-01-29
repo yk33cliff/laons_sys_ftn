@@ -28,56 +28,56 @@ function ViewLoanDetails(props) {
         {/* <Toaster /> */}
         <div className="col-lg-12 col-md-12">
           <p>
-            customer::{" "}
+            customer::
             <u>
               <span>{details.customer_id.names.first_name}</span>
               <span>{details.customer_id.names.last_name}</span>
             </u>
           </p>
           <p>
-            Loan TYpe::{" "}
+            Loan TYpe::
             <u>
               <span>{details.loan_type}</span>
             </u>
           </p>
           <p>
-            Loan Amount::{" "}
+            Loan Amount::
             <u>
               <span>{details.amount}/=</span>
             </u>
           </p>
           <p>
-            Loan duration::{" "}
+            Loan duration::
             <u>
               <span>{details.duration}(days)</span>
             </u>
           </p>
           <p>
-            Loan interest_rate::{" "}
+            Loan interest_rate::
             <u>
               <span>{details.interest_rate}%</span>
             </u>
           </p>
           <p>
-            Loan monitoring_fees_rate::{" "}
+            Loan monitoring_fees_rate::
             <u>
               <span>{details.monitoring_fees}%</span>
             </u>
           </p>
           <p>
-            Loan processing_fee_rate::{" "}
+            Loan processing_fee_rate::
             <u>
               <span>{details.processing_fee_rate}%</span>
             </u>
           </p>
           <p>
-            Loan insurance_rate::{" "}
+            Loan insurance_rate::
             <u>
               <span>{details.insurance_rate}%</span>
             </u>
           </p>
           <p>
-            Loan fine_rate::{" "}
+            Loan fine_rate::
             <u>
               <span>{details.fine_rate}%</span>
             </u>

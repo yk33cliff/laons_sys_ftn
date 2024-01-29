@@ -30,6 +30,10 @@ import CompletedLoans from "./Pages/loans/CompletedLoans";
 import DefaultedLoans from "./Pages/loans/DefaultedLoans";
 import PaymentReports from "./Pages/loans/PaymentReports";
 import LoansReports from "./Pages/loans/LoansReports";
+import PrincipalDIsbusted from "./Pages/loans/PrincipalDIsbusted";
+import InterestReport from "./Pages/loans/InterestReport";
+import FinesReport from "./Pages/loans/FinesReport";
+import PrincipalRepayment from "./Pages/loans/PrincipalRepayment";
 
 function App(props) {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -103,6 +107,19 @@ function App(props) {
               <Route path="/Loans/defaulted" element={<DefaultedLoans />} />
               <Route path="/reports/payments" element={<PaymentReports />} />
               <Route path="/reports/loan_reports" element={<LoansReports />} />
+              <Route
+                path="/reports/Principal_disbursed"
+                element={<PrincipalDIsbusted />}
+              />
+              <Route
+                path="/reports/Pricipal_repayment"
+                element={<PrincipalRepayment />}
+              />
+              <Route
+                path="/reports/Interests_reports"
+                element={<InterestReport />}
+              />
+              <Route path="/reports/Fines_report" element={<FinesReport />} />
               <Route
                 path="/Loans/pending_installments"
                 element={<PendingInstallments />}

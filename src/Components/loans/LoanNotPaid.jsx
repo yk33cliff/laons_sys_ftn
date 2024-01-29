@@ -22,7 +22,7 @@ function LoanNotPaid() {
 
   return (
     <div>
-      <AppContainer title="expected installments for this week ">
+      <AppContainer title="Installments Defaulted">
         <>
           <div className="row square">
             <div className="col-lg-12 col-md-12">
@@ -63,7 +63,7 @@ function LoanNotPaid() {
                     <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
                       <div className="card custom-card card-dashboard-calendar pb-0">
                         <label className="main-content-label mb-2 pt-1">
-                          Today's expected Installments Transactions
+                          Installments Defaulted
                         </label>
                         <div className="card-body">
                           <div className="table-responsive">

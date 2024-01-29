@@ -150,7 +150,6 @@ function ViewClientNextOfKin(props) {
 
         {!Kin && (
           <p className="text-danger text-center">
-            {" "}
             user has no registered next of kin
           </p>
         )}

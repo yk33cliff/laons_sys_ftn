@@ -142,7 +142,7 @@ function ViewGuarantors(props) {
                                         icon={faTrash}
                                         fade
                                         style={{color: "red"}}
-                                      />{" "}
+                                      />
                                       Delete
                                     </button>
                                   </td>

@@ -211,10 +211,37 @@ const Sidebar = (props) => {
                       </a>
                     </li>
                     <li className="nav-sub-item">
+                      <a
+                        className="nav-sub-link"
+                        href="/reports/Principal_disbursed">
+                        Pricipal disbursed report
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a
+                        className="nav-sub-link"
+                        href="/reports/Pricipal_repayment">
+                        Pricipal repayment report
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a
+                        className="nav-sub-link"
+                        href="/reports/Interests_reports">
+                        Interests payments report
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a className="nav-sub-link" href="/reports/Fines_report">
+                        Fines report
+                      </a>
+                    </li>
+
+                    {/* <li className="nav-sub-item">
                       <a className="nav-sub-link" href="/reports/loan_reports">
                         Loan reports
                       </a>
-                    </li>
+                    </li> */}
                   </ul>
                 </li>
                 <RenderSecure code="USER-PRINT">
