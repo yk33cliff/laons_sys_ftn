@@ -12,7 +12,7 @@ import LoanTYpes from "./Components/loans/LoanTYpes";
 import CreateUser from "./Pages/users/CreateUser";
 import ViewLoanApplications from "./Pages/loans/ViewLoanApplications";
 import ActiveLoans from "./Components/loans/ActiveLoans";
-import PendingInstallments from "./Components/loans/PendingInstallments";
+// import PendingInstallments from "./Components/loans/PendingInstallments";
 import LoanApplication from "./Pages/loans/LoanApplication";
 import SuperProvider from "./Context/SuperProvider";
 import ViewAllClients from "./Pages/users/ViewAllClients";
@@ -34,6 +34,10 @@ import PrincipalDIsbusted from "./Pages/loans/PrincipalDIsbusted";
 import InterestReport from "./Pages/loans/InterestReport";
 import FinesReport from "./Pages/loans/FinesReport";
 import PrincipalRepayment from "./Pages/loans/PrincipalRepayment";
+import DailyPendingInstallation from "./Pages/loans/DailyPendingInstallation";
+import WeeklyPendingInstallation from "./Pages/loans/WeeklyPendingInstallation";
+import MonthlyPendingInstallation from "./Pages/loans/MonthlyPendingInstallation";
+import FortnightPendingInstallation from "./Pages/loans/FortnightPendingInstallation";
 
 function App(props) {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -120,9 +124,25 @@ function App(props) {
                 element={<InterestReport />}
               />
               <Route path="/reports/Fines_report" element={<FinesReport />} />
-              <Route
+              {/* <Route
                 path="/Loans/pending_installments"
                 element={<PendingInstallments />}
+              /> */}
+              <Route
+                path="/Loans/pending_installments_daily"
+                element={<DailyPendingInstallation />}
+              />
+              <Route
+                path="/Loans/pending_installments_weekly"
+                element={<WeeklyPendingInstallation />}
+              />
+              <Route
+                path="/Loans/pending_installments_Fortnight"
+                element={<FortnightPendingInstallation />}
+              />
+              <Route
+                path="/Loans/pending_installments_monthly"
+                element={<MonthlyPendingInstallation />}
               />
               <Route path="/Installment/not_paid" element={<LoanNotPaid />} />
               <Route path="users/permissions" element={<UserPermissions />} />

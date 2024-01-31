@@ -1,17 +1,21 @@
 import React, {useEffect, useState} from "react";
-import AppContainer from "../Structure/AppContainer";
+import AppContainer from "../../Components/Structure/AppContainer";
 import ajaxLaons from "../../util/remote/ajaxLaons";
-import toast from "react-hot-toast";
-import {RenderSecure} from "../../util/script/RenderSecure";
+import toast, {Toaster} from "react-hot-toast";
 
-function LoanNotPaid() {
+function FortnightPendingInstallation() {
   useEffect(() => {
-    getInstoNotPaid();
+    gettodayInstallmentsLoans();
+    getTomorrowsInstallments();
+    getThreeDayInstallmentss();
   }, []);
 
   const [today, setToday] = useState("");
-  const getInstoNotPaid = async () => {
-    const server_response = await ajaxLaons.getInstallmentsNotPaid();
+  const gettodayInstallmentsLoans = async () => {
+    var data = {
+      Installment_type: "fortnight",
+    };
+    const server_response = await ajaxLaons.gettodayInstallmentsLoans(data);
 
     if (server_response.status === "OK") {
       setToday(server_response.details);
@@ -19,11 +23,38 @@ function LoanNotPaid() {
       toast.error(server_response.message);
     }
   };
+  const [monthly, seTmonthly] = useState("");
+  const getThreeDayInstallmentss = async () => {
+    var data = {
+      Installment_type: "fortnight",
+    };
+    const server_response = await ajaxLaons.getThreeDayInstallments(data);
+
+    if (server_response.status === "OK") {
+      seTmonthly(server_response.details);
+    } else if (server_response.status === "Fail") {
+      toast.error(server_response.message);
+    }
+  };
+  const [tomox, setTomox] = useState("");
+  const getTomorrowsInstallments = async () => {
+    var data = {
+      Installment_type: "fortnight",
+    };
+    const server_response = await ajaxLaons.getTomoxInstallments(data);
+
+    if (server_response.status === "OK") {
+      setTomox(server_response.details);
+    } else if (server_response.status === "Fail") {
+      toast.error(server_response.message);
+    }
+  };
 
   return (
     <div>
-      <AppContainer title="Installments Defaulted">
+      <AppContainer title="fortnight installments for this week ">
         <>
+          {/* <Toaster /> */}
           <div className="row square">
             <div className="col-lg-12 col-md-12">
               <div className="card custom-card">
@@ -34,17 +65,20 @@ function LoanNotPaid() {
                         className="nav-link  active"
                         data-bs-toggle="tab"
                         href="#today">
-                        Installments Not paid
+                        today's Installments
                       </a>
-                      {/* <a
+                      <a
                         className="nav-link"
                         data-bs-toggle="tab"
-                        href="#three">
-                        Installments for Tomorrow
+                        href="#tomox">
+                        Tomorrow's Installments
                       </a>
-                      <a className="nav-link" data-bs-toggle="tab" href="#week">
-                        This week's Installments
-                      </a> */}
+                      <a
+                        className="nav-link"
+                        data-bs-toggle="tab"
+                        href="#monthly">
+                        Installments for 2 days from today
+                      </a>
                     </nav>
                   </div>
                 </div>
@@ -63,27 +97,18 @@ function LoanNotPaid() {
                     <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
                       <div className="card custom-card card-dashboard-calendar pb-0">
                         <label className="main-content-label mb-2 pt-1">
-                          Installments Defaulted
+                          expected today Installments
                         </label>
                         <div className="card-body">
                           <div className="table-responsive">
                             <table className="table card-table text-nowrap table-bordered border-top">
                               <thead>
-                                {/*
-            "days_past": "1",
-            "date_expected": "2024-01-14 00:00:00",
-            "remaining_installments": "4"
-        },*/}
                                 <tr>
                                   <th>No.</th>
                                   <th>Customer </th>
                                   <th>contact</th>
-                                  <th>laon_balance</th>
                                   <th>Amount Expected</th>
-                                  <th>date Expected</th>
-                                  <th>days Past</th>
-                                  <th>remaining_installments</th>
-                                  <th> Loan profile</th>
+                                  <th>date </th>
                                 </tr>
                               </thead>
 
@@ -98,24 +123,11 @@ function LoanNotPaid() {
                                         {item.loan_details.last_name}
                                       </td>
                                       <td className="text-success">
-                                        {item.loan_details.contact}
+                                        +{item.loan_details.contact}
                                       </td>
-                                      <td>{item.laon_balance}</td>
                                       <td>{item.amount_expected}</td>
                                       <td>{item.date_expected}</td>
-                                      <td>{item.days_past}</td>
                                       <td>{item.remaining_installments}</td>
-                                      <RenderSecure code="LOANS-STMNT">
-                                        <td>
-                                          <button className="badge  bg-primary-light bg-pill">
-                                            <a
-                                              href={`/LoanManagement/${item.loan_id}`}
-                                              classname="btn badge bg-warning-light bg-pill">
-                                              Loan profile
-                                            </a>
-                                          </button>
-                                        </td>
-                                      </RenderSecure>
                                     </tr>
                                   ))}
                               </tbody>
@@ -125,16 +137,16 @@ function LoanNotPaid() {
                       </div>
                     </div>
                   </div>
-                  {/* <div
+                  <div
                     className="main-content-body tab-pane p-4 border-top-0"
-                    id="three">
+                    id="tomox">
                     <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
                       <div className="card custom-card card-dashboard-calendar pb-0">
                         {/* <label className="main-content-label mb-2 pt-1">
                           Installments Transactions expected three days
-                        </label> * 
+                        </label> */}
                         <label className="main-content-label mb-2 pt-1">
-                          Installments Transactions expected Tomorrow
+                          expected Installments Tomorrow
                         </label>
                         <div className="card-body">
                           <div className="table-responsive">
@@ -146,6 +158,11 @@ function LoanNotPaid() {
                                   <th>contact</th>
                                   <th>Amount Expected</th>
                                   <th>date </th>
+                                  <th>
+                                    days <br />
+                                    to payment
+                                  </th>
+                                  <th>remaining_installments </th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -159,11 +176,11 @@ function LoanNotPaid() {
                                         {item.loan_details.last_name}
                                       </td>
                                       <td className="text-success">
-                                        {item.loan_details.contact}
+                                        +{item.loan_details.contact}
                                       </td>
                                       <td>{item.amount_expected}</td>
-
                                       <td>{item.date_expected}</td>
+                                      <td>{item.days}</td>
                                       <td>{item.remaining_installments}</td>
                                     </tr>
                                   ))}
@@ -173,7 +190,58 @@ function LoanNotPaid() {
                         </div>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
+                  <div
+                    className="main-content-body tab-pane p-4 border-top-0"
+                    id="monthly">
+                    <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
+                      <div className="card custom-card card-dashboard-calendar pb-0">
+                        <label className="main-content-label mb-2 pt-1">
+                          expected Installments 2 day from today
+                        </label>
+                        <div className="card-body">
+                          <div className="table-responsive">
+                            <table className="table card-table text-nowrap table-bordered border-top">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Customer </th>
+                                  <th>contact</th>
+                                  <th>Amount Expected</th>
+                                  <th>date </th>
+                                  <th>
+                                    days <br />
+                                    to payment
+                                  </th>
+                                  <th>remaining_installments </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {monthly &&
+                                  Array.isArray(monthly) &&
+                                  monthly.map((item, key) => (
+                                    <tr key={key}>
+                                      <td>{key + 1}</td>
+                                      <td>
+                                        {item.loan_details.first_name} &nbsp;
+                                        {item.loan_details.last_name}
+                                      </td>
+                                      <td className="text-success">
+                                        +{item.loan_details.contact}
+                                      </td>
+                                      <td>{item.amount_expected}</td>
+                                      <td>{item.date_expected}</td>
+                                      <td>{item.days}</td>
+                                      <td>{item.remaining_installments}</td>
+                                    </tr>
+                                  ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -184,4 +252,4 @@ function LoanNotPaid() {
   );
 }
 
-export default LoanNotPaid;
+export default FortnightPendingInstallation;

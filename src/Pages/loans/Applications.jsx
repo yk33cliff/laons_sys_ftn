@@ -1,7 +1,6 @@
-import React, {useContext, useState} from "react";
+import React, {useEffect, useState} from "react";
 
-import LoansContext from "../../Context/LoansContext";
-import toast, {Toaster} from "react-hot-toast";
+import {Toaster} from "react-hot-toast";
 import useStateCallback from "../../util/customHooks/useStateCallback";
 import AddSecurities from "../../Components/loans/AddSecurities";
 import AddGuarantors from "../../Components/loans/AddGuarantors";
@@ -20,7 +19,26 @@ import DeclineLoan from "../../Components/loans/DeclineLoan";
 import ViewLoanDetails from "./ViewLoanDetails";
 
 function Applications() {
-  const {LoansToApprove, getLoansToApprove} = useContext(LoansContext);
+  const [LoansToApprove, setLoansToApprove] = useState(false);
+  const userId = functions.sessionGuard();
+  const role_id = functions.role_user();
+
+  useEffect(() => {
+    getLoansToApprove();
+    // getActiveLoans();
+  }, []);
+  const getLoansToApprove = async () => {
+    const server_response = await ajaxLaons.fetchLoansToApprove();
+
+    if (server_response.status === "OK") {
+      //store results<></><></>
+      setLoansToApprove(server_response.details);
+    } else {
+      //communicate error
+      setLoansToApprove("404");
+    }
+  };
+
   // Approved_by1;
   const user_id = functions.sessionGuard();
 

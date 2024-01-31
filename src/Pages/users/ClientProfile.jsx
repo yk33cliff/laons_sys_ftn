@@ -154,6 +154,7 @@ function ClientProfile(props) {
 
   useEffect(() => {
     getUserTrans();
+    getUserWalletTransactions();
   }, []);
 
   // //console.log(userLoan);
@@ -221,6 +222,18 @@ function ClientProfile(props) {
       // Handle error
     }
   };
+  const [walletT, setwalletT] = useState("");
+  const getUserWalletTransactions = async () => {
+    const data = {user_id: id};
+
+    const server_response = await ajaxLaons.fetchWalletTransactions(data);
+
+    if (server_response.status === "OK") {
+      setwalletT(server_response.details);
+    } else {
+      toast.error(server_response.message);
+    }
+  };
   // pagination workings
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 20; // Change this value based on your preference
@@ -232,6 +245,18 @@ function ClientProfile(props) {
       : [];
   const handlePageClick = (data) => {
     setCurrentPage(data.selected);
+  };
+  // pagination workings1
+  const [currentPage1, setCurrentPage1] = useState(0);
+  const itemsPerPage1 = 20; // Change this value based on your preference
+
+  const offset1 = currentPage1 * itemsPerPage1; // Fix: Use offset1 here
+  const paginatedItems1 =
+    walletT && Array.isArray(walletT)
+      ? walletT.slice(offset1, offset1 + itemsPerPage1)
+      : [];
+  const handlePageClick1 = (data) => {
+    setCurrentPage1(data.selected);
   };
   return (
     <div>
@@ -307,6 +332,12 @@ function ClientProfile(props) {
                           data-bs-toggle="tab"
                           href="#recent_transaction">
                           recent_transaction
+                        </a>
+                        <a
+                          className="nav-link "
+                          data-bs-toggle="tab"
+                          href="#wallet_transactions">
+                          wallet_transactions
                         </a>
 
                         <a
@@ -637,18 +668,19 @@ function ClientProfile(props) {
                                       <thead>
                                         <tr>
                                           <th>No.</th>
+                                          <th>date</th>
                                           <th>Payment Types</th>
                                           <th>Cash_in</th>
                                           <th>Cash_out</th>
                                           <th>Payment Method</th>
                                           <th>Phone Number</th>
-                                          <th>date</th>
                                         </tr>
                                       </thead>
                                       <tbody>
                                         {paginatedItems.map((loan, key) => (
                                           <tr key={key}>
                                             <td>{key + 1}</td>
+                                            <td>{loan.created_at}</td>
                                             <td>{loan.account}</td>
                                             <td>{loan.cash_in}</td>
                                             <td>{loan.cash_out}</td>
@@ -666,6 +698,72 @@ function ClientProfile(props) {
                                       pageRangeDisplayed={3}
                                       marginPagesDisplayed={1}
                                       onPageChange={handlePageClick}
+                                      containerClassName={"pagination"}
+                                      activeClassName={"active"}
+                                      nextLabel={"Next"}
+                                      previousLabel={"Previous"}
+                                      breakLabel={"..."}
+                                      pageLinkClassName={"page-link"}
+                                      nextClassName={"page-item"}
+                                      nextLinkClassName={"page-link"}
+                                      previousClassName={"page-item"}
+                                      previousLinkClassName={"page-link"}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* wallet_transactions  */}
+                    <div
+                      className="main-content-body tab-pane p-4 border-top-0 "
+                      id="wallet_transactions">
+                      <div className="card-body p-0 border p-0 rounded-10">
+                        <div className="p-4">
+                          <h4 className="tx-15 text-uppercase mb-3">
+                            Customer wallet_transactions
+                          </h4>
+                        </div>
+
+                        <div>
+                          <div className="row row-sm">
+                            <div className="col-xl-12">
+                              <div className="card custom-card">
+                                <div className="card-body">
+                                  <div className="table-responsive">
+                                    <table className="table card-table text-nowrap table-bordered border-top">
+                                      <thead>
+                                        <tr>
+                                          <th>No.</th>
+                                          <th>Date </th>
+                                          <th>Cash_in</th>
+                                          <th>Cash_out</th>
+                                          <th>Description</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {paginatedItems1.map((loan, key) => (
+                                          <tr key={key}>
+                                            <td>{key + 1}</td>
+                                            <td>{loan.created_at}</td>
+                                            <td>{loan.cash_in}</td>
+                                            <td>{loan.cash_out}</td>
+                                            <td>{loan.bank_reference}</td>
+                                          </tr>
+                                        ))}
+                                      </tbody>
+                                    </table>
+
+                                    <ReactPaginate
+                                      pageCount={Math.ceil(
+                                        walletT.length / itemsPerPage1
+                                      )}
+                                      pageRangeDisplayed={3}
+                                      marginPagesDisplayed={1}
+                                      onPageChange={handlePageClick1}
                                       containerClassName={"pagination"}
                                       activeClassName={"active"}
                                       nextLabel={"Next"}

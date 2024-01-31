@@ -29,8 +29,8 @@ export default {
     let response = await apiCall("loan/approve/now", data);
     return response;
   },
-  async fetchActiveLoans() {
-    let response = await apiCall("loan/active/loans");
+  async fetchActiveLoans(data) {
+    let response = await apiCall("loan/active/loans", data);
     return response;
   },
   async addLoanGuarantor(data) {
@@ -150,18 +150,18 @@ export default {
     return response;
   },
 
-  async gettodayInstallmentsLoans() {
-    let response = await apiCall("loans/get/getTodayInstallments");
+  async gettodayInstallmentsLoans(data) {
+    let response = await apiCall("loans/get/getTodayInstallments", data);
     return response;
   },
 
-  async getTomoxInstallments() {
-    let response = await apiCall("loans/get/TomoxInstallmentLoans");
+  async getTomoxInstallments(data) {
+    let response = await apiCall("loans/get/TomoxInstallmentLoans", data);
     return response;
   },
 
-  async getThreeDayInstallments() {
-    let response = await apiCall("loans/get/threeDaysInstallments");
+  async getThreeDayInstallments(data) {
+    let response = await apiCall("loans/get/threeDaysInstallments", data);
     return response;
   },
   async getApplicationFeesPayment(data) {
@@ -178,6 +178,10 @@ export default {
   },
   async getLoanReports(data) {
     let response = await apiCall("loans/loanReports", data);
+    return response;
+  },
+  async fetchWalletTransactions(data) {
+    let response = await apiCall("loans/WalletTransactions", data);
     return response;
   },
 };

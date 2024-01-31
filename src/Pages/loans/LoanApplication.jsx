@@ -7,14 +7,12 @@ import ClientContext from "../../Context/ClientContext";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import toast, {Toaster} from "react-hot-toast";
 
-import LoansContext from "../../Context/LoansContext";
 import {RenderSecure} from "../../util/script/RenderSecure";
 import Applications from "./Applications";
 
 function LoanApplication() {
   const {LoanTypes} = useContext(LoanTypesContext);
   const {clientList} = useContext(ClientContext);
-  const {LoansToApprove, getLoansToApprove} = useContext(LoansContext);
 
   // const role_id = functions.role_user();
   const user_id = functions.sessionGuard();
@@ -105,7 +103,7 @@ function LoanApplication() {
         resetForm();
         setClient("");
         setLoan("");
-        getLoansToApprove();
+        window.location.reload();
         toast.success(server_response.message);
       } else {
         toast.error(server_response.message);
@@ -114,6 +112,7 @@ function LoanApplication() {
       toast.error(
         "Fill loan, client, amount, payment period, fine and security Fees source; they are mandatory"
       );
+      return false;
     }
   };
 
