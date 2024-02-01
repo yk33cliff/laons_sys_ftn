@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
 
-import LoansContext from "../../Context/LoansContext";
 import toast, {Toaster} from "react-hot-toast";
 import {RenderSecure} from "../../util/script/RenderSecure";
 import ReactPaginate from "react-paginate";

@@ -1,10 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 
-import LoansContext from "../../Context/LoansContext";
 import toast, {Toaster} from "react-hot-toast";
-import {RenderSecure} from "../../util/script/RenderSecure";
 import ReactPaginate from "react-paginate";
-
 import AppContainer from "../../Components/Structure/AppContainer";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 

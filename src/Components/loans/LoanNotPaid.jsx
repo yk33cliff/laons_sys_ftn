@@ -100,8 +100,8 @@ function LoanNotPaid() {
                                       <td className="text-success">
                                         {item.loan_details.contact}
                                       </td>
-                                      <td>{item.amount_expected}</td>
                                       <td>{item.laon_balance}</td>
+                                      <td>{item.amount_expected}</td>
                                       <td>{item.date_expected}</td>
                                       <td>{item.days_past}</td>
                                       <td>{item.remaining_installments}</td>

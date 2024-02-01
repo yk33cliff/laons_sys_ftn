@@ -1,28 +1,34 @@
 import React, {useEffect, useState} from "react";
-import AppContainer from "../Structure/AppContainer";
+import AppContainer from "../../Components/Structure/AppContainer";
 import ajaxLaons from "../../util/remote/ajaxLaons";
-import toast from "react-hot-toast";
+import toast, {Toaster} from "react-hot-toast";
 
-function PendingInstallments() {
+function FortnightPendingInstallation() {
   useEffect(() => {
-    getDailyInstallmentsLoans();
-    getTomoxInstallments();
+    gettodayInstallmentsLoans();
+    getTomorrowsInstallments();
     getThreeDayInstallmentss();
   }, []);
 
-  const [daily, setDaily] = useState("");
-  const getDailyInstallmentsLoans = async () => {
-    const server_response = await ajaxLaons.getDailyInstallmentsLoans();
+  const [today, setToday] = useState("");
+  const gettodayInstallmentsLoans = async () => {
+    var data = {
+      Installment_type: "fortnight",
+    };
+    const server_response = await ajaxLaons.gettodayInstallmentsLoans(data);
 
     if (server_response.status === "OK") {
-      setDaily(server_response.details);
+      setToday(server_response.details);
     } else if (server_response.status === "Fail") {
       toast.error(server_response.message);
     }
   };
   const [monthly, seTmonthly] = useState("");
   const getThreeDayInstallmentss = async () => {
-    const server_response = await ajaxLaons.getThreeDayInstallments();
+    var data = {
+      Installment_type: "fortnight",
+    };
+    const server_response = await ajaxLaons.getThreeDayInstallments(data);
 
     if (server_response.status === "OK") {
       seTmonthly(server_response.details);
@@ -30,12 +36,15 @@ function PendingInstallments() {
       toast.error(server_response.message);
     }
   };
-  const [weekly, setWeekly] = useState("");
-  const getTomoxInstallments = async () => {
-    const server_response = await ajaxLaons.getTomoxInstallments();
+  const [tomox, setTomox] = useState("");
+  const getTomorrowsInstallments = async () => {
+    var data = {
+      Installment_type: "fortnight",
+    };
+    const server_response = await ajaxLaons.getTomoxInstallments(data);
 
     if (server_response.status === "OK") {
-      setWeekly(server_response.details);
+      setTomox(server_response.details);
     } else if (server_response.status === "Fail") {
       toast.error(server_response.message);
     }
@@ -43,8 +52,9 @@ function PendingInstallments() {
 
   return (
     <div>
-      <AppContainer title="expected installments for this week ">
+      <AppContainer title="fortnight installments for this week ">
         <>
+          {/* <Toaster /> */}
           <div className="row square">
             <div className="col-lg-12 col-md-12">
               <div className="card custom-card">
@@ -54,20 +64,20 @@ function PendingInstallments() {
                       <a
                         className="nav-link  active"
                         data-bs-toggle="tab"
-                        href="#daily">
-                        Daily Installments
+                        href="#today">
+                        today's Installments
                       </a>
                       <a
                         className="nav-link"
                         data-bs-toggle="tab"
-                        href="#weekly">
-                        Weekly Installments
+                        href="#tomox">
+                        Tomorrow's Installments
                       </a>
                       <a
                         className="nav-link"
                         data-bs-toggle="tab"
                         href="#monthly">
-                        monthly Installments
+                        Installments for 2 days from today
                       </a>
                     </nav>
                   </div>
@@ -83,11 +93,11 @@ function PendingInstallments() {
                 <div className="tab-content">
                   <div
                     className="main-content-body tab-pane p-4 border-top-0 active"
-                    id="daily">
+                    id="today">
                     <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
                       <div className="card custom-card card-dashboard-calendar pb-0">
                         <label className="main-content-label mb-2 pt-1">
-                          expected daily Installments
+                          expected today Installments
                         </label>
                         <div className="card-body">
                           <div className="table-responsive">
@@ -99,13 +109,14 @@ function PendingInstallments() {
                                   <th>contact</th>
                                   <th>Amount Expected</th>
                                   <th>date </th>
+                                  <th>remaining_installments </th>
                                 </tr>
                               </thead>
 
                               <tbody>
-                                {daily &&
-                                  Array.isArray(daily) &&
-                                  daily.map((item, key) => (
+                                {today &&
+                                  Array.isArray(today) &&
+                                  today.map((item, key) => (
                                     <tr key={key}>
                                       <td>{key + 1}</td>
                                       <td>
@@ -113,13 +124,25 @@ function PendingInstallments() {
                                         {item.loan_details.last_name}
                                       </td>
                                       <td className="text-success">
-                                        {item.loan_details.contact}
+                                        +{item.loan_details.contact}
+                                        <br />+{item.loan_details.contact2}
                                       </td>
                                       <td>{item.amount_expected}</td>
                                       <td>{item.date_expected}</td>
                                       <td>{item.remaining_installments}</td>
                                     </tr>
                                   ))}
+                                {!Array.isArray(today) && (
+                                  <>
+                                    <tr>
+                                      <td
+                                        colSpan="6"
+                                        className="text-center text-danger">
+                                        No data found
+                                      </td>
+                                    </tr>
+                                  </>
+                                )}
                               </tbody>
                             </table>
                           </div>
@@ -129,14 +152,14 @@ function PendingInstallments() {
                   </div>
                   <div
                     className="main-content-body tab-pane p-4 border-top-0"
-                    id="weekly">
+                    id="tomox">
                     <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
                       <div className="card custom-card card-dashboard-calendar pb-0">
                         {/* <label className="main-content-label mb-2 pt-1">
                           Installments Transactions expected three days
                         </label> */}
                         <label className="main-content-label mb-2 pt-1">
-                          expected weekly Installments
+                          expected Installments Tomorrow
                         </label>
                         <div className="card-body">
                           <div className="table-responsive">
@@ -148,17 +171,17 @@ function PendingInstallments() {
                                   <th>contact</th>
                                   <th>Amount Expected</th>
                                   <th>date </th>
-                                  <th>
+                                  {/* <th>
                                     days <br />
                                     to payment
-                                  </th>
+                                  </th> */}
                                   <th>remaining_installments </th>
                                 </tr>
                               </thead>
                               <tbody>
-                                {weekly &&
-                                  Array.isArray(weekly) &&
-                                  weekly.map((item, key) => (
+                                {tomox &&
+                                  Array.isArray(tomox) &&
+                                  tomox.map((item, key) => (
                                     <tr key={key}>
                                       <td>{key + 1}</td>
                                       <td>
@@ -166,14 +189,36 @@ function PendingInstallments() {
                                         {item.loan_details.last_name}
                                       </td>
                                       <td className="text-success">
-                                        {item.loan_details.contact}
+                                        +{item.loan_details.contact}
+                                        <br />+{item.loan_details.contact2}
                                       </td>
                                       <td>{item.amount_expected}</td>
                                       <td>{item.date_expected}</td>
-                                      <td>{item.days}</td>
+                                      {/* <td>{item.days}</td> */}
                                       <td>{item.remaining_installments}</td>
                                     </tr>
                                   ))}
+                                {!Array.isArray(tomox) && (
+                                  <>
+                                    <tr>
+                                      <td className="text-center text-danger">
+                                        No data found
+                                      </td>
+                                    </tr>
+                                  </>
+                                )}
+
+                                {!Array.isArray(tomox) && (
+                                  <>
+                                    <tr>
+                                      <td
+                                        colSpan="6"
+                                        className="text-center text-danger">
+                                        No data found
+                                      </td>
+                                    </tr>
+                                  </>
+                                )}
                               </tbody>
                             </table>
                           </div>
@@ -187,7 +232,7 @@ function PendingInstallments() {
                     <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
                       <div className="card custom-card card-dashboard-calendar pb-0">
                         <label className="main-content-label mb-2 pt-1">
-                          monthly expected Installments Transactions
+                          expected Installments 2 day from today
                         </label>
                         <div className="card-body">
                           <div className="table-responsive">
@@ -217,7 +262,8 @@ function PendingInstallments() {
                                         {item.loan_details.last_name}
                                       </td>
                                       <td className="text-success">
-                                        {item.loan_details.contact}
+                                        +{item.loan_details.contact}
+                                        <br />+{item.loan_details.contact2}
                                       </td>
                                       <td>{item.amount_expected}</td>
                                       <td>{item.date_expected}</td>
@@ -225,6 +271,15 @@ function PendingInstallments() {
                                       <td>{item.remaining_installments}</td>
                                     </tr>
                                   ))}
+                                {!Array.isArray(monthly) && (
+                                  <>
+                                    <tr>
+                                      <td className="text-center text-danger">
+                                        No data found
+                                      </td>
+                                    </tr>
+                                  </>
+                                )}
                               </tbody>
                             </table>
                           </div>
@@ -242,4 +297,4 @@ function PendingInstallments() {
   );
 }
 
-export default PendingInstallments;
+export default FortnightPendingInstallation;

@@ -1,35 +1,34 @@
 import React from "react";
-import ReactApexChart from "react-apexcharts";
-// import "apexcharts/dist/apexcharts.css";
+import {useGeolocated} from "react-geolocated";
 
 const LoansPopularity = () => {
-  // Chart options
-  const options = {
-    xaxis: {
-      categories: ["fee loan", "housing", "business", "emergency", "family"],
-    },
-    colors: ["green"],
-  };
+  const {isGeolocationAvailable, isGeolocationEnabled, coords} =
+    useGeolocated();
 
-  // Chart data
-  const series = [
-    {
-      name: "Series 1",
-      data: [30, 40, 25, 50, 49],
-    },
-  ];
+  if (!isGeolocationAvailable) {
+    return <div>Geolocation is not available on this device/browser.</div>;
+  }
 
-  return (
-    <div>
-      <h1>Loans performance</h1>
-      <ReactApexChart
-        options={options}
-        series={series}
-        type="bar"
-        height={450}
-      />
-    </div>
-  );
+  if (!isGeolocationEnabled) {
+    return (
+      <div>
+        Geolocation is not enabled. Please enable it in your browser settings.
+      </div>
+    );
+  }
+
+  if (coords) {
+    const {latitude, longitude} = coords;
+
+    return (
+      <div>
+        <p>Latitude: {latitude}</p>
+        <p>Longitude: {longitude}</p>
+      </div>
+    );
+  }
+
+  return <div>Loading geolocation data...</div>;
 };
 
 export default LoansPopularity;

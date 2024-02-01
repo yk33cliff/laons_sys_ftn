@@ -7,14 +7,12 @@ import ClientContext from "../../Context/ClientContext";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import toast, {Toaster} from "react-hot-toast";
 
-import LoansContext from "../../Context/LoansContext";
 import {RenderSecure} from "../../util/script/RenderSecure";
 import Applications from "./Applications";
 
 function LoanApplication() {
   const {LoanTypes} = useContext(LoanTypesContext);
   const {clientList} = useContext(ClientContext);
-  const {LoansToApprove, getLoansToApprove} = useContext(LoansContext);
 
   // const role_id = functions.role_user();
   const user_id = functions.sessionGuard();
@@ -105,7 +103,7 @@ function LoanApplication() {
         resetForm();
         setClient("");
         setLoan("");
-        getLoansToApprove();
+        window.location.reload();
         toast.success(server_response.message);
       } else {
         toast.error(server_response.message);
@@ -114,6 +112,7 @@ function LoanApplication() {
       toast.error(
         "Fill loan, client, amount, payment period, fine and security Fees source; they are mandatory"
       );
+      return false;
     }
   };
 
@@ -426,7 +425,28 @@ function LoanApplication() {
                             </div>
                           </div>
                         )}
-
+                        <div className="col-md-12 ">
+                          <div className="form-group mb-0">
+                            <input
+                              type="checkbox"
+                              value={isChecked}
+                              className="text-success"
+                              style={{
+                                width: "20px",
+                                height: "20px",
+                                Color: "green",
+                                // Add other styles as needed
+                              }}
+                              onChange={(e) => {
+                                {
+                                  handleCheckboxChange(e);
+                                }
+                              }}
+                            />
+                            <label>the loan is a old record</label>
+                            {/* The 'checked' attribute is controlled by the 'isChecked' state */}
+                          </div>
+                        </div>
                         <div className="col-md-6">
                           <div className="form-group">
                             <label className="mg-b-10">Start date </label>
@@ -456,28 +476,6 @@ function LoanApplication() {
                         {/* </>
                       // ) : null} */}
 
-                        <div className="col-md-12 ">
-                          <div className="form-group mb-0">
-                            <input
-                              type="checkbox"
-                              value={isChecked}
-                              className="text-success"
-                              style={{
-                                width: "20px",
-                                height: "20px",
-                                Color: "green",
-                                // Add other styles as needed
-                              }}
-                              onChange={(e) => {
-                                {
-                                  handleCheckboxChange(e);
-                                }
-                              }}
-                            />
-                            <label>the loan is a old record</label>
-                            {/* The 'checked' attribute is controlled by the 'isChecked' state */}
-                          </div>
-                        </div>
                         <div className="col-md-12 ">
                           <div className="form-group mb-0">
                             <button

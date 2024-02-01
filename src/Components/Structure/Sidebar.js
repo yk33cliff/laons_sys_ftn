@@ -179,11 +179,39 @@ const Sidebar = (props) => {
                     <i className="angle fe fe-chevron-right" />
                   </a>
                   <ul className="nav-sub">
-                    <li className="nav-sub-item">
+                    {/* <li className="nav-sub-item">
                       <a
                         className="nav-sub-link"
                         href="/Loans/pending_installments">
                         pending installments
+                      </a>
+                    </li> */}
+                    <li className="nav-sub-item">
+                      <a
+                        className="nav-sub-link"
+                        href="/Loans/pending_installments_daily">
+                        Daily pending installments
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a
+                        className="nav-sub-link"
+                        href="/Loans/pending_installments_weekly">
+                        Weekly pending installments
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a
+                        className="nav-sub-link"
+                        href="/Loans/pending_installments_Fortnight">
+                        Fortnight pending installments
+                      </a>
+                    </li>
+                    <li className="nav-sub-item">
+                      <a
+                        className="nav-sub-link"
+                        href="/Loans/pending_installments_monthly">
+                        monthly pending installments
                       </a>
                     </li>
                     <li className="nav-sub-item">

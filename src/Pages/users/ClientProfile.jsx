@@ -11,11 +11,13 @@ import AddWalletCash from "../../Components/loans/AddWalletCash";
 import {RenderSecure} from "../../util/script/RenderSecure";
 import LoanStatement from "../../Components/loans/LoanStatement";
 import ClientContext from "../../Context/ClientContext";
+import AddLoanpayment from "../../Components/loans/AddLoanpayment";
 
 function ClientProfile(props) {
   const {id} = useParams();
   const {getClientList} = useContext(ClientContext);
 
+  // console.log(id);
   //+++++++++code  for updating user profile++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [user, setUser] = useState("");
 
@@ -154,36 +156,23 @@ function ClientProfile(props) {
 
   useEffect(() => {
     getUserTrans();
+    getUserWalletTransactions();
   }, []);
 
   // //console.log(userLoan);
   const getStatusBadge = (status) => {
-    if (status === 1) {
+    if (status === 3) {
       return (
         <span style={{fontSize: "16px"}} className="badge p-2 bg-info bg-pill">
-          Pending
+          Active
         </span>
       );
-    } else if (status === 2) {
-      return (
-        <span style={{fontSize: "16px"}} className="badge p-2 bg-info bg-pill">
-          In Progress
-        </span>
-      );
-    } else if (status === 3) {
+    } else if (status === 4) {
       return (
         <span
           style={{fontSize: "16px"}}
           className="badge p-2 bg-success bg-pill">
-          active
-        </span>
-      );
-    } else if (status === 5) {
-      return (
-        <span
-          style={{fontSize: "16px"}}
-          className="badge p-2 bg-danger bg-pill">
-          Denied
+          Completed
         </span>
       );
     }
@@ -206,6 +195,14 @@ function ClientProfile(props) {
       setStatement(<LoanStatement isOpen={true} id={id} />)
     );
   };
+
+  // loan repayments
+  const [Repayment, setRepayment] = useStateCallback(false);
+  const LoanRepaymentHandler = (ids) => {
+    setRepayment(false, () =>
+      setRepayment(<AddLoanpayment isOpen={true} id={ids} customer={id} />)
+    );
+  };
   // handles user transactions
 
   const [trans, setTrans] = useState("");
@@ -221,6 +218,18 @@ function ClientProfile(props) {
       // Handle error
     }
   };
+  const [walletT, setwalletT] = useState("");
+  const getUserWalletTransactions = async () => {
+    const data = {user_id: id};
+
+    const server_response = await ajaxLaons.fetchWalletTransactions(data);
+
+    if (server_response.status === "OK") {
+      setwalletT(server_response.details);
+    } else {
+      toast.error(server_response.message);
+    }
+  };
   // pagination workings
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 20; // Change this value based on your preference
@@ -233,16 +242,24 @@ function ClientProfile(props) {
   const handlePageClick = (data) => {
     setCurrentPage(data.selected);
   };
+  // pagination workings1
+  const [currentPage1, setCurrentPage1] = useState(0);
+  const itemsPerPage1 = 20; // Change this value based on your preference
+
+  const offset1 = currentPage1 * itemsPerPage1; // Fix: Use offset1 here
+  const paginatedItems1 =
+    walletT && Array.isArray(walletT)
+      ? walletT.slice(offset1, offset1 + itemsPerPage1)
+      : [];
+  const handlePageClick1 = (data) => {
+    setCurrentPage1(data.selected);
+  };
   return (
     <div>
-      {/* contact : "256703433453" contact2 : null created_at : "2024-01-09
-      16:47:31" email : "n/a" first_name : "mumbere" id : "7" is_active : "1"
-      is_admin : "0" last_name : "andrew" location : "kampala" nin : "nxnnn"
-      otherId : null photo : "avatar.png" role_id : short_name : "M" username :
-      "n/a" wallet_balance : "28,893" */}
       <AppContainer title="user profile">
-        <Toaster />
+        {/* <Toaster /> */}
         {statment}
+        {Repayment}
         <div className="row">
           <>
             <div
@@ -307,6 +324,12 @@ function ClientProfile(props) {
                           data-bs-toggle="tab"
                           href="#recent_transaction">
                           recent_transaction
+                        </a>
+                        <a
+                          className="nav-link "
+                          data-bs-toggle="tab"
+                          href="#wallet_transactions">
+                          wallet_transactions
                         </a>
 
                         <a
@@ -637,18 +660,19 @@ function ClientProfile(props) {
                                       <thead>
                                         <tr>
                                           <th>No.</th>
+                                          <th>date</th>
                                           <th>Payment Types</th>
                                           <th>Cash_in</th>
                                           <th>Cash_out</th>
                                           <th>Payment Method</th>
                                           <th>Phone Number</th>
-                                          <th>date</th>
                                         </tr>
                                       </thead>
                                       <tbody>
                                         {paginatedItems.map((loan, key) => (
                                           <tr key={key}>
                                             <td>{key + 1}</td>
+                                            <td>{loan.created_at}</td>
                                             <td>{loan.account}</td>
                                             <td>{loan.cash_in}</td>
                                             <td>{loan.cash_out}</td>
@@ -666,6 +690,72 @@ function ClientProfile(props) {
                                       pageRangeDisplayed={3}
                                       marginPagesDisplayed={1}
                                       onPageChange={handlePageClick}
+                                      containerClassName={"pagination"}
+                                      activeClassName={"active"}
+                                      nextLabel={"Next"}
+                                      previousLabel={"Previous"}
+                                      breakLabel={"..."}
+                                      pageLinkClassName={"page-link"}
+                                      nextClassName={"page-item"}
+                                      nextLinkClassName={"page-link"}
+                                      previousClassName={"page-item"}
+                                      previousLinkClassName={"page-link"}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* wallet_transactions  */}
+                    <div
+                      className="main-content-body tab-pane p-4 border-top-0 "
+                      id="wallet_transactions">
+                      <div className="card-body p-0 border p-0 rounded-10">
+                        <div className="p-4">
+                          <h4 className="tx-15 text-uppercase mb-3">
+                            Customer wallet_transactions
+                          </h4>
+                        </div>
+
+                        <div>
+                          <div className="row row-sm">
+                            <div className="col-xl-12">
+                              <div className="card custom-card">
+                                <div className="card-body">
+                                  <div className="table-responsive">
+                                    <table className="table card-table text-nowrap table-bordered border-top">
+                                      <thead>
+                                        <tr>
+                                          <th>No.</th>
+                                          <th>Date </th>
+                                          <th>Cash_in</th>
+                                          <th>Cash_out</th>
+                                          <th>Description</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {paginatedItems1.map((loan, key) => (
+                                          <tr key={key}>
+                                            <td>{key + 1}</td>
+                                            <td>{loan.created_at}</td>
+                                            <td>{loan.cash_in}</td>
+                                            <td>{loan.cash_out}</td>
+                                            <td>{loan.bank_reference}</td>
+                                          </tr>
+                                        ))}
+                                      </tbody>
+                                    </table>
+
+                                    <ReactPaginate
+                                      pageCount={Math.ceil(
+                                        walletT.length / itemsPerPage1
+                                      )}
+                                      pageRangeDisplayed={3}
+                                      marginPagesDisplayed={1}
+                                      onPageChange={handlePageClick1}
                                       containerClassName={"pagination"}
                                       activeClassName={"active"}
                                       nextLabel={"Next"}
@@ -713,17 +803,25 @@ function ClientProfile(props) {
                                         <th>start Date</th>
                                         <th>Loan status </th>
                                         <RenderSecure code="LOANS-STMNT">
-                                          <th>View Loan </th>
+                                          <th>
+                                            View Loan <br /> statement{" "}
+                                          </th>
                                         </RenderSecure>
+
+                                        <th>Loan Balance</th>
+
                                         <RenderSecure code="LOANS-STMNT">
                                           <th>Loan Profile </th>
+                                        </RenderSecure>
+                                        <RenderSecure code="ADD-PAYMNT">
+                                          <th>
+                                            Add Loan <br />
+                                            Payment{" "}
+                                          </th>
                                         </RenderSecure>
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {/* amount : "2000000" date_requested :
-                                      "2023-12-01" duration : "4" id : "3"
-                                      loan_type : "9" status : "1" */}
                                       {!Array.isArray(userLoan) && (
                                         <tr>
                                           <td
@@ -741,9 +839,10 @@ function ClientProfile(props) {
                                             <td>{loan.amount}</td>
                                             <td>{loan.duration}</td>
                                             <td>{loan.date_requested}</td>
+
                                             <td>
-                                              {getStatusBadge(loan.status)}
-                                              {loan.status}
+                                              {getStatusBadge(loan.status * 1)}
+                                              {/* {loan.status} */}
                                             </td>
                                             <RenderSecure code="LOANS-STMNT">
                                               <td>
@@ -757,6 +856,8 @@ function ClientProfile(props) {
                                                 </button>
                                               </td>
                                             </RenderSecure>
+                                            <td>{loan.loanBalance}</td>
+
                                             <RenderSecure code="LOANS-STMNT">
                                               <td>
                                                 <button className="badge  bg-primary-light bg-pill">
@@ -766,6 +867,25 @@ function ClientProfile(props) {
                                                     Loan profile
                                                   </a>
                                                 </button>
+                                              </td>
+                                            </RenderSecure>
+                                            <RenderSecure code="ADD-PAYMNT">
+                                              <td>
+                                                {loan.status * 1 === 3 ? (
+                                                  <button
+                                                    className="badge  text-white bg-primary bg-pill"
+                                                    style={{fontSize: "14px"}}
+                                                    onClick={() =>
+                                                      LoanRepaymentHandler(
+                                                        loan.id
+                                                      )
+                                                    }>
+                                                    Add Loan <br />
+                                                    Payment
+                                                  </button>
+                                                ) : (
+                                                  <></>
+                                                )}
                                               </td>
                                             </RenderSecure>
                                           </tr>
