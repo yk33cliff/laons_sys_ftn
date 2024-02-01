@@ -124,12 +124,25 @@ function MonthlyPendingInstallation() {
                                       </td>
                                       <td className="text-success">
                                         +{item.loan_details.contact}
+                                        <br />+{item.loan_details.contact2}
                                       </td>
                                       <td>{item.amount_expected}</td>
                                       <td>{item.date_expected}</td>
                                       <td>{item.remaining_installments}</td>
                                     </tr>
                                   ))}
+
+                                {!Array.isArray(today) && (
+                                  <>
+                                    <tr>
+                                      <td
+                                        colSpan="7"
+                                        className="text-center text-danger">
+                                        No data found
+                                      </td>
+                                    </tr>
+                                  </>
+                                )}
                               </tbody>
                             </table>
                           </div>
@@ -158,10 +171,10 @@ function MonthlyPendingInstallation() {
                                   <th>contact</th>
                                   <th>Amount Expected</th>
                                   <th>date </th>
-                                  <th>
+                                  {/* <th>
                                     days <br />
                                     to payment
-                                  </th>
+                                  </th> */}
                                   <th>remaining_installments </th>
                                 </tr>
                               </thead>
@@ -177,13 +190,26 @@ function MonthlyPendingInstallation() {
                                       </td>
                                       <td className="text-success">
                                         +{item.loan_details.contact}
+                                        <br />+{item.loan_details.contact2}
                                       </td>
                                       <td>{item.amount_expected}</td>
                                       <td>{item.date_expected}</td>
-                                      <td>{item.days}</td>
+                                      {/* <td>{item.days}</td> */}
                                       <td>{item.remaining_installments}</td>
                                     </tr>
                                   ))}
+
+                                {!Array.isArray(tomox) && (
+                                  <>
+                                    <tr>
+                                      <td
+                                        colSpan="7"
+                                        className="text-center text-danger">
+                                        No data found
+                                      </td>
+                                    </tr>
+                                  </>
+                                )}
                               </tbody>
                             </table>
                           </div>
@@ -209,10 +235,10 @@ function MonthlyPendingInstallation() {
                                   <th>contact</th>
                                   <th>Amount Expected</th>
                                   <th>date </th>
-                                  <th>
+                                  {/* <th>
                                     days <br />
                                     to payment
-                                  </th>
+                                  </th> */}
                                   <th>remaining_installments </th>
                                 </tr>
                               </thead>
@@ -228,13 +254,26 @@ function MonthlyPendingInstallation() {
                                       </td>
                                       <td className="text-success">
                                         +{item.loan_details.contact}
+                                        <br />+{item.loan_details.contact2}
                                       </td>
                                       <td>{item.amount_expected}</td>
                                       <td>{item.date_expected}</td>
-                                      <td>{item.days}</td>
+                                      {/* <td>{item.days}</td> */}
                                       <td>{item.remaining_installments}</td>
                                     </tr>
                                   ))}
+
+                                {!Array.isArray(monthly) && (
+                                  <>
+                                    <tr>
+                                      <td
+                                        colSpan="7"
+                                        className="text-center text-danger">
+                                        No data found
+                                      </td>
+                                    </tr>
+                                  </>
+                                )}
                               </tbody>
                             </table>
                           </div>

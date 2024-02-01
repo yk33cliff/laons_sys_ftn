@@ -109,6 +109,7 @@ function WeeklyPendingInstallation() {
                                   <th>contact</th>
                                   <th>Amount Expected</th>
                                   <th>date </th>
+                                  <th>remaining_installments </th>
                                 </tr>
                               </thead>
 
@@ -124,12 +125,23 @@ function WeeklyPendingInstallation() {
                                       </td>
                                       <td className="text-success">
                                         +{item.loan_details.contact}
+                                        <br />+{item.loan_details.contact2}
                                       </td>
                                       <td>{item.amount_expected}</td>
                                       <td>{item.date_expected}</td>
                                       <td>{item.remaining_installments}</td>
                                     </tr>
                                   ))}
+
+                                {!Array.isArray(today) && (
+                                  <tr>
+                                    <td
+                                      colSpan="8"
+                                      className="text-center text-danger">
+                                      No data found
+                                    </td>
+                                  </tr>
+                                )}
                               </tbody>
                             </table>
                           </div>
@@ -142,9 +154,6 @@ function WeeklyPendingInstallation() {
                     id="tomox">
                     <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
                       <div className="card custom-card card-dashboard-calendar pb-0">
-                        {/* <label className="main-content-label mb-2 pt-1">
-                          Installments Transactions expected three days
-                        </label> */}
                         <label className="main-content-label mb-2 pt-1">
                           expected Installments Tomorrow
                         </label>
@@ -158,10 +167,10 @@ function WeeklyPendingInstallation() {
                                   <th>contact</th>
                                   <th>Amount Expected</th>
                                   <th>date </th>
-                                  <th>
+                                  {/* <th>
                                     days <br />
                                     to payment
-                                  </th>
+                                  </th> */}
                                   <th>remaining_installments </th>
                                 </tr>
                               </thead>
@@ -177,13 +186,23 @@ function WeeklyPendingInstallation() {
                                       </td>
                                       <td className="text-success">
                                         +{item.loan_details.contact}
+                                        <br />+{item.loan_details.contact2}
                                       </td>
                                       <td>{item.amount_expected}</td>
                                       <td>{item.date_expected}</td>
-                                      <td>{item.days}</td>
+                                      {/* <td>{item.days}</td> */}
                                       <td>{item.remaining_installments}</td>
                                     </tr>
                                   ))}
+                                {!Array.isArray(tomox) && (
+                                  <tr>
+                                    <td
+                                      colSpan="8"
+                                      className="text-center text-danger">
+                                      No data found
+                                    </td>
+                                  </tr>
+                                )}
                               </tbody>
                             </table>
                           </div>
@@ -209,10 +228,10 @@ function WeeklyPendingInstallation() {
                                   <th>contact</th>
                                   <th>Amount Expected</th>
                                   <th>date </th>
-                                  <th>
+                                  {/* <th>
                                     days <br />
                                     to payment
-                                  </th>
+                                  </th> */}
                                   <th>remaining_installments </th>
                                 </tr>
                               </thead>
@@ -228,13 +247,25 @@ function WeeklyPendingInstallation() {
                                       </td>
                                       <td className="text-success">
                                         +{item.loan_details.contact}
+                                        <br />+{item.loan_details.contact2}
                                       </td>
                                       <td>{item.amount_expected}</td>
                                       <td>{item.date_expected}</td>
-                                      <td>{item.days}</td>
+                                      {/* <td>{item.days}</td> */}
                                       <td>{item.remaining_installments}</td>
                                     </tr>
                                   ))}
+                                {!Array.isArray(monthly) && (
+                                  <>
+                                    <tr>
+                                      <td
+                                        colSpan={8}
+                                        className="text-center text-danger">
+                                        No data found
+                                      </td>
+                                    </tr>
+                                  </>
+                                )}
                               </tbody>
                             </table>
                           </div>

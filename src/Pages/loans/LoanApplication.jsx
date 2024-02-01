@@ -425,7 +425,28 @@ function LoanApplication() {
                             </div>
                           </div>
                         )}
-
+                        <div className="col-md-12 ">
+                          <div className="form-group mb-0">
+                            <input
+                              type="checkbox"
+                              value={isChecked}
+                              className="text-success"
+                              style={{
+                                width: "20px",
+                                height: "20px",
+                                Color: "green",
+                                // Add other styles as needed
+                              }}
+                              onChange={(e) => {
+                                {
+                                  handleCheckboxChange(e);
+                                }
+                              }}
+                            />
+                            <label>the loan is a old record</label>
+                            {/* The 'checked' attribute is controlled by the 'isChecked' state */}
+                          </div>
+                        </div>
                         <div className="col-md-6">
                           <div className="form-group">
                             <label className="mg-b-10">Start date </label>
@@ -455,28 +476,6 @@ function LoanApplication() {
                         {/* </>
                       // ) : null} */}
 
-                        <div className="col-md-12 ">
-                          <div className="form-group mb-0">
-                            <input
-                              type="checkbox"
-                              value={isChecked}
-                              className="text-success"
-                              style={{
-                                width: "20px",
-                                height: "20px",
-                                Color: "green",
-                                // Add other styles as needed
-                              }}
-                              onChange={(e) => {
-                                {
-                                  handleCheckboxChange(e);
-                                }
-                              }}
-                            />
-                            <label>the loan is a old record</label>
-                            {/* The 'checked' attribute is controlled by the 'isChecked' state */}
-                          </div>
-                        </div>
                         <div className="col-md-12 ">
                           <div className="form-group mb-0">
                             <button

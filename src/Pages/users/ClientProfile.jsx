@@ -11,11 +11,13 @@ import AddWalletCash from "../../Components/loans/AddWalletCash";
 import {RenderSecure} from "../../util/script/RenderSecure";
 import LoanStatement from "../../Components/loans/LoanStatement";
 import ClientContext from "../../Context/ClientContext";
+import AddLoanpayment from "../../Components/loans/AddLoanpayment";
 
 function ClientProfile(props) {
   const {id} = useParams();
   const {getClientList} = useContext(ClientContext);
 
+  // console.log(id);
   //+++++++++code  for updating user profile++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [user, setUser] = useState("");
 
@@ -159,32 +161,18 @@ function ClientProfile(props) {
 
   // //console.log(userLoan);
   const getStatusBadge = (status) => {
-    if (status === 1) {
+    if (status === 3) {
       return (
         <span style={{fontSize: "16px"}} className="badge p-2 bg-info bg-pill">
-          Pending
+          Active
         </span>
       );
-    } else if (status === 2) {
-      return (
-        <span style={{fontSize: "16px"}} className="badge p-2 bg-info bg-pill">
-          In Progress
-        </span>
-      );
-    } else if (status === 3) {
+    } else if (status === 4) {
       return (
         <span
           style={{fontSize: "16px"}}
           className="badge p-2 bg-success bg-pill">
-          active
-        </span>
-      );
-    } else if (status === 5) {
-      return (
-        <span
-          style={{fontSize: "16px"}}
-          className="badge p-2 bg-danger bg-pill">
-          Denied
+          Completed
         </span>
       );
     }
@@ -205,6 +193,14 @@ function ClientProfile(props) {
   const handleStatement = (id) => {
     setStatement(false, () =>
       setStatement(<LoanStatement isOpen={true} id={id} />)
+    );
+  };
+
+  // loan repayments
+  const [Repayment, setRepayment] = useStateCallback(false);
+  const LoanRepaymentHandler = (ids) => {
+    setRepayment(false, () =>
+      setRepayment(<AddLoanpayment isOpen={true} id={ids} customer={id} />)
     );
   };
   // handles user transactions
@@ -260,14 +256,10 @@ function ClientProfile(props) {
   };
   return (
     <div>
-      {/* contact : "256703433453" contact2 : null created_at : "2024-01-09
-      16:47:31" email : "n/a" first_name : "mumbere" id : "7" is_active : "1"
-      is_admin : "0" last_name : "andrew" location : "kampala" nin : "nxnnn"
-      otherId : null photo : "avatar.png" role_id : short_name : "M" username :
-      "n/a" wallet_balance : "28,893" */}
       <AppContainer title="user profile">
-        <Toaster />
+        {/* <Toaster /> */}
         {statment}
+        {Repayment}
         <div className="row">
           <>
             <div
@@ -811,17 +803,25 @@ function ClientProfile(props) {
                                         <th>start Date</th>
                                         <th>Loan status </th>
                                         <RenderSecure code="LOANS-STMNT">
-                                          <th>View Loan </th>
+                                          <th>
+                                            View Loan <br /> statement{" "}
+                                          </th>
                                         </RenderSecure>
+
+                                        <th>Loan Balance</th>
+
                                         <RenderSecure code="LOANS-STMNT">
                                           <th>Loan Profile </th>
+                                        </RenderSecure>
+                                        <RenderSecure code="ADD-PAYMNT">
+                                          <th>
+                                            Add Loan <br />
+                                            Payment{" "}
+                                          </th>
                                         </RenderSecure>
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {/* amount : "2000000" date_requested :
-                                      "2023-12-01" duration : "4" id : "3"
-                                      loan_type : "9" status : "1" */}
                                       {!Array.isArray(userLoan) && (
                                         <tr>
                                           <td
@@ -839,9 +839,10 @@ function ClientProfile(props) {
                                             <td>{loan.amount}</td>
                                             <td>{loan.duration}</td>
                                             <td>{loan.date_requested}</td>
+
                                             <td>
-                                              {getStatusBadge(loan.status)}
-                                              {loan.status}
+                                              {getStatusBadge(loan.status * 1)}
+                                              {/* {loan.status} */}
                                             </td>
                                             <RenderSecure code="LOANS-STMNT">
                                               <td>
@@ -855,6 +856,8 @@ function ClientProfile(props) {
                                                 </button>
                                               </td>
                                             </RenderSecure>
+                                            <td>{loan.loanBalance}</td>
+
                                             <RenderSecure code="LOANS-STMNT">
                                               <td>
                                                 <button className="badge  bg-primary-light bg-pill">
@@ -864,6 +867,25 @@ function ClientProfile(props) {
                                                     Loan profile
                                                   </a>
                                                 </button>
+                                              </td>
+                                            </RenderSecure>
+                                            <RenderSecure code="ADD-PAYMNT">
+                                              <td>
+                                                {loan.status * 1 === 3 ? (
+                                                  <button
+                                                    className="badge  text-white bg-primary bg-pill"
+                                                    style={{fontSize: "14px"}}
+                                                    onClick={() =>
+                                                      LoanRepaymentHandler(
+                                                        loan.id
+                                                      )
+                                                    }>
+                                                    Add Loan <br />
+                                                    Payment
+                                                  </button>
+                                                ) : (
+                                                  <></>
+                                                )}
                                               </td>
                                             </RenderSecure>
                                           </tr>
