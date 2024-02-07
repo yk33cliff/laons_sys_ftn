@@ -2,7 +2,9 @@ import React, {useState} from "react";
 import AppContainer from "../../Components/Structure/AppContainer";
 import toast, {Toaster} from "react-hot-toast";
 import ajaxUser from "../../util/remote/ajaxUser";
+import Loader from "../../Components/Common/Loader";
 function CreateClients() {
+  const [loading, setLoading] = useState(false);
   // +++++++++++++++++++++++++++++++++++++++++++++
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
@@ -350,8 +352,9 @@ function CreateClients() {
                           <div className="form-group mb-0">
                             <button
                               type="submit"
-                              className="btn col-lg -12 col-md-12 btn-primary">
-                              Save user
+                              disabled={loading}
+                              className="btn col-lg-12 col-md-12 btn-primary">
+                              {loading ? <Loader /> : "   Save user "}
                             </button>
                           </div>
                         </div>

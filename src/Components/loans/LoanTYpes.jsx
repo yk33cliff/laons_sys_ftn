@@ -7,9 +7,13 @@ import toast, {Toaster} from "react-hot-toast";
 import ajaxLaons from "../../util/remote/ajaxLaons";
 import LoanTypesContext from "../../Context/LoanTypesContext";
 import {RenderSecure} from "../../util/script/RenderSecure";
+import Loader from "../Common/Loader";
 
 function LoanTYpes() {
   const {LoanTypes, getLoanList} = useContext(LoanTypesContext);
+
+  const [loading, setLoading] = useState(false);
+  // --------------------
   const [loan, setLoan] = useState("");
   const [max, setMax] = useState("");
   const [min, setMin] = useState("");
@@ -47,9 +51,9 @@ function LoanTYpes() {
         application: application,
         monitoring: monitoring,
       };
-
+      setLoading(true);
       const server_response = await ajaxLaons.createLoanType(data);
-
+      setLoading(false);
       if (server_response.status === "OK") {
         toast.success(server_response.message);
 
@@ -196,8 +200,9 @@ function LoanTYpes() {
                         <div className="form-group mb-0">
                           <button
                             type="submit"
-                            className="btn col-lg -12 col-md-12 btn-primary">
-                            Save Loan Type
+                            disabled={loading}
+                            className="btn col-lg-12 col-md-12 btn-primary">
+                            {loading ? <Loader /> : "Save Loan Type"}
                           </button>
                         </div>
                       </div>

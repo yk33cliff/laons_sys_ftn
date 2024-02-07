@@ -9,11 +9,13 @@ import toast, {Toaster} from "react-hot-toast";
 
 import {RenderSecure} from "../../util/script/RenderSecure";
 import Applications from "./Applications";
+import Loader from "../../Components/Common/Loader";
 
 function LoanApplication() {
   const {LoanTypes} = useContext(LoanTypesContext);
   const {clientList} = useContext(ClientContext);
 
+  const [loading, setLoading] = useState(false);
   // const role_id = functions.role_user();
   const user_id = functions.sessionGuard();
   const [installment, setInstallment] = useState("");
@@ -98,7 +100,9 @@ function LoanApplication() {
         // endDate: endDate,
         Start: Start,
       };
+      setLoading(true);
       const server_response = await ajaxLaons.CreateLoanApplication(formData);
+      setLoading(false);
       if (server_response.status === "OK") {
         resetForm();
         setClient("");
@@ -461,17 +465,7 @@ function LoanApplication() {
                           </div>
                         </div>
 
-                        {/* <div className="col-md-6">
-                          <div className="form-group">
-                            <label className="mg-b-10">End Date </label>
-                            <input
-                              type="date"
-                              className="form-control text-success"
-                              value={endDate}
-                              onChange={(e) => setEnddate(e.target.value)}
-                            />
-                          </div>
-                        </div> */}
+                        {/* <div className="col-md-6">{loading && <Loader />}</div> */}
 
                         {/* </>
                       // ) : null} */}
@@ -480,8 +474,9 @@ function LoanApplication() {
                           <div className="form-group mb-0">
                             <button
                               type="submit"
+                              disabled={loading}
                               className="btn col-lg-12 col-md-12 btn-primary">
-                              Save user
+                              {loading ? <Loader /> : "Save Application"}
                             </button>
                           </div>
                         </div>

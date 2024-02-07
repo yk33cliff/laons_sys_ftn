@@ -120,7 +120,7 @@ function LoansReports() {
   };
   //pagination
   const [currentPageTable2, setCurrentPageTable2] = useState(0);
-  const itemsPerPageTable2 = 20;
+  const itemsPerPageTable2 = 100;
 
   const handlePageClickTable2 = ({selected}) => {
     setCurrentPageTable2(selected);
@@ -174,6 +174,38 @@ function LoansReports() {
   const paginatedItemsTable1 = Array.isArray(applictaions)
     ? applictaions.slice(offsetTable1, offsetTable1 + itemsPerPageTable1)
     : [];
+
+  const Print = () => {
+    let printContents = document.getElementById("printablediv").innerHTML;
+    const additionalContent = `
+        <div style="background-color: #f0f0f0; padding: 20px; text-align: center;">
+            <h3>SERENITY MICROFINANCE LIMITED</h3>
+            <h6>P.O.Box 310081</h6>
+            <h6>Bulindo shopping centre Building</h6>
+            <h6>
+                email: <span style="color: red;">serenitymicrofinance@gmail.com</span>
+            </h6>
+            <h6>
+                contacts: <span style="color: red;">+256771670497</span>
+            </h6>
+            <p>
+                <u>Clients' Loan slip</u>
+            </p>
+        </div>
+    `;
+
+    // Add the additional content to the beginning of the printContents
+    printContents = additionalContent + printContents;
+
+    // Store the original content of the body
+    let originalContents = document.body.innerHTML;
+
+    // Replace the body content with the printable content
+    document.body.innerHTML = printContents;
+    window.print();
+    window.location.reload();
+    document.body.innerHTML = originalContents;
+  };
 
   return (
     <div>
@@ -298,135 +330,147 @@ function LoansReports() {
                   <div
                     className="main-content-body tab-pane p-4 border-top-0  active"
                     id="Insurance">
-                    <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
-                      <div className="card custom-card card-dashboard-calendar pb-0">
-                        <label className="main-content-label mb-2 pt-1">
-                          Insurance Fees Payments report
-                        </label>
-                        <div
-                          className="col-sm-12  col-md-12 col-lg-12 col-xl-8 mt-xl-4 mb-4"
-                          style={{
-                            borderRadius: "20px",
-                            padding: "0",
-                            margin: "0",
-                          }}>
-                          <div className="card custom-card card-dashboard-calendar ">
-                            <div className="card-body">
-                              <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12">
-                                <form
-                                  action=""
-                                  onSubmit={(e) => handleSubmitInsu(e)}>
-                                  <div className="row">
-                                    <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">
-                                      <div className="col-12">
-                                        <div className="row">
-                                          <label className="col-4">FROM:</label>
+                    <div className="" id="printablediv">
+                      {" "}
+                      <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12 mt-xl-4">
+                        <div className="card custom-card card-dashboard-calendar pb-0">
+                          <label className="main-content-label mb-2 pt-1">
+                            Insurance Fees Payments report
+                          </label>
+                          <div
+                            className="col-sm-12  col-md-12 col-lg-12 col-xl-8 mt-xl-4 mb-4"
+                            style={{
+                              borderRadius: "20px",
+                              padding: "0",
+                              margin: "0",
+                            }}>
+                            <div className="card custom-card card-dashboard-calendar ">
+                              <div className="card-body">
+                                <div className="col-sm-12  col-md-12 col-lg-12 col-xl-12">
+                                  <form
+                                    action=""
+                                    onSubmit={(e) => handleSubmitInsu(e)}>
+                                    <div className="row">
+                                      <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">
+                                        <div className="col-12">
+                                          <div className="row">
+                                            <label className="col-4">
+                                              FROM:
+                                            </label>
 
-                                          <span className="col-8">
-                                            <DatePicker
-                                              selected={sSdate}
-                                              onChange={(e) => setSSdate(e)}
-                                              dateFormat="dd/MM/yyyy"
-                                              placeholderText="dd/MM/yyyy"
-                                              className="form-control text-success"
-                                            />
-                                          </span>
+                                            <span className="col-8">
+                                              <DatePicker
+                                                selected={sSdate}
+                                                onChange={(e) => setSSdate(e)}
+                                                dateFormat="dd/MM/yyyy"
+                                                placeholderText="dd/MM/yyyy"
+                                                className="form-control text-success"
+                                              />
+                                            </span>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">
-                                      <div className="col-12">
-                                        <div className="row">
-                                          <label className="col-4">TO:</label>
+                                      <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">
+                                        <div className="col-12">
+                                          <div className="row">
+                                            <label className="col-4">TO:</label>
 
-                                          <span className="col-8">
-                                            <DatePicker
-                                              selected={eSdate}
-                                              onChange={(e) => setESSdate(e)}
-                                              dateFormat="dd/MM/yyyy"
-                                              placeholderText="dd/MM/yyyy"
-                                              className="form-control text-success"
-                                            />
-                                          </span>
+                                            <span className="col-8">
+                                              <DatePicker
+                                                selected={eSdate}
+                                                onChange={(e) => setESSdate(e)}
+                                                dateFormat="dd/MM/yyyy"
+                                                placeholderText="dd/MM/yyyy"
+                                                className="form-control text-success"
+                                              />
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">
+                                        <div className="col-md-12 ">
+                                          <div className="form-group mb-0">
+                                            <button
+                                              type="submit"
+                                              className="btn col-lg-12 col-md-12 btn-primary">
+                                              submit
+                                            </button>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
-                                    <div className="col-sm-12  col-md-4 col-lg-4 col-xl-4 ">
-                                      <div className="col-md-12 ">
-                                        <div className="form-group mb-0">
-                                          <button
-                                            type="submit"
-                                            className="btn col-lg-12 col-md-12 btn-primary">
-                                            submit
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </form>
+                                  </form>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="card-body">
-                          <div className="table-responsive">
-                            <table className="table card-table text-nowrap table-bordered border-top">
-                              <thead>
-                                <tr>
-                                  <th>NO</th>
-                                  <th>Customer </th>
-                                  <th>Amount</th>
-                                  <th>Date _paid</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {paginatedItemsTable2.map((loan, key) => (
-                                  <>
-                                    <tr key={key}>
-                                      <td>{key + 1}</td>
-                                      <td>
-                                        {loan.user.first_name} &nbsp;
-                                        {loan.user.last_name}
-                                      </td>
-                                      <td>{loan.cash_in}</td>
-                                      <td>{loan.trans_date}</td>
-                                    </tr>
-                                  </>
-                                ))}
-                                {!Array.isArray(insurance) && (
+                          <div className="card-body">
+                            <div className="table-responsive">
+                              <table className="table card-table text-nowrap table-bordered border-top">
+                                <thead>
                                   <tr>
-                                    <td
-                                      colSpan={13}
-                                      className="text-center text-danger">
-                                      no Insurance Fees Payments found
-                                    </td>
+                                    <th>NO</th>
+                                    <th>Customer </th>
+                                    <th>Amount</th>
+                                    <th>Date _paid</th>
                                   </tr>
-                                )}
-                              </tbody>
-                            </table>
-                            <ReactPaginate
-                              pageCount={Math.ceil(
-                                insurance.length / itemsPerPageTable2
-                              )}
-                              pageRangeDisplayed={3}
-                              marginPagesDisplayed={1}
-                              onPageChange={handlePageClickTable2}
-                              containerClassName={"pagination"}
-                              activeClassName={"active"}
-                              nextLabel={"Next"}
-                              previousLabel={"Previous"}
-                              breakLabel={"..."}
-                              pageLinkClassName={"page-link"}
-                              nextClassName={"page-item"}
-                              nextLinkClassName={"page-link"}
-                              previousClassName={"page-item"}
-                              previousLinkClassName={"page-link"}
-                            />
+                                </thead>
+                                <tbody>
+                                  {paginatedItemsTable2.map((loan, key) => (
+                                    <>
+                                      <tr key={key}>
+                                        <td>{key + 1}</td>
+                                        <td>
+                                          {loan.user.first_name} &nbsp;
+                                          {loan.user.last_name}
+                                        </td>
+                                        <td>{loan.cash_in}</td>
+                                        <td>{loan.trans_date}</td>
+                                      </tr>
+                                    </>
+                                  ))}
+                                  {!Array.isArray(insurance) && (
+                                    <tr>
+                                      <td
+                                        colSpan={13}
+                                        className="text-center text-danger">
+                                        no Insurance Fees Payments found
+                                      </td>
+                                    </tr>
+                                  )}
+                                </tbody>
+                              </table>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <ReactPaginate
+                      pageCount={Math.ceil(
+                        insurance.length / itemsPerPageTable2
+                      )}
+                      pageRangeDisplayed={3}
+                      marginPagesDisplayed={1}
+                      onPageChange={handlePageClickTable2}
+                      containerClassName={"pagination"}
+                      activeClassName={"active"}
+                      nextLabel={"Next"}
+                      previousLabel={"Previous"}
+                      breakLabel={"..."}
+                      pageLinkClassName={"page-link"}
+                      nextClassName={"page-item"}
+                      nextLinkClassName={"page-link"}
+                      previousClassName={"page-item"}
+                      previousLinkClassName={"page-link"}
+                    />
+                    <button
+                      classname="btn ripple btn-dark"
+                      type="button"
+                      onClick={Print}>
+                      print report
+                    </button>
                   </div>
+
                   {/* Processing payment  */}
                   <div
                     className="main-content-body tab-pane p-4 border-top-0"
